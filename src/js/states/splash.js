@@ -2,17 +2,15 @@ class SplashState extends Phaser.State {
     create() {
         console.log('[splash] showing splash screen');
 
-        const splashText = 'ENGAGE';
+        const title = this.game.add.sprite(0, 0, 'title');
 
-        const style = {
-            font: '65px monospace',
-            fill: '#cc0000',
-            align: 'center'
-        };
+        title.position.set(
+            this.game.world.width / 2 - title.width / 2,
+            this.game.world.height / 2 - title.height / 2
+        );
 
         const splashTime = Phaser.Timer.SECOND * 2;
 
-        this.game.add.text(this.game.world.centerX, 100, splashText, style);
         this.game.time.events.add(splashTime, this.next, this);
     }
 

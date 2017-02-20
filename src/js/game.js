@@ -6,7 +6,7 @@ class Game extends Phaser.Game {
             Phaser.AUTO,
             'phaser-engage',
             null,
-            false,
+            true,
             true
         );
 
