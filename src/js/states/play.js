@@ -147,10 +147,10 @@ class PlayState extends Phaser.State {
     }
 
     showPortals() {
-        this.portalIn.visible = true;
+        this.portalIn.exists = true;
     }
 
     hidePortals() {
-        this.portalIn.visible = false;
+        this.portalIn.exists = false;
     }
 }
