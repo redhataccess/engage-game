@@ -10,7 +10,7 @@ const config = Object.freeze({
     INPUT_WAIT_MS: Phaser.Timer.SECOND * 0.5,
 
     // how many random parts of the Portal will fall from the sky each day
-    PORTAL_PARTS_PER_DAY: 500,
+    PORTAL_PARTS_PER_DAY: 10,
 
     // how long to wait after game begins before first event falls from sky
     COFFEE_DELAY_MS: 200,
@@ -35,5 +35,8 @@ const config = Object.freeze({
     // how quickly to move the player's portal to where the controls are
     // (lerped)
     CONTROL_RESPONSIVENESS: 0.6,
+
+    // how long to wait after game over before restarting
+    GAME_OVER_RESTART_DURATION_MS: 4 * Phaser.Timer.SECOND,
 
 });

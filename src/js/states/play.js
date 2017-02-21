@@ -5,7 +5,7 @@ class PlayState extends Phaser.State {
         this.createPortalIn();
         this.createBlockSpriteArray();
         this.hidePortals();
-        this.startWaitForInput();
+        this.startDay();
     }
 
     update() {
@@ -103,22 +103,6 @@ class PlayState extends Phaser.State {
         console.log(`[play] captured block: ${block.data.blockName}`);
     }
 
-    startWaitForInput() {
-        console.log('[play] waiting for input');
-        this.game.input.addMoveCallback(this.inputReceived, this);
-    }
-
-    inputReceived() {
-        console.log('[play] input received');
-        this.game.input.deleteMoveCallback(this.inputReceived, this);
-        this.game.time.events.add(config.INPUT_WAIT_MS, this.endWaitForInput, this);
-    }
-
-    endWaitForInput() {
-        console.log('[play] wait over');
-        this.startDay();
-    }
-
     startDay() {
         console.log('[play] starting the day; good morning!');
         this.day = new Day();
@@ -133,6 +117,9 @@ class PlayState extends Phaser.State {
             const randomAdjustment = Math.random() * randomRange - randomRange / 2;
             timer += config.BLOCK_INTERVAL_MS + randomAdjustment;
         }
+
+        // add game end timer
+        this.game.time.events.add(timer, this.gameEnd, this);
     }
 
     blockSkyfall(block) {
@@ -151,6 +138,16 @@ class PlayState extends Phaser.State {
         this.game.physics.arcade.enableBody(blockSprite);
         blockSprite.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY;
         blockSprite.position.x = this.game.world.width * Math.random();
+    }
+
+    gameEnd() {
+        console.log('[play] game over');
+        this.game.time.events.add(config.GAME_OVER_RESTART_DURATION_MS, this.gameRestart, this);
+    }
+
+    gameRestart() {
+        console.log('[play] restarting');
+        this.game.state.start('SplashState');
     }
 
     showPortals() {
