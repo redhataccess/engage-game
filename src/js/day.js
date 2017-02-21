@@ -2,15 +2,17 @@ class Day {
     constructor() {
         this.dayEvents = [];
         this.portalParts = [
-            'SupportCase',
+            'PCM',
+            'ContainerCatalog',
+            'CVE',
             'Documentation',
-            'LabsApp',
-            'Downloads',
-            'Insights',
+            'Labs',
+            'Discussions',
+            'PackageSearch',
         ];
         this.populatePortalParts();
         this.addVulns();
-        this.startWithCoffee();
+        this.addCoffee();
         this.addLunch();
     }
 
@@ -23,7 +25,7 @@ class Day {
     addVulns() {
     }
 
-    startWithCoffee() {
+    addCoffee() {
         this.dayEvents.unshift('Coffee');
     }
 

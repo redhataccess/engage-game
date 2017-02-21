@@ -9,9 +9,7 @@ class SplashState extends Phaser.State {
             this.game.world.height / 2 - title.height / 2
         );
 
-        const splashTime = Phaser.Timer.SECOND * 2;
-
-        this.game.time.events.add(splashTime, this.next, this);
+        this.game.time.events.add(config.SPLASH_DURATION, this.next, this);
     }
 
     next() {
