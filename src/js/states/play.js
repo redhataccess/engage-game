@@ -1,6 +1,7 @@
 class PlayState extends Phaser.State {
     create() {
         console.log('[play] starting play state');
+        this.createControlPosition();
         this.createPortalIn();
         this.createEventSpriteArray();
         this.hidePortals();
@@ -9,6 +10,7 @@ class PlayState extends Phaser.State {
 
     update() {
         this.handleCollisions();
+        this.updatePortalPosition();
     }
 
     /* create functions */
@@ -19,7 +21,7 @@ class PlayState extends Phaser.State {
         this.game.physics.arcade.enableBody(this.portalIn);
         this.portalIn.body.immovable = true;
         this.portalIn.anchor.set(0.5, 1.0);
-        this.portalIn.position.set(this.game.world.centerX, this.game.world.height);
+        this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING);
     }
 
     createPlayerControls() {
@@ -32,11 +34,23 @@ class PlayState extends Phaser.State {
         this.eventSprites = [];
     }
 
+    createControlPosition() {
+        this.controlPosition = new Phaser.Point();
+    }
+
     /* update functions */
 
     updatePlayerControls(pointer, x, y, isDown) {
-        this.portalIn.position.set(x, this.game.world.height - config.VIEWPORT_PADDING);
+        this.controlPosition.set(x, y);
         this.showPortals();
+    }
+
+    updatePortalPosition() {
+        const dest = this.portalIn.position.clone();
+        dest.multiply(1 - config.CONTROL_RESPONSIVENESS, 1);
+        dest.add(this.controlPosition.x * config.CONTROL_RESPONSIVENESS, 0);
+        this.portalIn.position.copyFrom(dest);
+        // this.portalIn.position.set(x, this.game.world.height - config.VIEWPORT_PADDING);
     }
 
     /* misc functions */

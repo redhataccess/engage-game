@@ -28,4 +28,8 @@ const config = Object.freeze({
     // how much randomness should be applied to the rotation
     EVENT_CAPTURE_ROTATION_RANDOMNESS: 0.9,
 
+    // how quickly to move the player's portal to where the controls are
+    // (lerped)
+    CONTROL_RESPONSIVENESS: 0.6,
+
 });
