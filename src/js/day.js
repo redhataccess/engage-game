@@ -1,6 +1,6 @@
 class Day {
     constructor() {
-        this.dayEvents = [];
+        this.dayBlocks = [];
         this.portalParts = [
             'PCM',
             'ContainerCatalog',
@@ -18,7 +18,7 @@ class Day {
 
     populatePortalParts() {
         for (let i = 0; i < config.PORTAL_PARTS_PER_DAY; i++) {
-            this.dayEvents.push(this.portalParts[ Math.floor(Math.random() * (this.portalParts.length - 1)) ]);
+            this.dayBlocks.push(this.portalParts[ Math.floor(Math.random() * (this.portalParts.length - 1)) ]);
         }
     }
 
@@ -26,10 +26,10 @@ class Day {
     }
 
     addCoffee() {
-        this.dayEvents.unshift('Coffee');
+        this.dayBlocks.unshift('Coffee');
     }
 
     addLunch() {
-        this.dayEvents.splice(Math.ceil(this.dayEvents.length/2), 0, 'Lunch');
+        this.dayBlocks.splice(Math.ceil(this.dayBlocks.length/2), 0, 'Lunch');
     }
 }

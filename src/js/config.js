@@ -4,7 +4,7 @@ const config = Object.freeze({
     VIEWPORT_PADDING: 20,
 
     // how long to show the splash screen
-    SPLASH_DURATION: Phaser.Timer.SECOND * 0.4,
+    SPLASH_DURATION: Phaser.Timer.SECOND * 0.0,
 
     // once input is detected, how long to wait before beginning the game
     INPUT_WAIT_MS: Phaser.Timer.SECOND * 0.5,
@@ -16,21 +16,21 @@ const config = Object.freeze({
     COFFEE_DELAY_MS: 200,
 
     // how long to wait between events falling from sky
-    EVENT_INTERVAL_MS: 200,
+    BLOCK_INTERVAL_MS: 200,
 
-    // what fraction of EVENT_INTERVAL_MS should vary randomly
-    EVENT_INTERVAL_RANDOMNESS: 0.2,
+    // what fraction of BLOCK_INTERVAL_MS should vary randomly
+    BLOCK_INTERVAL_RANDOMNESS: 0.2,
 
-    EVENT_SKYFALL_BASE_VELOCITY: 400,
+    BLOCK_SKYFALL_BASE_VELOCITY: 400,
 
     // how quickly should events rotate when caught in the portal (degres)
-    EVENT_CAPTURE_ROTATION: 360,
+    BLOCK_CAPTURE_ROTATION: 360,
 
     // how much randomness should be applied to the rotation
-    EVENT_CAPTURE_ROTATION_RANDOMNESS: 0.9,
+    BLOCK_CAPTURE_ROTATION_RANDOMNESS: 0.9,
 
     // how quickly should the event drift into the center of the portal
-    EVENT_CAPTURE_DURATION_MS: 1337,
+    BLOCK_CAPTURE_DURATION_MS: 1337,
 
     // how quickly to move the player's portal to where the controls are
     // (lerped)

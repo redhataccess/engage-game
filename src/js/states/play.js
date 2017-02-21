@@ -3,7 +3,7 @@ class PlayState extends Phaser.State {
         console.log('[play] starting play state');
         this.createControlPosition();
         this.createPortalIn();
-        this.createEventSpriteArray();
+        this.createBlockSpriteArray();
         this.hidePortals();
         this.startWaitForInput();
     }
@@ -22,6 +22,7 @@ class PlayState extends Phaser.State {
         this.portalIn.body.immovable = true;
         this.portalIn.anchor.set(0.5, 1.0);
         this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING);
+        this.portalPosition = { x: 0, y: 0 }; // for tweening
     }
 
     createPlayerControls() {
@@ -30,8 +31,8 @@ class PlayState extends Phaser.State {
         this.game.input.addMoveCallback(this.showPortals, this);
     }
 
-    createEventSpriteArray() {
-        this.eventSprites = [];
+    createBlockSpriteArray() {
+        this.blockSprites = [];
     }
 
     createControlPosition() {
@@ -50,37 +51,41 @@ class PlayState extends Phaser.State {
         dest.multiply(1 - config.CONTROL_RESPONSIVENESS, 1);
         dest.add(this.controlPosition.x * config.CONTROL_RESPONSIVENESS, 0);
         this.portalIn.position.copyFrom(dest);
-        // this.portalIn.position.set(x, this.game.world.height - config.VIEWPORT_PADDING);
+
+        this.portalPosition.x = this.portalIn.position.x;
+        this.portalPosition.y = this.portalIn.position.y;
     }
 
     /* misc functions */
 
     handleCollisions() {
-        this.game.physics.arcade.collide(this.portalIn, this.eventSprites, this.eventCaptured, this.eventOverlap, this);
+        this.game.physics.arcade.collide(this.portalIn, this.blockSprites, null, this.blockOverlap, this);
     }
 
-    eventOverlap(portal, event) {
-        if (!event.data.captured) {
-            const relativePosition = event.position.x - portal.position.x;
-            // if the event is overlapping the portal, make the object drift
+    blockOverlap(portal, block) {
+        if (!block.data.captured) {
+            const relativePosition = block.position.x - portal.position.x;
+            // if the block is overlapping the portal, make the object drift
             // towards the center of the portal
-            event.data.captured = true;
-            event.body.angularVelocity = event.data.captureRotation * Math.sign(relativePosition);
-            event.body.velocity.y = 0; // cut velocity in half once captured
+            block.data.captured = true;
+            block.body.angularVelocity = block.data.captureRotation * Math.sign(relativePosition);
+            block.body.velocity.y = 0; // cut velocity in half once captured
 
-            this.game.add
-                .tween(event.position)
+            const positionTween = this.game.add
+                .tween(block.position)
                 .to(
-                    portal.position,
-                    config.EVENT_CAPTURE_DURATION_MS,
+                    this.portalPosition,
+                    config.BLOCK_CAPTURE_DURATION_MS,
                     Phaser.Easing.Linear.None,
                     true
-                );
-            this.game.add
-                .tween(event.scale)
+                )
+            positionTween.onComplete.add(() => this.blockCaptured(portal, block), this);
+
+            const sizeTween = this.game.add
+                .tween(block.scale)
                 .to(
                     { x: 0, y: 0 },
-                    config.EVENT_CAPTURE_DURATION_MS,
+                    config.BLOCK_CAPTURE_DURATION_MS,
                     Phaser.Easing.Linear.None,
                     true
                 );
@@ -92,8 +97,10 @@ class PlayState extends Phaser.State {
         }
     }
 
-    eventCaptured(portal, event) {
-        console.log(`[play] captured event: ${event.data.eventName}`);
+    blockCaptured(portal, block) {
+        block.position.set(this.game.world.centerX, this.game.world.centerY);
+        block.scale.set(1, 1);
+        console.log(`[play] captured block: ${block.data.blockName}`);
     }
 
     startWaitForInput() {
@@ -115,35 +122,35 @@ class PlayState extends Phaser.State {
     startDay() {
         console.log('[play] starting the day; good morning!');
         this.day = new Day();
-        console.log(`[play] today\'s events: ${this.day.dayEvents}`);
+        console.log(`[play] today\'s blocks: ${this.day.dayBlocks}`);
         this.createPlayerControls();
 
-        const randomRange = config.EVENT_INTERVAL_MS * config.EVENT_INTERVAL_RANDOMNESS;
+        const randomRange = config.BLOCK_INTERVAL_MS * config.BLOCK_INTERVAL_RANDOMNESS;
         let timer = config.COFFEE_DELAY_MS;
 
-        for (let event of this.day.dayEvents) {
-            this.game.time.events.add(timer, () => this.eventSkyfall(event), this);
+        for (let block of this.day.dayBlocks) {
+            this.game.time.events.add(timer, () => this.blockSkyfall(block), this);
             const randomAdjustment = Math.random() * randomRange - randomRange / 2;
-            timer += config.EVENT_INTERVAL_MS + randomAdjustment;
+            timer += config.BLOCK_INTERVAL_MS + randomAdjustment;
         }
     }
 
-    eventSkyfall(event) {
-        console.log(`[play] event ${event}`);
-        const eventSprite = this.game.add.sprite(0, 0, 'square-teal');
+    blockSkyfall(block) {
+        console.log(`[play] now falling: ${block}`);
+        const blockSprite = this.game.add.sprite(0, 0, 'square-teal');
 
-        // attach a name to the event sprite
-        eventSprite.data.eventName = event;
+        // attach a name to the block sprite
+        blockSprite.data.blockName = block;
 
-        // if this eventSprite gets caught by the portal, set up how much it should rotate
-        const randomness = config.EVENT_CAPTURE_ROTATION * config.EVENT_CAPTURE_ROTATION_RANDOMNESS;
-        eventSprite.data.captureRotation = config.EVENT_CAPTURE_ROTATION + (Math.random() * randomness - randomness / 2 );
+        // if this blockSprite gets caught by the portal, set up how much it should rotate
+        const randomness = config.BLOCK_CAPTURE_ROTATION * config.BLOCK_CAPTURE_ROTATION_RANDOMNESS;
+        blockSprite.data.captureRotation = config.BLOCK_CAPTURE_ROTATION + (Math.random() * randomness - randomness / 2 );
 
-        eventSprite.anchor.set(Math.random(), 1);
-        this.eventSprites.push(eventSprite);
-        this.game.physics.arcade.enableBody(eventSprite);
-        eventSprite.body.velocity.y = config.EVENT_SKYFALL_BASE_VELOCITY;
-        eventSprite.position.x = this.game.world.width * Math.random();
+        blockSprite.anchor.set(Math.random(), 1);
+        this.blockSprites.push(blockSprite);
+        this.game.physics.arcade.enableBody(blockSprite);
+        blockSprite.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY;
+        blockSprite.position.x = this.game.world.width * Math.random();
     }
 
     showPortals() {
