@@ -66,7 +66,7 @@ class PlayState extends Phaser.State {
             // towards the center of the portal
             event.data.captured = true;
             event.body.angularVelocity = event.data.captureRotation * Math.sign(relativePosition);
-            event.body.velocity.y = 0; config.EVENT_SKYFALL_BASE_VELOCITY / 2; // cut velocity in half once captured
+            event.body.velocity.y = 0; // cut velocity in half once captured
 
             this.game.add
                 .tween(event.position)
@@ -84,12 +84,12 @@ class PlayState extends Phaser.State {
                     Phaser.Easing.Linear.None,
                     true
                 );
+
+            return true;
         }
         else {
             return false;
         }
-
-        return true;
     }
 
     eventCaptured(portal, event) {

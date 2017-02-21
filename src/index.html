@@ -21,12 +21,17 @@
                 background: no-repeat url("./images/background.png");
                 background-size: cover;
             }
-            canvas { position: absolute; z-index: 50; }
+            canvas {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 50;
+                border: 1px dotted lightblue;
+            }
         </style>
     </head>
     <body>
-
-        <div id="container"></div>
 
         <!-- third party -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/phaser.min.js"></script>

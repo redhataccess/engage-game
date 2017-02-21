@@ -1,13 +1,13 @@
 class Game extends Phaser.Game {
     constructor() {
         super(
-            window.innerWidth,
-            window.innerHeight,
+            1440, //window.innerWidth,
+            810, //window.innerHeight,
             Phaser.AUTO,
             'phaser-engage',
             null,
             true,
-            true
+            false
         );
 
         this.state.add('BootState'    , BootState    , false);
