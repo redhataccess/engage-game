@@ -60,13 +60,36 @@ class PlayState extends Phaser.State {
     }
 
     eventOverlap(portal, event) {
-        // const nearPortalCenter = 
+        if (!event.data.captured) {
+            const relativePosition = event.position.x - portal.position.x;
+            // if the event is overlapping the portal, make the object drift
+            // towards the center of the portal
+            event.data.captured = true;
+            event.body.angularVelocity = event.data.captureRotation * Math.sign(relativePosition);
+            event.body.velocity.y = 0; config.EVENT_SKYFALL_BASE_VELOCITY / 2; // cut velocity in half once captured
 
-        // if the event is overlapping the portal, make the object drift
-        // towards the center of the portal
-        event.angle += event.data.captureRotation;
+            this.game.add
+                .tween(event.position)
+                .to(
+                    portal.position,
+                    config.EVENT_CAPTURE_DURATION_MS,
+                    Phaser.Easing.Linear.None,
+                    true
+                );
+            this.game.add
+                .tween(event.scale)
+                .to(
+                    { x: 0, y: 0 },
+                    config.EVENT_CAPTURE_DURATION_MS,
+                    Phaser.Easing.Linear.None,
+                    true
+                );
+        }
+        else {
+            return false;
+        }
 
-        return false;
+        return true;
     }
 
     eventCaptured(portal, event) {
@@ -115,9 +138,8 @@ class PlayState extends Phaser.State {
         // if this eventSprite gets caught by the portal, set up how much it should rotate
         const randomness = config.EVENT_CAPTURE_ROTATION * config.EVENT_CAPTURE_ROTATION_RANDOMNESS;
         eventSprite.data.captureRotation = config.EVENT_CAPTURE_ROTATION + (Math.random() * randomness - randomness / 2 );
-        eventSprite.data.captureRotation *= Math.sign(Math.random() - 0.5);
 
-        eventSprite.anchor.set(0.5, 0.5);
+        eventSprite.anchor.set(Math.random(), 1);
         this.eventSprites.push(eventSprite);
         this.game.physics.arcade.enableBody(eventSprite);
         eventSprite.body.velocity.y = config.EVENT_SKYFALL_BASE_VELOCITY;

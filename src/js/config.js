@@ -10,7 +10,7 @@ const config = Object.freeze({
     INPUT_WAIT_MS: Phaser.Timer.SECOND * 0.5,
 
     // how many random parts of the Portal will fall from the sky each day
-    PORTAL_PARTS_PER_DAY: 100,
+    PORTAL_PARTS_PER_DAY: 500,
 
     // how long to wait after game begins before first event falls from sky
     COFFEE_DELAY_MS: 200,
@@ -24,9 +24,13 @@ const config = Object.freeze({
     EVENT_SKYFALL_BASE_VELOCITY: 400,
 
     // how quickly should events rotate when caught in the portal (degres)
-    EVENT_CAPTURE_ROTATION: 6,
+    EVENT_CAPTURE_ROTATION: 360,
+
     // how much randomness should be applied to the rotation
     EVENT_CAPTURE_ROTATION_RANDOMNESS: 0.9,
+
+    // how quickly should the event drift into the center of the portal
+    EVENT_CAPTURE_DURATION_MS: 1337,
 
     // how quickly to move the player's portal to where the controls are
     // (lerped)
