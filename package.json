@@ -1,7 +1,7 @@
 {
-  "name": "fireflies",
+  "name": "engage-game",
   "version": "1.0.0",
-  "description": "A particle engine using image masks.",
+  "description": "A videogame for Red Hat Summit 2017.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
