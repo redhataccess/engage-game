@@ -50,7 +50,7 @@ class PlayState extends Phaser.State {
 
         // if the event is overlapping the portal, make the object drift
         // towards the center of the portal
-        event.angle += 6;
+        event.angle += event.data.captureRotation;
 
         return false;
     }
@@ -94,7 +94,15 @@ class PlayState extends Phaser.State {
     eventSkyfall(event) {
         console.log(`[play] event ${event}`);
         const eventSprite = this.game.add.sprite(0, 0, 'square-teal');
+
+        // attach a name to the event sprite
         eventSprite.data.eventName = event;
+
+        // if this eventSprite gets caught by the portal, set up how much it should rotate
+        const randomness = config.EVENT_CAPTURE_ROTATION * config.EVENT_CAPTURE_ROTATION_RANDOMNESS;
+        eventSprite.data.captureRotation = config.EVENT_CAPTURE_ROTATION + (Math.random() * randomness - randomness / 2 );
+        eventSprite.data.captureRotation *= Math.sign(Math.random() - 0.5);
+
         eventSprite.anchor.set(0.5, 0.5);
         this.eventSprites.push(eventSprite);
         this.game.physics.arcade.enableBody(eventSprite);

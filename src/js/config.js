@@ -23,4 +23,9 @@ const config = Object.freeze({
 
     EVENT_SKYFALL_BASE_VELOCITY: 400,
 
+    // how quickly should events rotate when caught in the portal (degres)
+    EVENT_CAPTURE_ROTATION: 6,
+    // how much randomness should be applied to the rotation
+    EVENT_CAPTURE_ROTATION_RANDOMNESS: 0.9,
+
 });
