@@ -32,6 +32,4 @@ class SplashState extends Phaser.State {
         this.next();
     }
 
-
 }
-

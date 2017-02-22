@@ -22,7 +22,7 @@ class PlayState extends Phaser.State {
         this.portalIn.body.immovable = true;
         this.portalIn.anchor.set(0.5, 1.0);
         this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING);
-        this.portalPosition = { x: 0, y: 0 }; // for tweening
+        this.portalSinkPosition = { x: 0, y: 0 }; // for tweening
     }
 
     createPlayerControls() {
@@ -52,8 +52,8 @@ class PlayState extends Phaser.State {
         dest.add(this.controlPosition.x * config.CONTROL_RESPONSIVENESS, 0);
         this.portalIn.position.copyFrom(dest);
 
-        this.portalPosition.x = this.portalIn.position.x;
-        this.portalPosition.y = this.portalIn.position.y;
+        this.portalSinkPosition.x = this.portalIn.position.x;
+        this.portalSinkPosition.y = this.portalIn.position.y - this.portalIn.height / 4;
     }
 
     /* misc functions */
@@ -74,7 +74,7 @@ class PlayState extends Phaser.State {
             const positionTween = this.game.add
                 .tween(block.position)
                 .to(
-                    this.portalPosition,
+                    this.portalSinkPosition,
                     config.BLOCK_CAPTURE_DURATION_MS,
                     Phaser.Easing.Linear.None,
                     true
