@@ -10,7 +10,7 @@ const config = Object.freeze({
     INPUT_WAIT_MS: Phaser.Timer.SECOND * 0.5,
 
     // how many random blocks will fall from the sky each day
-    BLOCKS_PER_DAY: 10,
+    BLOCKS_PER_DAY: 100,
 
     // how long to wait after game begins before first event falls from sky
     COFFEE_DELAY_MS: 200,
