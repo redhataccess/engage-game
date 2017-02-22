@@ -1,5 +1,9 @@
 const config = Object.freeze({
 
+    // canvas resolution
+    CANVAS_WIDTH: 1920,
+    CANVAS_HEIGHT: 1080,
+
     // padding around the edge of the viewport
     VIEWPORT_PADDING: 20,
 
@@ -39,5 +43,9 @@ const config = Object.freeze({
 
     // how long to wait after game over before restarting
     GAME_OVER_RESTART_DURATION_MS: 4 * Phaser.Timer.SECOND,
+
+    // how wide the side chambers should be (Portal chamber on left and Legend
+    // chamber on right)
+    SIDE_CHAMBER_WIDTH: 250,
 
 });

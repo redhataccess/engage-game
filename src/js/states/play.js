@@ -4,6 +4,7 @@ class PlayState extends Phaser.State {
         this.createControlPosition();
         this.createPortalIn();
         this.createBlockSpriteArray();
+        this.createChamberWalls();
         this.hidePortals();
         this.startDay();
     }
@@ -19,10 +20,10 @@ class PlayState extends Phaser.State {
         console.log('[play] creating portal-in');
         this.portalIn = this.game.add.sprite(0, 0, 'portal-in');
         this.game.physics.arcade.enableBody(this.portalIn);
-        this.portalIn.body.immovable = true;
+        // this.portalIn.body.immovable = true;
         this.portalIn.anchor.set(0.5, 1.0);
         this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING);
-        this.portalSinkPosition = { x: 0, y: 0 }; // for tweening
+        this.portalSinkPosition = { x: 0, y: 0 }; // location captured blocks are tweened to
     }
 
     createPlayerControls() {
@@ -35,8 +36,28 @@ class PlayState extends Phaser.State {
         this.blockSprites = [];
     }
 
+    createCapturedBlockSpriteArray() {
+        this.capturedBlocks = [];
+    }
+
     createControlPosition() {
         this.controlPosition = new Phaser.Point();
+    }
+
+    createChamberWalls() {
+        // create left chamber wall
+        this.leftWall = this.game.add.sprite(config.SIDE_CHAMBER_WIDTH, 0, 'square-blue3');
+        this.leftWall.height = this.game.world.height;
+        this.leftWall.width = 2;
+        this.game.physics.arcade.enableBody(this.leftWall);
+        this.leftWall.body.immovable = true;
+
+        // create right chamber wall
+        this.rightWall = this.game.add.sprite(this.game.world.width - config.SIDE_CHAMBER_WIDTH, 0, 'square-blue3');
+        this.rightWall.height = this.game.world.height;
+        this.rightWall.width = 2;
+        this.game.physics.arcade.enableBody(this.rightWall);
+        this.rightWall.body.immovable = true;
     }
 
     /* update functions */
@@ -52,6 +73,10 @@ class PlayState extends Phaser.State {
         dest.add(this.controlPosition.x * config.CONTROL_RESPONSIVENESS, 0);
         this.portalIn.position.copyFrom(dest);
 
+        // collide with walls
+        this.portalIn.position.x = Math.max(config.SIDE_CHAMBER_WIDTH + this.portalIn.width/2 + this.leftWall.width, this.portalIn.position.x);
+        this.portalIn.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalIn.width/2, this.portalIn.position.x);
+
         this.portalSinkPosition.x = this.portalIn.position.x;
         this.portalSinkPosition.y = this.portalIn.position.y - this.portalIn.height / 4;
     }
@@ -60,6 +85,8 @@ class PlayState extends Phaser.State {
 
     handleCollisions() {
         this.game.physics.arcade.collide(this.portalIn, this.blockSprites, null, this.blockOverlap, this);
+        this.game.physics.arcade.collide(this.leftWall, this.capturedBlocks);
+        this.game.physics.arcade.collide(this.portalIn, [this.leftWall, this.rightWall]);
     }
 
     blockOverlap(portal, block) {
@@ -90,11 +117,9 @@ class PlayState extends Phaser.State {
                     true
                 );
 
-            return true;
         }
-        else {
-            return false;
-        }
+
+        return false;
     }
 
     blockCaptured(portal, block) {
@@ -137,7 +162,8 @@ class PlayState extends Phaser.State {
         this.blockSprites.push(blockSprite);
         this.game.physics.arcade.enableBody(blockSprite);
         blockSprite.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY;
-        blockSprite.position.x = this.game.world.width * Math.random();
+
+        blockSprite.position.x = blockSprite.width/2 + config.SIDE_CHAMBER_WIDTH + (this.game.world.width - config.SIDE_CHAMBER_WIDTH*2 - blockSprite.width/2) * Math.random();
     }
 
     gameEnd() {

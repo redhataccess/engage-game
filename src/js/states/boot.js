@@ -4,8 +4,8 @@ class BootState extends Phaser.State {
         this.state.start('PreloadState');
 
         // resize the canvas to fit the screen
-        this.game.scale.maxWidth = 1920;
-        this.game.scale.maxHeight = 1080;
+        this.game.scale.maxWidth = config.CANVAS_WIDTH;
+        this.game.scale.maxHeight = config.CANVAS_HEIGHT;
         this.updateCanvasSize();
         window.addEventListener('resize', this.updateCanvasSize.bind(this));
 
