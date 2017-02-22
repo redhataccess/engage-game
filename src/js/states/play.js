@@ -149,7 +149,7 @@ class PlayState extends Phaser.State {
 
     blockSkyfall(block) {
         console.log(`[play] now falling: ${block}`);
-        const blockSprite = this.game.add.sprite(0, 0, 'square-teal');
+        const blockSprite = this.game.add.sprite(0, 0, `${block}-sprite`);
 
         // attach a name to the block sprite
         blockSprite.data.blockName = block;
@@ -163,7 +163,7 @@ class PlayState extends Phaser.State {
         this.game.physics.arcade.enableBody(blockSprite);
         blockSprite.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY;
 
-        blockSprite.position.x = blockSprite.width/2 + config.SIDE_CHAMBER_WIDTH + (this.game.world.width - config.SIDE_CHAMBER_WIDTH*2 - blockSprite.width/2) * Math.random();
+        blockSprite.position.x = blockSprite.width*2 + config.SIDE_CHAMBER_WIDTH + (this.game.world.width - config.SIDE_CHAMBER_WIDTH*2 - blockSprite.width*4) * Math.random();
     }
 
     gameEnd() {
