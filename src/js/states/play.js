@@ -4,6 +4,7 @@ class PlayState extends Phaser.State {
         this.createControlPosition();
         this.createPortalIn();
         this.createBlockSpriteArray();
+        this.createCapturedBlockSpriteArray();
         this.createChamberWalls();
         this.hidePortals();
         this.startDay();
@@ -12,6 +13,12 @@ class PlayState extends Phaser.State {
     update() {
         this.handleCollisions();
         this.updatePortalPosition();
+    }
+
+    render() {
+        for (const block of this.capturedBlocks) {
+            this.game.debug.body(block);
+        }
     }
 
     /* create functions */
@@ -87,6 +94,7 @@ class PlayState extends Phaser.State {
         this.game.physics.arcade.collide(this.portalIn, this.blockSprites, null, this.blockOverlap, this);
         this.game.physics.arcade.collide(this.leftWall, this.capturedBlocks);
         this.game.physics.arcade.collide(this.portalIn, [this.leftWall, this.rightWall]);
+        this.game.physics.arcade.collide(this.capturedBlocks, this.capturedBlocks);
     }
 
     blockOverlap(portal, block) {
@@ -123,9 +131,30 @@ class PlayState extends Phaser.State {
     }
 
     blockCaptured(portal, block) {
+        // const newBlock = block.clone();
+        // newBlock.position.set(40, 40);
+        // this.game.add.existing(newBlock);
+
+        this.emitCapturedBlock(block);
+
         block.position.set(this.game.world.centerX, this.game.world.centerY);
         block.scale.set(1, 1);
         console.log(`[play] captured block: ${block.data.blockName}`);
+    }
+
+    emitCapturedBlock(inBlock) {
+        const newBlock = this.game.add.sprite(0, 0, inBlock.generateTexture());
+        this.game.physics.arcade.enableBody(newBlock);
+        newBlock.position.set(config.SIDE_CHAMBER_WIDTH - inBlock.width, 40);
+        newBlock.body.velocity.x = -220;
+        newBlock.body.gravity.y = 200;
+        newBlock.body.drag.set(5, 5);
+        newBlock.body.collideWorldBounds = true;
+        newBlock.anchor.set(0.5, 0.5);
+        newBlock.body.angularVelocity = inBlock.body.angularVelocity;
+        newBlock.body.angularDrag = 80;
+        newBlock.body.bounce = 0.5;
+        this.capturedBlocks.push(newBlock);
     }
 
     startDay() {
