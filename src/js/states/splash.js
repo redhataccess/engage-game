@@ -9,8 +9,6 @@ class SplashState extends Phaser.State {
             this.game.world.height / 2 - title.height / 2
         );
 
-        // this.game.time.events.add(config.SPLASH_DURATION, this.next, this);
-
         this.waitForInput();
     }
 

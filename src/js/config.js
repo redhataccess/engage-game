@@ -9,8 +9,8 @@ const config = Object.freeze({
     // once input is detected, how long to wait before beginning the game
     INPUT_WAIT_MS: Phaser.Timer.SECOND * 0.5,
 
-    // how many random parts of the Portal will fall from the sky each day
-    PORTAL_PARTS_PER_DAY: 10,
+    // how many random blocks will fall from the sky each day
+    BLOCKS_PER_DAY: 10,
 
     // how long to wait after game begins before first event falls from sky
     COFFEE_DELAY_MS: 200,
@@ -21,6 +21,7 @@ const config = Object.freeze({
     // what fraction of BLOCK_INTERVAL_MS should vary randomly
     BLOCK_INTERVAL_RANDOMNESS: 0.2,
 
+    // base velocity of falling blocks
     BLOCK_SKYFALL_BASE_VELOCITY: 400,
 
     // how quickly should events rotate when caught in the portal (degres)
