@@ -14,6 +14,7 @@ class Day {
     }
 
     addVulns() {
+        this.dayBlocks.splice(4, 0, 'Shellshock');
     }
 
     addCoffee() {
