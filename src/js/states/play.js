@@ -29,6 +29,7 @@ class PlayState extends Phaser.State {
         this.game.physics.arcade.enableBody(this.portalIn);
         // this.portalIn.body.immovable = true;
         this.portalIn.anchor.set(0.5, 1.0);
+        this.portalIn.scale.set(0.6, 0.6);
         this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING);
         this.portalSinkPosition = { x: 0, y: 0 }; // location captured blocks are tweened to
     }
