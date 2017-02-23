@@ -95,7 +95,7 @@ class PlayState extends Phaser.State {
         this.game.physics.arcade.collide(this.portalIn, this.blockSprites, null, this.blockOverlap, this);
         this.game.physics.arcade.collide(this.leftWall, this.capturedBlocks);
         this.game.physics.arcade.collide(this.portalIn, [this.leftWall, this.rightWall]);
-        this.game.physics.arcade.collide(this.capturedBlocks, this.capturedBlocks);
+        // this.game.physics.arcade.collide(this.capturedBlocks, this.capturedBlocks);
     }
 
     blockOverlap(portal, block) {
@@ -154,7 +154,7 @@ class PlayState extends Phaser.State {
         newBlock.anchor.set(0.5, 0.5);
         newBlock.body.angularVelocity = inBlock.body.angularVelocity;
         newBlock.body.angularDrag = 80;
-        newBlock.body.bounce = 0.5;
+        newBlock.body.bounce.set(0.6,0.1);
         this.capturedBlocks.push(newBlock);
     }
 
