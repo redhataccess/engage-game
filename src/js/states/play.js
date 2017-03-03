@@ -170,10 +170,10 @@ class PlayState extends Phaser.State {
     }
 
     blockOverlap(portal, block) {
-        if (block.data.blockName == 'CVE' && portal.data.hasVuln) {
+        if (!block.data.captured && block.data.blockName == 'CVE' && portal.data.hasVuln) {
             console.log("[play] CVE Cleared VULN");
             portal.data.hasVuln = false;
-            portal.tint = 0xffffff
+            portal.tint = 0xffffff;
         }
 
         if (!block.data.captured && !portal.data.hasVuln) {
