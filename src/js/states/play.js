@@ -32,6 +32,7 @@ class PlayState extends Phaser.State {
         this.portalIn.scale.set(0.6, 0.6);
         this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING);
         this.portalSinkPosition = { x: 0, y: 0 }; // location captured blocks are tweened to
+        this.portalIn.data.hasVuln = false;
     }
 
     createPlayerControls() {
@@ -99,7 +100,18 @@ class PlayState extends Phaser.State {
     }
 
     blockOverlap(portal, block) {
-        if (!block.data.captured) {
+        if (block.data.blockName == 'CVE' && portal.data.hasVuln) {
+            console.log("CVE Cleared VULN");
+            portal.data.hasVuln = false;
+        }
+
+        if (!block.data.captured && !portal.data.hasVuln) {
+            // If captured vuln, disable portal
+            if (block.data.blockName == 'Shellshock') {
+                console.log("!!!!Captured VULN!!!!");
+                portal.data.hasVuln = true;
+            }
+
             const relativePosition = block.position.x - portal.position.x;
             // if the block is overlapping the portal, make the object drift
             // towards the center of the portal
@@ -114,7 +126,7 @@ class PlayState extends Phaser.State {
                     config.BLOCK_CAPTURE_DURATION_MS,
                     Phaser.Easing.Linear.None,
                     true
-                )
+                );
             positionTween.onComplete.add(() => this.blockCaptured(portal, block), this);
 
             const sizeTween = this.game.add
