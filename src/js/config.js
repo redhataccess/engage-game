@@ -48,4 +48,8 @@ const config = Object.freeze({
     // chamber on right)
     SIDE_CHAMBER_WIDTH: 250,
 
+    // Min and max number of regular blocks between a vuln block
+    MIN_VULN_GAP: 15,
+    MAX_VULN_GAP: 30,
+
 });
