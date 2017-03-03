@@ -52,4 +52,7 @@ const config = Object.freeze({
     MIN_VULN_GAP: 15,
     MAX_VULN_GAP: 30,
 
+    // How much to scale down sprites (may need a better way to control scale...)
+    SPRITE_SCALE: 0.1,
+
 });

@@ -157,6 +157,7 @@ class PlayState extends Phaser.State {
 
     emitCapturedBlock(inBlock) {
         const newBlock = this.game.add.sprite(0, 0, inBlock.generateTexture());
+        newBlock.scale.set(config.SPRITE_SCALE, config.SPRITE_SCALE);
         this.game.physics.arcade.enableBody(newBlock);
         newBlock.position.set(config.SIDE_CHAMBER_WIDTH - inBlock.width, 40);
         newBlock.body.velocity.x = -220;
@@ -192,6 +193,8 @@ class PlayState extends Phaser.State {
     blockSkyfall(block) {
         console.log(`[play] now falling: ${block}`);
         const blockSprite = this.game.add.sprite(0, 0, `${block}-sprite`);
+
+        blockSprite.scale.set(config.SPRITE_SCALE, config.SPRITE_SCALE);
 
         // attach a name to the block sprite
         blockSprite.data.blockName = block;
