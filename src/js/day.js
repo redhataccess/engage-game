@@ -20,11 +20,18 @@ class Day {
 
     addVulns() {
         let nextVulnIndex = this.rnd.between(config.MIN_VULN_GAP, config.MAX_VULN_GAP);
+        let nextCVE = nextVulnIndex + config.VULN_TO_CVE_BLOCKS;
         for (let i = 0; i < this.dayBlocks.length; i++) {
             if (i === nextVulnIndex) {
                 console.log("adding vuln at index", i);
                 this.dayBlocks.splice(i, 0, 'Shellshock');
                 nextVulnIndex += this.rnd.between(config.MIN_VULN_GAP, config.MAX_VULN_GAP);
+            }
+
+            if (i === nextCVE) {
+                console.log("adding CVE at index", i);
+                this.dayBlocks.splice(i, 0, 'CVE');
+                nextCVE = nextVulnIndex + config.VULN_TO_CVE_BLOCKS
             }
         }
     }
@@ -41,7 +48,6 @@ class Day {
 Day.blockTypes = [
     // 'PCM',
     // 'ContainerCatalog',
-    'CVE',
     // 'Documentation',
     'Labs',
     // 'Discussions',
