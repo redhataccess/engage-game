@@ -96,10 +96,11 @@ class PlayState extends Phaser.State {
         for (let i = 0, l = this.blockSprites.length; i < l; i++) {
             let block = this.blockSprites[i];
             if (!block.data.captured && block.data.blockName == 'Shellshock') {
-                //TODO: don't track if block has fallen out bottom of screen
-                block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, 0.05);
-                block.rotation =  this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
-                block.rotation -= Math.PI/2;
+                if (this.portalIn.position.y - block.position.y > 80) {
+                    block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, 0.05);
+                    block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
+                    block.rotation -= Math.PI / 2;
+                }
             }
         }
     }
@@ -117,6 +118,7 @@ class PlayState extends Phaser.State {
         if (block.data.blockName == 'CVE' && portal.data.hasVuln) {
             console.log("[play] CVE Cleared VULN");
             portal.data.hasVuln = false;
+            portal.tint = 0xffffff
         }
 
         if (!block.data.captured && !portal.data.hasVuln) {
@@ -124,34 +126,36 @@ class PlayState extends Phaser.State {
             if (block.data.blockName == 'Shellshock') {
                 console.log("[play] !!!!Captured VULN!!!!");
                 portal.data.hasVuln = true;
+                block.data.captured = true;
+                portal.tint = 0xff0000
             }
+            else {
+                const relativePosition = block.position.x - portal.position.x;
+                // if the block is overlapping the portal, make the object drift
+                // towards the center of the portal
+                block.data.captured = true;
+                block.body.angularVelocity = block.data.captureRotation * Math.sign(relativePosition);
+                block.body.velocity.y = 0; // cut velocity in half once captured
 
-            const relativePosition = block.position.x - portal.position.x;
-            // if the block is overlapping the portal, make the object drift
-            // towards the center of the portal
-            block.data.captured = true;
-            block.body.angularVelocity = block.data.captureRotation * Math.sign(relativePosition);
-            block.body.velocity.y = 0; // cut velocity in half once captured
+                const positionTween = this.game.add
+                    .tween(block.position)
+                    .to(
+                        this.portalSinkPosition,
+                        config.BLOCK_CAPTURE_DURATION_MS,
+                        Phaser.Easing.Linear.None,
+                        true
+                    );
+                positionTween.onComplete.add(() => this.blockCaptured(portal, block), this);
 
-            const positionTween = this.game.add
-                .tween(block.position)
-                .to(
-                    this.portalSinkPosition,
-                    config.BLOCK_CAPTURE_DURATION_MS,
-                    Phaser.Easing.Linear.None,
-                    true
-                );
-            positionTween.onComplete.add(() => this.blockCaptured(portal, block), this);
-
-            const sizeTween = this.game.add
-                .tween(block.scale)
-                .to(
-                    { x: 0, y: 0 },
-                    config.BLOCK_CAPTURE_DURATION_MS,
-                    Phaser.Easing.Linear.None,
-                    true
-                );
-
+                const sizeTween = this.game.add
+                    .tween(block.scale)
+                    .to(
+                        { x: 0, y: 0 },
+                        config.BLOCK_CAPTURE_DURATION_MS,
+                        Phaser.Easing.Linear.None,
+                        true
+                    );
+            }
         }
 
         return false;
