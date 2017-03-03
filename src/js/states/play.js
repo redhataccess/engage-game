@@ -13,6 +13,7 @@ class PlayState extends Phaser.State {
     update() {
         this.handleCollisions();
         this.updatePortalPosition();
+        this.updateVulnPositions();
     }
 
     render() {
@@ -90,6 +91,19 @@ class PlayState extends Phaser.State {
         this.portalSinkPosition.y = this.portalIn.position.y - this.portalIn.height / 4;
     }
 
+    updateVulnPositions() {
+        // make the vuln blocks track the portal position
+        for (let i = 0, l = this.blockSprites.length; i < l; i++) {
+            let block = this.blockSprites[i];
+            if (!block.data.captured && block.data.blockName == 'Shellshock') {
+                //TODO: don't track if block has fallen out bottom of screen
+                block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, 0.05);
+                block.rotation =  this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
+                block.rotation -= Math.PI/2;
+            }
+        }
+    }
+
     /* misc functions */
 
     handleCollisions() {
@@ -101,14 +115,14 @@ class PlayState extends Phaser.State {
 
     blockOverlap(portal, block) {
         if (block.data.blockName == 'CVE' && portal.data.hasVuln) {
-            console.log("CVE Cleared VULN");
+            console.log("[play] CVE Cleared VULN");
             portal.data.hasVuln = false;
         }
 
         if (!block.data.captured && !portal.data.hasVuln) {
             // If captured vuln, disable portal
             if (block.data.blockName == 'Shellshock') {
-                console.log("!!!!Captured VULN!!!!");
+                console.log("[play] !!!!Captured VULN!!!!");
                 portal.data.hasVuln = true;
             }
 
@@ -207,6 +221,11 @@ class PlayState extends Phaser.State {
         this.blockSprites.push(blockSprite);
         this.game.physics.arcade.enableBody(blockSprite);
         blockSprite.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY;
+
+        if (block == 'Shellshock') {
+            // make vulns fall faster
+            blockSprite.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY * 1.5;
+        }
 
         blockSprite.position.x = blockSprite.width*2 + config.SIDE_CHAMBER_WIDTH + (this.game.world.width - config.SIDE_CHAMBER_WIDTH*2 - blockSprite.width*4) * Math.random();
     }
