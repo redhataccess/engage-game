@@ -15,6 +15,7 @@ class PlayState extends Phaser.State {
     update() {
         this.handleCollisions();
         this.updatePortalPosition();
+        this.updatePlayerLeapControls();
         this.updateVulnPositions();
     }
 
@@ -99,6 +100,15 @@ class PlayState extends Phaser.State {
     }
 
     /* update functions */
+
+    updatePlayerLeapControls() {
+        if (typeof this.game.data.leap.palmX === 'number') {
+            const leapX = 1000*(this.game.data.leap.palmX + 130) / 300;
+            console.log(`leap X pos: ${leapX}`);
+            this.controlPosition.set(leapX);
+            this.showPortals();
+        }
+    }
 
     updatePlayerControls(pointer, x, y, isDown) {
         this.controlPosition.set(x, y);
