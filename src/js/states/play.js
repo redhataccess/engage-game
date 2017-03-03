@@ -7,6 +7,7 @@ class PlayState extends Phaser.State {
         this.createCapturedBlockSpriteArray();
         this.createChamberWalls();
         this.createWell();
+        this.createSplash();
         this.hidePortals();
         this.startDay();
     }
@@ -72,7 +73,7 @@ class PlayState extends Phaser.State {
     }
 
     createWell() {
-        this.well = this.game.add.sprite(0, this.game.world.height, 'square-blue3');
+        this.well = this.game.add.sprite(0, this.game.world.height, 'square-blue1');
         this.well.height = 10;
         this.well.width = config.SIDE_CHAMBER_WIDTH;
         this.well.anchor.set(0, 1);
@@ -81,6 +82,20 @@ class PlayState extends Phaser.State {
         this.game.physics.arcade.enableBody(this.well);
         this.well.body.immovable = true;
         this.well.bringToTop();
+    }
+
+    createSplash() {
+        // splash viz
+        this.splashEmitter = game.add.emitter(0, 0, 400);
+        this.splashEmitter.makeParticles('square-blue1');
+        this.splashEmitter.gravity = 200;
+        this.splashEmitter.width = 20;
+        this.splashEmitter.minParticleScale = 0.10;
+        this.splashEmitter.maxParticleScale = 0.10;
+        // this.splashEmitter.minParticleSpeed = 10;
+        // this.splashEmitter.maxParticleSpeed = 100;
+        this.splashEmitter.setXSpeed(-30, 30);
+        this.splashEmitter.setYSpeed(-80, -120);
     }
 
     /* update functions */
@@ -131,6 +146,8 @@ class PlayState extends Phaser.State {
     blockSplash(well, block) {
         if (!block.data.splashed) {
             block.data.splashed = true;
+
+            // update height of well sprite
             well.data.fill += config.WELL_FILL_PER_BLOCK;
             this.game.add.tween(well)
                 .to(
@@ -139,8 +156,15 @@ class PlayState extends Phaser.State {
                     Phaser.Easing.Linear.None,
                     true
                 );
+
+            // make block bob and sink
             block.body.velocity.set(0, 30); // bob
-            block.body.gravity.set(0, 60); // bob
+            block.body.gravity.set(0, 60); // sink
+
+            // splash
+            this.splashEmitter.x = block.position.x;
+            this.splashEmitter.y = well.top;
+            this.splashEmitter.start(true, 1300, null, 14);
         }
         return false; // don't actually collide, we only want to detect overlap
     }

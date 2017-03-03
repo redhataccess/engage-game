@@ -21,6 +21,7 @@ class PreloadState extends Phaser.State {
         this.game.load.image('Discussions-sprite',       'images/square-blue3.png');
         this.game.load.image('PackageSearch-sprite',     'images/square-blue3.png');
         this.game.load.image('square-blue3',             'images/square-blue3.png');
+        this.game.load.image('square-blue1',             'images/square-blue1.png');
     }
 
     create() {
