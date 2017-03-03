@@ -26,7 +26,7 @@ const config = Object.freeze({
     BLOCK_INTERVAL_RANDOMNESS: 0.2,
 
     // base velocity of falling blocks
-    BLOCK_SKYFALL_BASE_VELOCITY: 400,
+    BLOCK_SKYFALL_BASE_VELOCITY: 300,
 
     // how quickly should events rotate when caught in the portal (degres)
     BLOCK_CAPTURE_ROTATION: 360,
