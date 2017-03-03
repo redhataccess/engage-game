@@ -6,6 +6,7 @@ class PlayState extends Phaser.State {
         this.createBlockSpriteArray();
         this.createCapturedBlockSpriteArray();
         this.createChamberWalls();
+        this.createWell();
         this.hidePortals();
         this.startDay();
     }
@@ -70,6 +71,18 @@ class PlayState extends Phaser.State {
         this.rightWall.body.immovable = true;
     }
 
+    createWell() {
+        this.well = this.game.add.sprite(0, this.game.world.height, 'square-blue3');
+        this.well.height = 10;
+        this.well.width = config.SIDE_CHAMBER_WIDTH;
+        this.well.anchor.set(0, 1);
+        this.well.data.fill = 0; // how full the well is
+        this.well.data.targetHeight = this.well.height; // how full the well is
+        this.game.physics.arcade.enableBody(this.well);
+        this.well.body.immovable = true;
+        this.well.bringToTop();
+    }
+
     /* update functions */
 
     updatePlayerControls(pointer, x, y, isDown) {
@@ -111,7 +124,25 @@ class PlayState extends Phaser.State {
         this.game.physics.arcade.collide(this.portalIn, this.blockSprites, null, this.blockOverlap, this);
         this.game.physics.arcade.collide(this.leftWall, this.capturedBlocks);
         this.game.physics.arcade.collide(this.portalIn, [this.leftWall, this.rightWall]);
+        this.game.physics.arcade.collide(this.well, this.capturedBlocks, null, this.blockSplash, this);
         // this.game.physics.arcade.collide(this.capturedBlocks, this.capturedBlocks);
+    }
+
+    blockSplash(well, block) {
+        if (!block.data.splashed) {
+            block.data.splashed = true;
+            well.data.fill += config.WELL_FILL_PER_BLOCK;
+            this.game.add.tween(well)
+                .to(
+                    { height: this.game.world.height * well.data.fill },
+                    config.WELL_FILL_DURATION_MS,
+                    Phaser.Easing.Linear.None,
+                    true
+                );
+            block.body.velocity.set(0, 30); // bob
+            block.body.gravity.set(0, 60); // bob
+        }
+        return false; // don't actually collide, we only want to detect overlap
     }
 
     blockOverlap(portal, block) {
@@ -175,17 +206,19 @@ class PlayState extends Phaser.State {
 
     emitCapturedBlock(inBlock) {
         const newBlock = this.game.add.sprite(0, 0, inBlock.generateTexture());
-        newBlock.scale.set(config.SPRITE_SCALE, config.SPRITE_SCALE);
-        this.game.physics.arcade.enableBody(newBlock);
-        newBlock.position.set(config.SIDE_CHAMBER_WIDTH - inBlock.width, 40);
-        newBlock.body.velocity.x = -220;
-        newBlock.body.gravity.y = 200;
-        newBlock.body.drag.set(5, 5);
-        newBlock.body.collideWorldBounds = true;
+        newBlock.scale.set(1/3 * config.SPRITE_SCALE, 1/3 * config.SPRITE_SCALE);
+        newBlock.data.splashed = false;
+        newBlock.sendToBack();
         newBlock.anchor.set(0.5, 0.5);
-        newBlock.body.angularVelocity = inBlock.body.angularVelocity;
-        newBlock.body.angularDrag = 80;
+        this.game.physics.arcade.enableBody(newBlock);
+        newBlock.position.set(this.rnd.between(40, config.SIDE_CHAMBER_WIDTH - 40), 40);
+        newBlock.body.gravity.y = 200;
+        newBlock.body.drag.set(0, 0);
+        newBlock.body.collideWorldBounds = true;
+        newBlock.body.angularVelocity = inBlock.body.angularVelocity / 4;
+        newBlock.body.angularDrag = 20;
         newBlock.body.bounce.set(0.6,0.1);
+        newBlock.body.setSize(200, 200, 300, 500);
         this.capturedBlocks.push(newBlock);
     }
 

@@ -55,4 +55,9 @@ const config = Object.freeze({
     // How much to scale down sprites (may need a better way to control scale...)
     SPRITE_SCALE: 0.1,
 
+    // How much to fill up the well with each splashdown, as percentage of game
+    // height, from 0 to 1
+    WELL_FILL_PER_BLOCK: 0.003,
+    WELL_FILL_DURATION_MS: 100, // how long it takes to tween height after each splashdown
+
 });
