@@ -9,7 +9,7 @@ class Day {
 
     populateRandomBlocks() {
         for (let i = 0; i < config.BLOCKS_PER_DAY; i++) {
-            this.dayBlocks.push(Day.blockTypes[ Math.floor(Math.random() * (Day.blockTypes.length - 1)) ]);
+            this.dayBlocks.push(Day.blockTypes[ Math.floor(Math.random() * (Day.blockTypes.length)) ]);
         }
     }
 
