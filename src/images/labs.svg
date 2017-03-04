@@ -27,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.504249"
-     inkscape:cx="-56.726242"
-     inkscape:cy="20.165265"
+     inkscape:zoom="15.568367"
+     inkscape:cx="5.4619016"
+     inkscape:cy="18.118601"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -184,17 +184,23 @@
        style="fill:url(#linearGradient4542);fill-rule:evenodd;stroke:url(#linearGradient4542);stroke-width:0.26458332px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
        d="m 94.720832,146.45208 h 1.058333"
        id="path5039"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="3616.0801"
+       inkscape:export-ydpi="3616.0801" />
     <path
        inkscape:connector-curvature="0"
        id="path5047"
        d="m 94.45625,145.92291 h 1.058333"
-       style="fill:url(#linearGradient4542);fill-rule:evenodd;stroke:url(#linearGradient4542);stroke-width:0.26458332px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+       style="fill:url(#linearGradient4542);fill-rule:evenodd;stroke:url(#linearGradient4542);stroke-width:0.26458332px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       inkscape:export-xdpi="3616.0801"
+       inkscape:export-ydpi="3616.0801" />
     <path
        style="fill:url(#linearGradient4542);fill-rule:evenodd;stroke:url(#linearGradient4542);stroke-width:0.26458332px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
        d="M 94.191667,145.39374 H 95.25"
        id="path5051"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="3616.0801"
+       inkscape:export-ydpi="3616.0801" />
     <circle
        style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#36785e;stroke-width:0.10054167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:0.10054167, 0.30162502000000002;stroke-dashoffset:0.41222087;stroke-opacity:1"
        id="path5065"

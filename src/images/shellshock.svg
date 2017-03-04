@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568542"
-     inkscape:cx="22.226575"
-     inkscape:cy="42.294996"
+     inkscape:zoom="8.1948021"
+     inkscape:cx="36.999062"
+     inkscape:cy="24.901407"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -53,6 +53,22 @@
   </sodipodi:namedview>
   <defs
      id="defs2">
+    <linearGradient
+       id="linearGradient4558"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop4556" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4544"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#cc0000;stop-opacity:1;"
+         offset="0"
+         id="stop4542" />
+    </linearGradient>
     <linearGradient
        inkscape:collect="always"
        id="linearGradient4643">
@@ -182,7 +198,8 @@
     </linearGradient>
     <linearGradient
        osb:paint="solid"
-       id="cc0000-7">
+       id="cc0000-7"
+       gradientTransform="translate(0.52917)">
       <stop
          id="stop4514"
          offset="0"
@@ -207,13 +224,32 @@
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient4643"
-       id="linearGradient4715"
+       xlink:href="#a30000-6"
+       id="linearGradient4546"
+       x1="137.45082"
+       y1="106.36939"
+       x2="148.29916"
+       y2="106.36939"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#cc0000-7"
+       id="linearGradient4554"
        gradientUnits="userSpaceOnUse"
-       x1="141.63477"
-       y1="106.26828"
-       x2="141.81665"
-       y2="106.23521" />
+       x1="137.45082"
+       y1="106.36939"
+       x2="148.29916"
+       y2="106.36939"
+       gradientTransform="matrix(-0.82985271,0,0,1,260.53981,0)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#a30000-6"
+       id="linearGradient4561"
+       x1="138.12709"
+       y1="105.28184"
+       x2="145.81938"
+       y2="105.28184"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <metadata
      id="metadata5">
@@ -223,7 +259,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -233,27 +269,58 @@
      inkscape:label="Layer 1"
      transform="translate(-137.45082,-99.752715)">
     <path
-       style="fill:url(#linearGradient4715);fill-opacity:1;fill-rule:evenodd;stroke:url(#cc0000-7);stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 137.58332,99.885215 h 10.58334 v 1.322915 h -0.52917 v 0.52917 h 0.52917 v 6.61458 c 0,1.32292 -2.11667,3.70417 -5.29167,4.49792 -3.43958,-0.79375 -5.29167,-3.175 -5.29167,-4.49792 v -6.61458 h 0.52917 v -0.52917 h -0.52917 z"
+       style="fill:url(#linearGradient4546);fill-opacity:1;fill-rule:evenodd;stroke:url(#cc0000-7);stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       d="m 137.58332,99.885215 h 10.58334 v 1.322915 h -0.52917 v 0.87996 h 0.52917 v 6.26379 c 0,1.32292 -2.11667,3.70417 -5.29167,4.49792 -3.43958,-0.79375 -5.29167,-3.175 -5.29167,-4.49792 v -6.26379 h 0.52917 v -0.87996 h -0.52917 z"
        id="path4612"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccccccccc" />
+       sodipodi:nodetypes="cccccccccccccc"
+       inkscape:export-xdpi="1873.1"
+       inkscape:export-ydpi="1873.1" />
+    <path
+       inkscape:export-ydpi="1873.1"
+       inkscape:export-xdpi="1873.1"
+       sodipodi:nodetypes="cccccccccccccc"
+       inkscape:connector-curvature="0"
+       id="path4552"
+       d="m 146.36592,99.885215 h -8.78261 v 1.322915 h 0.43913 v 0.87996 h -0.43913 l 0.0234,6.40411 c 0.56126,1.98942 2.63348,3.56385 5.26828,4.3576 2.52361,-1.65365 3.42479,-3.09232 3.49094,-4.49792 v -6.64049 h -7.99591 v -0.38911 h 7.99591 z"
+       style="fill:url(#linearGradient4554);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.24140505;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.01652622px;line-height:1.88532889px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.07541315px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="138.00632"
-       y="105.40073"
-       id="text4651"><tspan
+       style="font-style:normal;font-weight:normal;font-size:2.88795757px;line-height:1.80497336px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.07219893px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       x="138.01146"
+       y="105.82755"
+       id="text4651"
+       inkscape:export-xdpi="1873.1"
+       inkscape:export-ydpi="1873.1"><tspan
          sodipodi:role="line"
          id="tspan4649"
-         x="138.00632"
-         y="105.40073"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Oswald;-inkscape-font-specification:Oswald;fill:url(#linearGradient4542);stroke-width:0.07541315px"
-         dy="-0.68406266">SHELL</tspan><tspan
+         x="138.01146"
+         y="105.82755"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Oswald;-inkscape-font-specification:Oswald;fill:#ffffff;stroke-width:0.07219893px;fill-opacity:1;stroke:none;stroke-opacity:1;"
+         dy="-0.65490693">SHELL</tspan><tspan
          sodipodi:role="line"
-         x="138.00632"
-         y="107.38544"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Oswald;-inkscape-font-specification:Oswald;fill:url(#linearGradient4542);stroke-width:0.07541315px"
+         x="138.01146"
+         y="107.72768"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Oswald;-inkscape-font-specification:Oswald;fill:#ffffff;stroke-width:0.07219893px;fill-opacity:1;stroke:none;stroke-opacity:1;"
          id="tspan4653">SHOCK</tspan></text>
+    <text
+       inkscape:export-ydpi="1873.1"
+       inkscape:export-xdpi="1873.1"
+       id="text4579"
+       y="105.82755"
+       x="138.01146"
+       style="font-style:normal;font-weight:normal;font-size:2.88795757px;line-height:1.80497336px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.07219893px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       xml:space="preserve"><tspan
+         dy="-0.65490693"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Oswald;-inkscape-font-specification:Oswald;fill:#ffffff;stroke-width:0.07219893px;fill-opacity:1;stroke:none;stroke-opacity:1;"
+         y="105.82755"
+         x="138.01146"
+         id="tspan4575"
+         sodipodi:role="line">SHELL</tspan><tspan
+         id="tspan4577"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Oswald;-inkscape-font-specification:Oswald;fill:#ffffff;stroke-width:0.07219893px;fill-opacity:1;stroke:none;stroke-opacity:1;"
+         y="107.72768"
+         x="138.01146"
+         sodipodi:role="line">SHOCK</tspan></text>
   </g>
 </svg>

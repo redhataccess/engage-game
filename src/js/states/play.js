@@ -240,7 +240,7 @@ class PlayState extends Phaser.State {
 
     emitCapturedBlock(inBlock) {
         const newBlock = this.game.add.sprite(0, 0, inBlock.generateTexture());
-        newBlock.scale.set(1/3 * config.SPRITE_SCALE, 1/3 * config.SPRITE_SCALE);
+        newBlock.scale.set(1/3, 1/3);
         newBlock.data.splashed = false;
         newBlock.sendToBack();
         newBlock.anchor.set(0.5, 0.5);
@@ -252,7 +252,7 @@ class PlayState extends Phaser.State {
         newBlock.body.angularVelocity = inBlock.body.angularVelocity / 4;
         newBlock.body.angularDrag = 20;
         newBlock.body.bounce.set(0.6,0.1);
-        newBlock.body.setSize(200, 200, 300, 500);
+        newBlock.body.setSize(20, 20, 30, 50);
         this.capturedBlocks.push(newBlock);
     }
 
@@ -278,8 +278,6 @@ class PlayState extends Phaser.State {
     blockSkyfall(block) {
         console.log(`[play] now falling: ${block}`);
         const blockSprite = this.game.add.sprite(0, 0, `${block}-sprite`);
-
-        blockSprite.scale.set(config.SPRITE_SCALE, config.SPRITE_SCALE);
 
         // attach a name to the block sprite
         blockSprite.data.blockName = block;
