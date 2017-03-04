@@ -75,10 +75,10 @@ class PlayState extends Phaser.State {
 
     createWell() {
         this.well = this.game.add.sprite(0, this.game.world.height, 'square-blue1');
-        this.well.height = 10;
+        this.well.height = 28;
         this.well.width = config.SIDE_CHAMBER_WIDTH;
         this.well.anchor.set(0, 1);
-        this.well.data.fill = 0; // how full the well is
+        this.well.data.fill = 0.03; // how full the well is
         this.well.data.targetHeight = this.well.height; // how full the well is
         this.game.physics.arcade.enableBody(this.well);
         this.well.body.immovable = true;
