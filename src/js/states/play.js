@@ -175,6 +175,9 @@ class PlayState extends Phaser.State {
             this.splashEmitter.x = block.position.x;
             this.splashEmitter.y = well.top;
             this.splashEmitter.start(true, 1300, null, 14);
+
+            // remove the block from the game after it's had time to sink
+            this.game.time.events.add(1000, () => block.destroy(true), this);
         }
         return false; // don't actually collide, we only want to detect overlap
     }
@@ -233,8 +236,7 @@ class PlayState extends Phaser.State {
 
         this.emitCapturedBlock(block);
 
-        block.position.set(this.game.world.centerX, this.game.world.centerY);
-        block.scale.set(1, 1);
+        block.destroy(true);
         console.log(`[play] captured block: ${block.data.blockName}`);
     }
 
