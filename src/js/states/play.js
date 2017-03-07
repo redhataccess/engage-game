@@ -292,7 +292,6 @@ class PlayState extends Phaser.State {
         const randomness = config.BLOCK_CAPTURE_ROTATION * config.BLOCK_CAPTURE_ROTATION_RANDOMNESS;
         blockSprite.data.captureRotation = config.BLOCK_CAPTURE_ROTATION + (Math.random() * randomness - randomness / 2 );
 
-        blockSprite.anchor.set(Math.random(), 1);
         this.blockSprites.push(blockSprite);
         this.game.physics.arcade.enableBody(blockSprite);
         blockSprite.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY;
@@ -300,7 +299,12 @@ class PlayState extends Phaser.State {
         if (block == 'Shellshock') {
             // make vulns fall faster
             blockSprite.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY * 1.5;
+            blockSprite.anchor.set(0.5, 0.5);
         }
+        else {
+            blockSprite.anchor.set(Math.random(), 1);
+        }
+
 
         blockSprite.position.x = blockSprite.width*2 + config.SIDE_CHAMBER_WIDTH + (this.game.world.width - config.SIDE_CHAMBER_WIDTH*2 - blockSprite.width*4) * Math.random();
     }
