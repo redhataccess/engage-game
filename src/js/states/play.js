@@ -23,6 +23,10 @@ class PlayState extends Phaser.State {
         // for (const block of this.capturedBlocks) {
         //     this.game.debug.body(block);
         // }
+        // for (const block of this.blockSprites) {
+        //     this.game.debug.body(block);
+        // }
+        // this.game.debug.body(this.portalIn);
     }
 
     /* create functions */
