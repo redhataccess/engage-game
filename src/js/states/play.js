@@ -134,7 +134,7 @@ class PlayState extends Phaser.State {
         for (let i = 0, l = this.blockSprites.length; i < l; i++) {
             let block = this.blockSprites[i];
             if (!block.data.captured && block.data.blockName == 'Shellshock') {
-                if (this.portalIn.position.y - block.position.y > 80) {
+                if (this.portalIn.position.y - block.position.y > 70) {
                     block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, 0.05);
                     block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
                     block.rotation -= Math.PI / 2;
@@ -189,7 +189,7 @@ class PlayState extends Phaser.State {
             portal.tint = 0xffffff;
         }
 
-        if (!block.data.captured && !portal.data.hasVuln) {
+        if (!block.data.captured && !portal.data.hasVuln && (portal.position.y > block.position.y)) {
             // If captured vuln, disable portal
             if (block.data.blockName == 'Shellshock') {
                 console.log("[play] !!!!Captured VULN!!!!");

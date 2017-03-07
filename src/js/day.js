@@ -46,10 +46,10 @@ class Day {
 }
 
 Day.blockTypes = [
-    // 'PCM',
-    // 'ContainerCatalog',
-    // 'Documentation',
+    'PCM',
+    'ContainerCatalog',
+    'Documentation',
     'Labs',
-    // 'Discussions',
-    // 'PackageSearch',
+    'Discussions',
+    'PackageSearch',
 ];
