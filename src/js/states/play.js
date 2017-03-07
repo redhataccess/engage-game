@@ -1,6 +1,11 @@
 class PlayState extends Phaser.State {
     create() {
         console.log('[play] starting play state');
+        this.score = 0;
+        this.scoreMultiplier = 1;
+
+        this.createScoreUI();
+
         this.createControlPosition();
         this.createPortalIn();
         this.createBlockSpriteArray();
@@ -30,6 +35,13 @@ class PlayState extends Phaser.State {
     }
 
     /* create functions */
+
+    createScoreUI() {
+        let style = { font: "28px Monospace", fill: "#ffffff", align: "center" };
+        this.scoreText = game.add.text(game.world.centerX, 16, "", style);
+        this.scoreText.anchor.set(0.5);
+        this.scoreText.setText('Score: 0');
+    }
 
     createPortalIn() {
         console.log('[play] creating portal-in');
@@ -239,6 +251,14 @@ class PlayState extends Phaser.State {
         // this.game.add.existing(newBlock);
 
         this.emitCapturedBlock(block);
+
+        if (block.data.blockName == 'Lunch') {
+            console.log("[play] Lunch Boost!");
+            this.scoreMultiplier = 2;
+        }
+
+        this.score += 100 * this.scoreMultiplier;
+        this.scoreText.setText('Score: ' + this.score);
 
         block.destroy(true);
         console.log(`[play] captured block: ${block.data.blockName}`);
