@@ -19,6 +19,7 @@ class Day {
     }
 
     addVulns() {
+        this.dayBlocks.splice(0, 0, 'Shellshock');
         let nextVulnIndex = this.rnd.between(config.MIN_VULN_GAP, config.MAX_VULN_GAP);
         let nextCVE = nextVulnIndex + config.VULN_TO_CVE_BLOCKS;
         for (let i = 0; i < this.dayBlocks.length; i++) {

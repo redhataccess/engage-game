@@ -8,6 +8,7 @@ class PlayState extends Phaser.State {
 
         this.createControlPosition();
         this.createPortalIn();
+        this.createPortalOut();
         this.createBlockSpriteArray();
         this.createCapturedBlockSpriteArray();
         this.createChamberWalls();
@@ -53,6 +54,19 @@ class PlayState extends Phaser.State {
         this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING);
         this.portalSinkPosition = { x: 0, y: 0 }; // location captured blocks are tweened to
         this.portalIn.data.hasVuln = false;
+    }
+
+    createPortalOut() {
+        console.log('[play] creating portal-out');
+        this.portalOut = this.game.add.sprite(0, 0, 'portal-out');
+        this.portalOut.scale.set(0.6, 0.6);
+        this.portalOut.sendToBack();
+        // this.game.physics.arcade.enableBody(this.portalIn);
+        // this.portalIn.body.immovable = true;
+        // this.portalIn.anchor.set(0.5, 1.0);
+        // this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING);
+        // this.portalSinkPosition = { x: 0, y: 0 }; // location captured blocks are tweened to
+        // this.portalIn.data.hasVuln = false;
     }
 
     createPlayerControls() {
@@ -149,11 +163,17 @@ class PlayState extends Phaser.State {
         // make the vuln blocks track the portal position
         for (let i = 0, l = this.blockSprites.length; i < l; i++) {
             let block = this.blockSprites[i];
-            if (!block.data.captured && block.data.blockName == 'Shellshock') {
+            if (!block.data.captured && block.data.blockName == 'Shellshock' && block.data.state === 'falling') {
                 if (this.portalIn.position.y - block.position.y > 70) {
-                    block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, 0.05);
+                    // block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, 0.05);
+                    const accel = Phaser.Point.subtract(this.portalIn.position, block.position);
+                    accel.normalize();
+                    accel.multiply(2000, 2000);
+                    // block.body.rotation = 180 / Math.PI * this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
+                    // block.body.rotation -= Math.PI;
                     block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
                     block.rotation -= Math.PI / 2;
+                    block.body.acceleration.copyFrom(accel);
                 }
             }
         }
@@ -163,7 +183,7 @@ class PlayState extends Phaser.State {
 
     handleCollisions() {
         this.game.physics.arcade.collide(this.portalIn, this.blockSprites, null, this.blockOverlap, this);
-        this.game.physics.arcade.collide(this.leftWall, this.capturedBlocks);
+        this.game.physics.arcade.collide(this.fallingVuln, [this.leftWall, this.rightWall]);
         this.game.physics.arcade.collide(this.portalIn, [this.leftWall, this.rightWall]);
         this.game.physics.arcade.collide(this.well, this.capturedBlocks, null, this.blockSplash, this);
         // this.game.physics.arcade.collide(this.capturedBlocks, this.capturedBlocks);
@@ -214,31 +234,48 @@ class PlayState extends Phaser.State {
                 portal.tint = 0xff0000
             }
             else {
-                const relativePosition = block.position.x - portal.position.x;
+                const relativePosition = new Phaser.Point(
+                    block.position.x - portal.position.x,
+                    block.position.y - portal.position.y
+                );
+                block.data.relativeCapturePosition = relativePosition;
+
                 // if the block is overlapping the portal, make the object drift
                 // towards the center of the portal
                 block.data.captured = true;
-                block.body.angularVelocity = block.data.captureRotation * Math.sign(relativePosition);
-                block.body.velocity.y = 0; // cut velocity in half once captured
+                // block.body.angularVelocity = block.data.captureRotation * Math.sign(relativePosition);
+                // block.body.velocity.y = 0;
 
-                const positionTween = this.game.add
-                    .tween(block.position)
+                // const positionTween = this.game.add
+                //     .tween(block.position)
+                //     .to(
+                //         this.portalSinkPosition,
+                //         config.BLOCK_CAPTURE_DURATION_MS,
+                //         Phaser.Easing.Linear.None,
+                //         true
+                //     );
+                // positionTween.onComplete.add(() => this.blockCaptured(portal, block), this);
+
+                // const sizeTween = this.game.add
+                //     .tween(block.scale)
+                //     .to(
+                //         { x: 0, y: 0 },
+                //         config.BLOCK_CAPTURE_DURATION_MS,
+                //         Phaser.Easing.Linear.None,
+                //         true
+                //     );
+
+                block.data.texture = block.generateTexture();
+
+                const alphaTween = this.game.add
+                    .tween(block)
                     .to(
-                        this.portalSinkPosition,
-                        config.BLOCK_CAPTURE_DURATION_MS,
+                        { alpha: 0 },
+                        90,
                         Phaser.Easing.Linear.None,
                         true
                     );
-                positionTween.onComplete.add(() => this.blockCaptured(portal, block), this);
-
-                const sizeTween = this.game.add
-                    .tween(block.scale)
-                    .to(
-                        { x: 0, y: 0 },
-                        config.BLOCK_CAPTURE_DURATION_MS,
-                        Phaser.Easing.Linear.None,
-                        true
-                    );
+                alphaTween.onComplete.add(() => this.blockCaptured(portal, block), this);
             }
         }
 
@@ -266,14 +303,16 @@ class PlayState extends Phaser.State {
     }
 
     emitCapturedBlock(inBlock) {
-        const newBlock = this.game.add.sprite(0, 0, inBlock.generateTexture());
+        const newBlock = this.game.add.sprite(0, 0, inBlock.data.texture);
         newBlock.scale.set(1/3, 1/3);
         newBlock.data.splashed = false;
         newBlock.sendToBack();
+        newBlock.moveUp(); // move on top of exit portal
         newBlock.anchor.set(0.5, 0.5);
         this.game.physics.arcade.enableBody(newBlock);
         newBlock.position.set(this.rnd.between(40, config.SIDE_CHAMBER_WIDTH - 40), 40);
         newBlock.body.gravity.y = 200;
+        newBlock.body.velocity.copyFrom(inBlock.body.velocity.clone());
         newBlock.body.drag.set(0, 0);
         newBlock.body.collideWorldBounds = true;
         newBlock.body.angularVelocity = inBlock.body.angularVelocity / 4;
@@ -286,14 +325,13 @@ class PlayState extends Phaser.State {
     startDay() {
         console.log('[play] starting the day; good morning!');
         this.day = new Day();
-        console.log(`[play] today\'s blocks: ${this.day.dayBlocks}`);
         this.createPlayerControls();
 
         const randomRange = config.BLOCK_INTERVAL_MS * config.BLOCK_INTERVAL_RANDOMNESS;
         let timer = config.COFFEE_DELAY_MS;
 
         for (let block of this.day.dayBlocks) {
-            this.game.time.events.add(timer, () => this.blockSkyfall(block), this);
+            this.game.time.events.add(timer, () => this.blockAppear(block), this);
             const randomAdjustment = Math.random() * randomRange - randomRange / 2;
             timer += config.BLOCK_INTERVAL_MS + randomAdjustment;
         }
@@ -302,32 +340,83 @@ class PlayState extends Phaser.State {
         this.game.time.events.add(timer, this.gameEnd, this);
     }
 
-    blockSkyfall(block) {
-        console.log(`[play] now falling: ${block}`);
-        const blockSprite = this.game.add.sprite(0, 0, `${block}-sprite`);
+    blockAppear(blockName) {
+        console.log(`[play] now falling: ${blockName}`);
+        const block = this.game.add.sprite(0, 0, `${blockName}-sprite`);
 
         // attach a name to the block sprite
-        blockSprite.data.blockName = block;
+        block.data.blockName = blockName;
+        block.data.state = 'appearing';
 
-        // if this blockSprite gets caught by the portal, set up how much it should rotate
-        const randomness = config.BLOCK_CAPTURE_ROTATION * config.BLOCK_CAPTURE_ROTATION_RANDOMNESS;
-        blockSprite.data.captureRotation = config.BLOCK_CAPTURE_ROTATION + (Math.random() * randomness - randomness / 2 );
+        // if this block gets caught by the portal, set up how much it should rotate
+        // const randomness = config.BLOCK_CAPTURE_ROTATION * config.BLOCK_CAPTURE_ROTATION_RANDOMNESS;
+        // block.data.captureRotation = config.BLOCK_CAPTURE_ROTATION + (Math.random() * randomness - randomness / 2 );
 
-        this.blockSprites.push(blockSprite);
-        this.game.physics.arcade.enableBody(blockSprite);
-        blockSprite.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY;
+        this.blockSprites.push(block);
+        this.game.physics.arcade.enableBody(block);
 
-        if (block == 'Shellshock') {
-            // make vulns fall faster
-            blockSprite.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY * 1.5;
-            blockSprite.anchor.set(0.5, 0.5);
+        block.anchor.set(0.5, 0.5);
+        block.position.x = block.width*2 + config.SIDE_CHAMBER_WIDTH + (this.game.world.width - config.SIDE_CHAMBER_WIDTH*2 - block.width*4) * Math.random();
+        block.position.y = Math.random() * 120 + 40;
+
+        // set up and execute an entry animation
+
+        const anim = Animations[blockName];
+
+        let endRotation = anim.Appear.Rotation.End;
+        if (blockName === 'Shellshock') {
+            // end rotation is dynamic for vulns; we want it to point toward the player right away
+            endRotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
         }
-        else {
-            blockSprite.anchor.set(Math.random(), 1);
+
+        block.alpha = 0;
+        block.rotation = anim.Appear.Rotation.Start;
+        block.scale.set(anim.Appear.Scale.Start, anim.Appear.Scale.Start);
+
+        // block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
+        const entryTween = this.game.add
+            .tween(block)
+            .to(
+                {
+                    alpha: 1,
+                    rotation: endRotation,
+                },
+                anim.Appear.Duration,
+                Phaser.Easing.Linear.None,
+                true
+            );
+        entryTween.onComplete.add(() => this.blockFall(block), this);
+
+        const scaleTween = this.game.add
+            .tween(block.scale)
+            .to(
+                {
+                    x: anim.Appear.Scale.End,
+                    y: anim.Appear.Scale.End,
+                },
+                anim.Appear.Duration,
+                anim.Appear.Easing,
+                true
+            );
+    }
+
+    blockFall(block) {
+        block.body.gravity.y = 300;
+        block.data.state = 'falling';
+
+        switch (block.data.blockName) {
+            case 'Shellshock':
+                // make vulns fall faster
+                // block.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY * 1.5;
+                block.body.gravity.set(0, 0);
+                block.body.velocity.set(0, 0);
+                block.body.maxVelocity.set(400, 400);
+                block.body.bounce.set(0.7, 0);
+                this.fallingVuln = block; // a handy reference to the vuln currently falling
+                break;
+            default:
+                block.body.velocity.y = 0; //config.BLOCK_SKYFALL_BASE_VELOCITY;
         }
-
-
-        blockSprite.position.x = blockSprite.width*2 + config.SIDE_CHAMBER_WIDTH + (this.game.world.width - config.SIDE_CHAMBER_WIDTH*2 - blockSprite.width*4) * Math.random();
     }
 
     gameEnd() {
