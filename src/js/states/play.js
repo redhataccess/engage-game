@@ -260,8 +260,9 @@ class PlayState extends Phaser.State {
         this.score += 100 * this.scoreMultiplier;
         this.scoreText.setText('Score: ' + this.score);
 
-        block.destroy(true);
         console.log(`[play] captured block: ${block.data.blockName}`);
+
+        block.destroy(true);
     }
 
     emitCapturedBlock(inBlock) {
