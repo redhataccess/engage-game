@@ -99,14 +99,14 @@ let Animations = {
     },
     Coffee: {
         Appear: {
-            Duration: 300,
+            Duration: 800,
             Easing: Phaser.Easing.Linear.None,
             Rotation: {
                 Start: 0,
                 End: 0,
             },
             Scale: {
-                Start: 0.6,
+                Start: 2.6,
                 End: 1,
             },
         }
