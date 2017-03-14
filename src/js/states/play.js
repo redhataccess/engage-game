@@ -327,14 +327,14 @@ class PlayState extends Phaser.State {
         this.day = new Day();
         this.createPlayerControls();
 
-        const randomRange = config.BLOCK_INTERVAL_MS * config.BLOCK_INTERVAL_RANDOMNESS;
         let timer = config.COFFEE_DELAY_MS;
 
         for (let block of this.day.dayBlocks) {
-            this.game.time.events.add(timer, () => this.blockAppear(block), this);
-            const randomAdjustment = Math.random() * randomRange - randomRange / 2;
-            timer += config.BLOCK_INTERVAL_MS + randomAdjustment;
+            this.game.time.events.add(timer, () => this.blockAppear(block.name), this);
+            timer += block.delay;
         }
+
+        console.log(`[play] this day will last ${(timer/1000).toFixed(2)} seconds`);
 
         // add game end timer
         this.game.time.events.add(timer, this.gameEnd, this);
