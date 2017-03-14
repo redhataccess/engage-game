@@ -163,7 +163,7 @@ class PlayState extends Phaser.State {
         // make the vuln blocks track the portal position
         for (let i = 0, l = this.blockSprites.length; i < l; i++) {
             let block = this.blockSprites[i];
-            if (!block.data.captured && block.data.blockName == 'Shellshock' && block.data.state === 'falling') {
+            if (!block.data.captured && block.data.name == 'Shellshock' && block.data.state === 'falling') {
                 if (this.portalIn.position.y - block.position.y > 70) {
                     // block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, 0.05);
                     const accel = Phaser.Point.subtract(this.portalIn.position, block.position);
@@ -219,7 +219,7 @@ class PlayState extends Phaser.State {
     }
 
     blockOverlap(portal, block) {
-        if (!block.data.captured && block.data.blockName == 'CVE' && portal.data.hasVuln) {
+        if (!block.data.captured && block.data.name == 'CVE' && portal.data.hasVuln) {
             console.log("[play] CVE Cleared VULN");
             portal.data.hasVuln = false;
             portal.tint = 0xffffff;
@@ -227,7 +227,7 @@ class PlayState extends Phaser.State {
 
         if (!block.data.captured && !portal.data.hasVuln && (portal.position.y > block.position.y)) {
             // If captured vuln, disable portal
-            if (block.data.blockName == 'Shellshock') {
+            if (block.data.name == 'Shellshock') {
                 console.log("[play] !!!!Captured VULN!!!!");
                 portal.data.hasVuln = true;
                 block.data.captured = true;
@@ -289,7 +289,7 @@ class PlayState extends Phaser.State {
 
         this.emitCapturedBlock(block);
 
-        if (block.data.blockName == 'Lunch') {
+        if (block.data.name == 'Lunch') {
             console.log("[play] Lunch Boost!");
             this.scoreMultiplier = 2;
         }
@@ -297,7 +297,7 @@ class PlayState extends Phaser.State {
         this.score += 100 * this.scoreMultiplier;
         this.scoreText.setText('Score: ' + this.score);
 
-        console.log(`[play] captured block: ${block.data.blockName}`);
+        console.log(`[play] captured block: ${block.data.name}`);
 
         block.destroy(true);
     }
@@ -330,7 +330,7 @@ class PlayState extends Phaser.State {
         let timer = config.COFFEE_DELAY_MS;
 
         for (let block of this.day.dayBlocks) {
-            this.game.time.events.add(timer, () => this.blockAppear(block.name), this);
+            this.game.time.events.add(timer, () => this.blockAppear(block), this);
             timer += block.delay;
         }
 
@@ -340,42 +340,42 @@ class PlayState extends Phaser.State {
         this.game.time.events.add(timer, this.gameEnd, this);
     }
 
-    blockAppear(blockName) {
-        console.log(`[play] now falling: ${blockName}`);
-        const block = this.game.add.sprite(0, 0, `${blockName}-sprite`);
+    blockAppear(block) {
+        console.log(`[play] now falling: ${block.name}`);
+        const blockSprite = this.game.add.sprite(0, 0, `${block.name}-sprite`);
 
         // attach a name to the block sprite
-        block.data.blockName = blockName;
-        block.data.state = 'appearing';
+        blockSprite.data = block;
+        blockSprite.data.state = 'appearing';
 
         // if this block gets caught by the portal, set up how much it should rotate
         // const randomness = config.BLOCK_CAPTURE_ROTATION * config.BLOCK_CAPTURE_ROTATION_RANDOMNESS;
         // block.data.captureRotation = config.BLOCK_CAPTURE_ROTATION + (Math.random() * randomness - randomness / 2 );
 
-        this.blockSprites.push(block);
-        this.game.physics.arcade.enableBody(block);
+        this.blockSprites.push(blockSprite);
+        this.game.physics.arcade.enableBody(blockSprite);
 
-        block.anchor.set(0.5, 0.5);
-        block.position.x = block.width*2 + config.SIDE_CHAMBER_WIDTH + (this.game.world.width - config.SIDE_CHAMBER_WIDTH*2 - block.width*4) * Math.random();
-        block.position.y = Math.random() * 120 + 40;
+        blockSprite.anchor.set(0.5, 0.5);
+        blockSprite.position.x = blockSprite.width*2 + config.SIDE_CHAMBER_WIDTH + (this.game.world.width - config.SIDE_CHAMBER_WIDTH*2 - blockSprite.width*4) * Math.random();
+        blockSprite.position.y = Math.random() * 120 + 40;
 
         // set up and execute an entry animation
 
-        const anim = Animations[blockName];
+        const anim = Animations[block.name];
 
         let endRotation = anim.Appear.Rotation.End;
-        if (blockName === 'Shellshock') {
+        if (block.name === 'Shellshock') {
             // end rotation is dynamic for vulns; we want it to point toward the player right away
-            endRotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
+            endRotation = this.game.physics.arcade.angleToXY(blockSprite, this.portalIn.position.x, this.portalIn.position.y);
         }
 
-        block.alpha = 0;
-        block.rotation = anim.Appear.Rotation.Start;
-        block.scale.set(anim.Appear.Scale.Start, anim.Appear.Scale.Start);
+        blockSprite.alpha = 0;
+        blockSprite.rotation = anim.Appear.Rotation.Start;
+        blockSprite.scale.set(anim.Appear.Scale.Start, anim.Appear.Scale.Start);
 
-        // block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
+        // blockSprite.rotation = this.game.physics.arcade.angleToXY(blockSprite, this.portalIn.position.x, this.portalIn.position.y);
         const entryTween = this.game.add
-            .tween(block)
+            .tween(blockSprite)
             .to(
                 {
                     alpha: 1,
@@ -385,10 +385,10 @@ class PlayState extends Phaser.State {
                 Phaser.Easing.Linear.None,
                 true
             );
-        entryTween.onComplete.add(() => this.blockFall(block), this);
+        entryTween.onComplete.add(() => this.blockFall(blockSprite), this);
 
         const scaleTween = this.game.add
-            .tween(block.scale)
+            .tween(blockSprite.scale)
             .to(
                 {
                     x: anim.Appear.Scale.End,
@@ -404,7 +404,7 @@ class PlayState extends Phaser.State {
         block.body.gravity.y = 300;
         block.data.state = 'falling';
 
-        switch (block.data.blockName) {
+        switch (block.data.name) {
             case 'Shellshock':
                 // make vulns fall faster
                 // block.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY * 1.5;
