@@ -20,7 +20,7 @@ const config = Object.freeze({
     COFFEE_DELAY_MS: 200,
 
     // how long the "day" lasts
-    DAY_DURATION_MS: 45000,
+    DAY_DURATION_MS: 60000,
 
     // how long to wait after the day ends before going back to title screen
     END_DURATION_MS: 5000,
@@ -28,8 +28,12 @@ const config = Object.freeze({
     // what fraction of BLOCK_INTERVAL_MS should vary randomly
     BLOCK_INTERVAL_RANDOMNESS: 0.2,
 
-    // base velocity of falling blocks
-    BLOCK_SKYFALL_BASE_VELOCITY: 300,
+    // gravity applied to falling blocks
+    BLOCK_GRAVITY: 300,
+
+    // velocity and gravity applied to blocks once they fall into the well of knowledge
+    BLOCK_VELOCITY_SINKING: 30,
+    BLOCK_GRAVITY_SINKING: 60,
 
     // how quickly should events rotate when caught in the portal (degres)
     BLOCK_CAPTURE_ROTATION: 360,

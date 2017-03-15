@@ -90,8 +90,9 @@ class Day {
 Day.blockTypes = [
     'PCM',
     'ContainerCatalog',
+    'PackageSearch',
+
     'Documentation',
     'Labs',
     'Discussions',
-    'PackageSearch',
 ];

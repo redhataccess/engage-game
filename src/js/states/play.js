@@ -134,14 +134,14 @@ class PlayState extends Phaser.State {
         // splash viz
         this.splashEmitter = game.add.emitter(0, 0, 400);
         this.splashEmitter.makeParticles('square-blue1');
-        this.splashEmitter.gravity = 200;
+        this.splashEmitter.gravity = config.BLOCK_GRAVITY;
         this.splashEmitter.width = 20;
         this.splashEmitter.minParticleScale = 0.10;
         this.splashEmitter.maxParticleScale = 0.10;
         // this.splashEmitter.minParticleSpeed = 10;
         // this.splashEmitter.maxParticleSpeed = 100;
         this.splashEmitter.setXSpeed(-30, 30);
-        this.splashEmitter.setYSpeed(-80, -120);
+        this.splashEmitter.setYSpeed(-100, -130);
     }
 
     /* update functions */
@@ -223,13 +223,13 @@ class PlayState extends Phaser.State {
                 );
 
             // make block bob and sink
-            block.body.velocity.set(0, 30); // bob
-            block.body.gravity.set(0, 60); // sink
+            block.body.velocity.set(0, config.BLOCK_VELOCITY_SINKING); // bob
+            block.body.gravity.set(0, config.BLOCK_GRAVITY_SINKING); // sink
 
             // splash
             this.splashEmitter.x = block.position.x;
             this.splashEmitter.y = well.top;
-            this.splashEmitter.start(true, 1300, null, 14);
+            this.splashEmitter.start(true, 1300, null, 20);
 
             // remove the block from the game after it's had time to sink
             this.game.time.events.add(1000, () => block.destroy(true), this);
@@ -332,7 +332,7 @@ class PlayState extends Phaser.State {
         newBlock.anchor.set(0.5, 0.5);
         this.game.physics.arcade.enableBody(newBlock);
         newBlock.position.set(this.rnd.between(40, config.SIDE_CHAMBER_WIDTH - 40), 40);
-        newBlock.body.gravity.y = 200;
+        newBlock.body.gravity.y = config.BLOCK_GRAVITY;
         newBlock.body.velocity.copyFrom(inBlock.body.velocity.clone());
         newBlock.body.drag.set(0, 0);
         newBlock.body.collideWorldBounds = true;
@@ -422,7 +422,7 @@ class PlayState extends Phaser.State {
     }
 
     blockFall(block) {
-        block.body.gravity.y = 300;
+        block.body.gravity.y = config.BLOCK_GRAVITY;
         block.data.state = 'falling';
 
         if (block.data.bonus) {
