@@ -2,29 +2,27 @@ class Day {
     constructor() {
         this.rnd = new Phaser.RandomDataGenerator();
         this.dayBlocks = [];
-        this.delay = 2000;
 
         this.populateRandomBlocks();
         this.addVulns();
         this.addCoffee();
         this.addLunch();
+
+        this.calculateTimings();
     }
 
     addEvent({
         name='NamelessEvent',
-        delay=this.delay,
         index=this.dayBlocks.length,
+        timing=0,
+        delay=0,
         bonus=false,
     } = {}) {
-        // make blocks fall faster over time
-        this.delay = Math.max(150, this.delay - 50);
-
         // insert the event
-        this.dayBlocks.splice(index, 0, { name, delay, index, bonus });
+        this.dayBlocks.splice(index, 0, { name, timing, index, bonus, delay });
     }
 
     populateRandomBlocks() {
-        console.log(this.test);
         for (let i = 0; i < config.BLOCKS_PER_DAY; i++) {
             const name = Day.blockTypes[ this.rnd.between(0, Day.blockTypes.length - 1) ];
             this.addEvent({ name });
@@ -50,11 +48,35 @@ class Day {
     }
 
     addCoffee() {
-        this.addEvent({ name: 'Coffee', index: 0 });
+        this.addEvent({ name: 'Coffee', index: 0, delay: 2000 });
     }
 
     addLunch() {
         this.addEvent({ name: 'Lunch', index: Math.ceil(this.dayBlocks.length/2) });
+    }
+
+    getTiming(i) {
+        // https://www.desmos.com/calculator/u2fjoyupeb
+        // const x0 = 0;
+        // const y0 = 0;
+        // const x1 = this.dayBlocks.length;
+        // const y1 = config.DAY_DURATION_MS;
+        // return y0 + (i - x0) * (y1 - y0) / (x1 - x0);
+        const easingFactor = Phaser.Easing.Exponential.Out(i / (this.dayBlocks.length - 1));
+        return easingFactor * config.DAY_DURATION_MS;
+    }
+
+    calculateTimings() {
+        let delay = 0;
+        this.dayBlocks.forEach((block, i) => {
+            // scale down the delay the closer we get to the end, so as not to
+            // go  over the DAY_DURATION_MS, so as not to make the game last
+            // longer than DAY_DURATION_MS.
+            const delayScale = 1 - i / (this.dayBlocks.length - 1);
+            block.timing = block.timing || this.getTiming(i);
+            block.timing += delay * delayScale;
+            delay += block.delay;
+        });
     }
 }
 

@@ -5,6 +5,7 @@ class PlayState extends Phaser.State {
         this.scoreMultiplier = 1;
 
         this.createScoreUI();
+        this.createTimeUI();
 
         this.createControlPosition();
         this.createPortalIn();
@@ -16,6 +17,7 @@ class PlayState extends Phaser.State {
         this.createSplash();
         this.hidePortals();
         this.startDay();
+        this.startTime();
     }
 
     update() {
@@ -23,6 +25,7 @@ class PlayState extends Phaser.State {
         this.updatePortalPosition();
         this.updatePlayerLeapControls();
         this.updateVulnPositions();
+        this.updateTimeUI();
     }
 
     render() {
@@ -35,13 +38,25 @@ class PlayState extends Phaser.State {
         // this.game.debug.body(this.portalIn);
     }
 
+    shutdown() {
+        const elapsedTime = new Date().getTime() - this.startTimestamp;
+        console.log(`[play] day lasted ${(elapsedTime / 1000).toFixed(0)} seconds`);
+    }
+
     /* create functions */
 
     createScoreUI() {
         let style = { font: "28px Monospace", fill: "#ffffff", align: "center" };
-        this.scoreText = game.add.text(game.world.centerX, 16, "", style);
-        this.scoreText.anchor.set(0.5);
+        this.scoreText = game.add.text(game.world.centerX, 4, "", style);
+        this.scoreText.anchor.set(0.5, 0);
         this.scoreText.setText('Score: 0');
+    }
+
+    createTimeUI() {
+        let style = { font: "28px Monospace", fill: "#ffffff", align: "center" };
+        this.timeText = game.add.text(game.world.width - config.SIDE_CHAMBER_WIDTH - 48, 4, "", style);
+        this.timeText.anchor.set(0, 0);
+        this.timeText.setText('0s');
     }
 
     createPortalIn() {
@@ -134,7 +149,7 @@ class PlayState extends Phaser.State {
     updatePlayerLeapControls() {
         if (typeof this.game.data.leap.palmX === 'number') {
             const leapX = 1000*(this.game.data.leap.palmX + 130) / 300;
-            console.log(`leap X pos: ${leapX}`);
+            console.log(`[play] leap X pos: ${leapX}`);
             this.controlPosition.set(leapX);
             this.showPortals();
         }
@@ -177,6 +192,10 @@ class PlayState extends Phaser.State {
                 }
             }
         }
+    }
+
+    updateTimeUI() {
+        this.timeText.setText(((new Date().getTime() - this.startTimestamp) / 1000).toFixed(0));
     }
 
     /* misc functions */
@@ -327,17 +346,17 @@ class PlayState extends Phaser.State {
         this.day = new Day();
         this.createPlayerControls();
 
-        let timer = config.COFFEE_DELAY_MS;
+        let delay = 0;
 
         for (let block of this.day.dayBlocks) {
-            this.game.time.events.add(timer, () => this.blockAppear(block), this);
-            timer += block.delay;
+            this.game.time.events.add(block.timing + delay, () => this.blockAppear(block), this);
+            delay += block.delay;
         }
 
-        console.log(`[play] this day will last ${(timer/1000).toFixed(2)} seconds`);
+        console.log(`[play] this day will last ${(delay + config.DAY_DURATION_MS).toFixed(2)} seconds`);
 
         // add game end timer
-        this.game.time.events.add(timer, this.gameEnd, this);
+        this.game.time.events.add(config.DAY_DURATION_MS + delay, this.gameEnd, this);
     }
 
     blockAppear(block) {
@@ -417,6 +436,10 @@ class PlayState extends Phaser.State {
             default:
                 block.body.velocity.y = 0; //config.BLOCK_SKYFALL_BASE_VELOCITY;
         }
+    }
+
+    startTime() {
+        this.startTimestamp = new Date().getTime();
     }
 
     gameEnd() {

@@ -19,8 +19,11 @@ const config = Object.freeze({
     // how long to wait after game begins before first event falls from sky
     COFFEE_DELAY_MS: 200,
 
-    // how long to wait between events falling from sky
-    BLOCK_INTERVAL_MS: 200,
+    // how long the "day" lasts
+    DAY_DURATION_MS: 45000,
+
+    // how long to wait after the day ends before going back to title screen
+    END_DURATION_MS: 5000,
 
     // what fraction of BLOCK_INTERVAL_MS should vary randomly
     BLOCK_INTERVAL_RANDOMNESS: 0.2,
