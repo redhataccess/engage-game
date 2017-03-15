@@ -302,18 +302,20 @@ class PlayState extends Phaser.State {
     }
 
     blockCaptured(portal, block) {
-        // const newBlock = block.clone();
-        // newBlock.position.set(40, 40);
-        // this.game.add.existing(newBlock);
-
         this.emitCapturedBlock(block);
+
+        let scoreValue = 100;
 
         if (block.data.name == 'Lunch') {
             console.log("[play] Lunch Boost!");
             this.scoreMultiplier = 2;
+            this.game.time.events.add(config.LUNCH_BOOST_DURATION, () => this.scoreMultiplier = 1, this);
+        }
+        else if (block.data.bonus) {
+            scoreValue = 1000;
         }
 
-        this.score += 100 * this.scoreMultiplier;
+        this.score += scoreValue * this.scoreMultiplier;
         this.scoreText.setText('Score: ' + this.score);
 
         console.log(`[play] captured block: ${block.data.name}`);
@@ -422,6 +424,11 @@ class PlayState extends Phaser.State {
     blockFall(block) {
         block.body.gravity.y = 300;
         block.data.state = 'falling';
+
+        if (block.data.bonus) {
+            block.tint = 0xffff00;
+            console.log('[Play] Bonus block falling')
+        }
 
         switch (block.data.name) {
             case 'Shellshock':

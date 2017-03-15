@@ -25,7 +25,14 @@ class Day {
     populateRandomBlocks() {
         for (let i = 0; i < config.BLOCKS_PER_DAY; i++) {
             const name = Day.blockTypes[ this.rnd.between(0, Day.blockTypes.length - 1) ];
-            this.addEvent({ name });
+            if (i % 3 == 0) { //TODO: make this more random
+                const bonus = true;
+                this.addEvent({ name,  bonus});
+            }
+            else {
+                this.addEvent({ name });
+            }
+
         }
     }
 

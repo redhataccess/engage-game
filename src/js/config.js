@@ -63,4 +63,7 @@ const config = Object.freeze({
     WELL_FILL_PER_BLOCK: 0.003,
     WELL_FILL_DURATION_MS: 100, // how long it takes to tween height after each splashdown
 
+    // How long the lunch score multiplier bonus will last
+    LUNCH_BOOST_DURATION: 7000,
+
 });
