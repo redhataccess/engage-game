@@ -369,6 +369,11 @@ class PlayState extends Phaser.State {
         blockSprite.data = block;
         blockSprite.data.state = 'appearing';
 
+        if (blockSprite.data.bonus) {
+            blockSprite.tint = 0xffff00;
+            console.log(`[play] bonus ${blockSprite.data.name} block falling`)
+        }
+
         // if this block gets caught by the portal, set up how much it should rotate
         // const randomness = config.BLOCK_CAPTURE_ROTATION * config.BLOCK_CAPTURE_ROTATION_RANDOMNESS;
         // block.data.captureRotation = config.BLOCK_CAPTURE_ROTATION + (Math.random() * randomness - randomness / 2 );
@@ -424,11 +429,6 @@ class PlayState extends Phaser.State {
     blockFall(block) {
         block.body.gravity.y = config.BLOCK_GRAVITY;
         block.data.state = 'falling';
-
-        if (block.data.bonus) {
-            block.tint = 0xffff00;
-            console.log('[Play] Bonus block falling')
-        }
 
         switch (block.data.name) {
             case 'Shellshock':
