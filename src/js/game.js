@@ -1,8 +1,8 @@
 class Game extends Phaser.Game {
     constructor() {
         super(
-            1440, //window.innerWidth,
-            810, //window.innerHeight,
+            1920,
+            1080,
             Phaser.AUTO,
             'phaser-engage',
             null,
