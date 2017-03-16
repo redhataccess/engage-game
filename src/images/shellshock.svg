@@ -16,7 +16,7 @@
    viewBox="0 0 10.84834 13.233353"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.0 r"
+   inkscape:version="0.92.1 r"
    sodipodi:docname="shellshock.svg"
    inkscape:export-filename="/home/mclayton/workspace/engage/src/images/cve.png"
    inkscape:export-xdpi="1808.04"
@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="8.1948021"
-     inkscape:cx="36.999062"
-     inkscape:cy="24.901407"
+     inkscape:zoom="11.313709"
+     inkscape:cx="18.578673"
+     inkscape:cy="24.12823"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -259,7 +259,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -282,7 +282,7 @@
        sodipodi:nodetypes="cccccccccccccc"
        inkscape:connector-curvature="0"
        id="path4552"
-       d="m 146.36592,99.885215 h -8.78261 v 1.322915 h 0.43913 v 0.87996 h -0.43913 l 0.0234,6.40411 c 0.56126,1.98942 2.63348,3.56385 5.26828,4.3576 2.52361,-1.65365 3.42479,-3.09232 3.49094,-4.49792 v -6.64049 h -7.99591 v -0.38911 h 7.99591 z"
+       d="m 146.36592,99.885215 h -8.78261 v 1.322915 h 0.43913 v 0.87996 h -0.43913 l 0.0234,6.40411 c 0.56126,1.98942 2.63348,3.56385 5.26828,4.3576 2.52361,-1.65365 3.42479,-3.09232 3.49094,-4.49792 l -0.004,-6.88854 h -8.19469 v -0.38911 h 8.19469 z"
        style="fill:url(#linearGradient4554);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.24140505;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" />
     <text
        xml:space="preserve"
@@ -322,5 +322,13 @@
          y="107.72768"
          x="138.01146"
          sodipodi:role="line">SHOCK</tspan></text>
+    <path
+       inkscape:export-ydpi="187.31"
+       inkscape:export-xdpi="187.31"
+       sodipodi:nodetypes="cccccccccccccc"
+       inkscape:connector-curvature="0"
+       id="path4538"
+       d="m 137.58332,99.885215 h 10.58334 v 1.322915 h -0.52917 v 0.87996 h 0.52917 v 6.26379 c 0,1.32292 -2.11667,3.70417 -5.29167,4.49792 -3.43958,-0.79375 -5.29167,-3.175 -5.29167,-4.49792 v -6.26379 h 0.52917 v -0.87996 h -0.52917 z"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#680000;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" />
   </g>
 </svg>
