@@ -324,7 +324,7 @@ class PlayState extends Phaser.State {
                     .tween(block)
                     .to(
                         { alpha: 0 },
-                        90,
+                        200,
                         Phaser.Easing.Linear.None,
                         true
                     );
