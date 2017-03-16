@@ -27,15 +27,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="89.744302"
-     inkscape:cy="62.303208"
+     inkscape:zoom="4"
+     inkscape:cx="99.441041"
+     inkscape:cy="89.106697"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1080"
-     inkscape:window-x="1920"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      fit-margin-top="0"
@@ -284,7 +284,7 @@
        inkscape:export-xdpi="44"
        inkscape:export-ydpi="44" />
     <path
-       style="fill:#ad9976;fill-opacity:1;fill-rule:evenodd;stroke:#6c5b3d;stroke-width:0.45924905;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.55800009;stroke-opacity:1;paint-order:normal"
+       style="fill:#eace9e;fill-opacity:1;fill-rule:evenodd;stroke:#6c5b3d;stroke-width:0.45924905;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.55800009;stroke-opacity:1;paint-order:normal"
        d="m 125.13661,84.834365 c 0.80246,0.0094 23.81591,-0.02923 35.73391,-0.02923 v 43.939595 c -11.72308,0.1055 -34.14062,-0.009 -35.73683,0 -0.79415,0 -1.32359,-0.48823 -1.32359,-1.22055 V 86.025677 c 0,-0.732327 0.53236,-1.191312 1.32651,-1.191312 z"
        id="rect5660"
        inkscape:connector-curvature="0"
@@ -292,7 +292,7 @@
        inkscape:export-xdpi="44"
        inkscape:export-ydpi="44" />
     <path
-       style="fill:#958059;fill-opacity:1;fill-rule:evenodd;stroke:#6c5b3d;stroke-width:0.45924905;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.55800009;stroke-opacity:1;paint-order:normal"
+       style="fill:#907647;fill-opacity:1;fill-rule:evenodd;stroke:#6c5b3d;stroke-width:0.45924905;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.55800009;stroke-opacity:1;paint-order:normal"
        d="m 127.52596,84.832205 c -0.38579,-1.47e-4 -2.31953,0.0029 -2.38951,0.0021 -0.79415,0 -1.32654,0.459332 -1.32654,1.191659 V 129.062 c 1.50868,0.0643 2.29312,-0.31475 3.71605,-0.3112 z"
        id="path7661"
        inkscape:connector-curvature="0"
@@ -317,7 +317,7 @@
        inkscape:export-ydpi="44" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12.92463303px;line-height:8.07789612px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#d7eaff;fill-opacity:1;stroke:none;stroke-width:0.423;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.98031497;stroke-miterlimit:4;stroke-dasharray:none;"
+       style="font-style:normal;font-weight:normal;font-size:12.92463303px;line-height:8.07789612px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#3e2f00;fill-opacity:1;stroke:none;stroke-width:0.423;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.98031497;stroke-miterlimit:4;stroke-dasharray:none;"
        x="125.17176"
        y="108.09721"
        id="text7655"
@@ -328,7 +328,7 @@
          id="tspan7653"
          x="125.17176"
          y="108.09721"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:oswald;-inkscape-font-specification:oswald;fill:#d7eaff;fill-opacity:1;stroke-width:0.423;stroke:none;stroke-opacity:0.98031497;stroke-miterlimit:4;stroke-dasharray:none;">DOCS</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:oswald;-inkscape-font-specification:oswald;fill:#3e2f00;fill-opacity:1;stroke-width:0.423;stroke:none;stroke-opacity:0.98031497;stroke-miterlimit:4;stroke-dasharray:none;">DOCS</tspan></text>
     <path
        inkscape:connector-curvature="0"
        style="fill:#f1ede7;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.43404943;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.55800009;stroke-opacity:1;paint-order:normal"
