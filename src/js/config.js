@@ -46,7 +46,7 @@ const config = Object.freeze({
 
     // how quickly to move the player's portal to where the controls are
     // (lerped)
-    CONTROL_RESPONSIVENESS: 0.6,
+    CONTROL_RESPONSIVENESS: 1.0,
 
     // how long to wait after game over before restarting
     GAME_OVER_RESTART_DURATION_MS: 4 * Phaser.Timer.SECOND,
