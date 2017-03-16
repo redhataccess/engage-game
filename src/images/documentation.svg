@@ -10,9 +10,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="54.071011mm"
-   height="50.690556mm"
-   viewBox="0 0 54.071011 50.690555"
+   width="37.519939mm"
+   height="46.031342mm"
+   viewBox="0 0 37.51994 46.031341"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.1 r"
@@ -28,15 +28,15 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="4"
-     inkscape:cx="99.441041"
-     inkscape:cy="89.106697"
+     inkscape:cx="73.153968"
+     inkscape:cy="93.836071"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1080"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-height="1053"
+     inkscape:window-x="1920"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -55,8 +55,8 @@
     <inkscape:grid
        id="grid4546"
        type="xygrid"
-       originx="-114.23617"
-       originy="-164.57008" />
+       originx="-123.58022"
+       originy="-166.39294" />
   </sodipodi:namedview>
   <defs
      id="defs2">
@@ -266,7 +266,7 @@
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1"
-     transform="translate(-114.23616,-81.739163)">
+     transform="translate(-123.58021,-84.57551)">
     <path
        style="fill:url(#linearGradient4571);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.45313105;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.55800009;stroke-opacity:1;paint-order:normal"
        d="m 125.62623,85.694362 c 0.77852,0.0094 23.10574,-0.02933 34.66835,-0.02933 v 44.091448 c -11.37351,0.10585 -33.12258,-0.009 -34.67119,0 -0.77047,0 -1.28412,-0.48992 -1.28412,-1.22477 V 86.889791 c 0,-0.734857 0.51648,-1.195429 1.28696,-1.195429 z"
@@ -317,7 +317,7 @@
        inkscape:export-ydpi="44" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12.92463303px;line-height:8.07789612px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#3e2f00;fill-opacity:1;stroke:none;stroke-width:0.423;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.98031497;stroke-miterlimit:4;stroke-dasharray:none;"
+       style="font-style:normal;font-weight:normal;font-size:12.92463303px;line-height:8.07789612px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#3e2f00;fill-opacity:1;stroke:none;stroke-width:0.42300001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.98031497"
        x="125.17176"
        y="108.09721"
        id="text7655"
@@ -328,7 +328,7 @@
          id="tspan7653"
          x="125.17176"
          y="108.09721"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:oswald;-inkscape-font-specification:oswald;fill:#3e2f00;fill-opacity:1;stroke-width:0.423;stroke:none;stroke-opacity:0.98031497;stroke-miterlimit:4;stroke-dasharray:none;">DOCS</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:oswald;-inkscape-font-specification:oswald;fill:#3e2f00;fill-opacity:1;stroke:none;stroke-width:0.42300001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.98031497">DOCS</tspan></text>
     <path
        inkscape:connector-curvature="0"
        style="fill:#f1ede7;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.43404943;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.55800009;stroke-opacity:1;paint-order:normal"
