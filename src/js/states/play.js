@@ -4,6 +4,7 @@ class PlayState extends Phaser.State {
         this.score = 0;
         this.scoreMultiplier = 1;
 
+        this.startTime();
         this.createScoreUI();
         this.createTimeUI();
 
@@ -17,15 +18,16 @@ class PlayState extends Phaser.State {
         this.createSplash();
         this.hidePortals();
         this.startDay();
-        this.startTime();
     }
 
     update() {
+        this.updateTime();
+        this.updateTimeUI();
+
         this.handleCollisions();
         this.updatePortalPosition();
         this.updatePlayerLeapControls();
         this.updateVulnPositions();
-        this.updateTimeUI();
     }
 
     render() {
@@ -194,8 +196,12 @@ class PlayState extends Phaser.State {
         }
     }
 
+    updatePlayTime() {
+        this.updateTimestamp = new Date().getTime();
+    }
+
     updateTimeUI() {
-        this.timeText.setText(((new Date().getTime() - this.startTimestamp) / 1000).toFixed(0));
+        this.timeText.setText(((this.updateTimestamp - this.startTimestamp) / 1000).toFixed(0));
     }
 
     /* misc functions */
@@ -348,17 +354,24 @@ class PlayState extends Phaser.State {
         this.day = new Day();
         this.createPlayerControls();
 
-        let delay = 0;
+        this.game.time.events.loop(config.BLOCK_DROP_MIN_INTERVAL_MS, this.blockDropCheck, this);
 
-        for (let block of this.day.dayBlocks) {
-            this.game.time.events.add(block.timing + delay, () => this.blockAppear(block), this);
-            delay += block.delay;
-        }
+        // let delay = 0;
 
-        console.log(`[play] this day will last ${(delay + config.DAY_DURATION_MS).toFixed(2)} seconds`);
+        // for (let block of this.day.dayBlocks) {
+        //     this.game.time.events.add(block.timing + delay, () => this.blockAppear(block), this);
+        //     delay += block.delay;
+        // }
+
+        // console.log(`[play] this day will last ${(delay + config.DAY_DURATION_MS).toFixed(2)} seconds`);
 
         // add game end timer
-        this.game.time.events.add(config.DAY_DURATION_MS + delay, this.gameEnd, this);
+        // this.game.time.events.add(config.DAY_DURATION_MS + delay, this.gameEnd, this);
+    }
+
+    blockDropCheck() {
+        const progress = ( this.updateTimestamp - this.startTimestamp ) /  config.DAY_DURATION_MS;
+        console.log(`[play] progress: ${progress}`);
     }
 
     blockAppear(block) {

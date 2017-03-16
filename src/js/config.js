@@ -31,6 +31,9 @@ const config = Object.freeze({
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 300,
 
+    // minimum interval between dropping blocks
+    BLOCK_DROP_MIN_INTERVAL_MS: 100,
+
     // velocity and gravity applied to blocks once they fall into the well of knowledge
     BLOCK_VELOCITY_SINKING: 30,
     BLOCK_GRAVITY_SINKING: 60,
@@ -43,6 +46,9 @@ const config = Object.freeze({
 
     // how quickly should the event drift into the center of the portal
     BLOCK_CAPTURE_DURATION_MS: 1337,
+
+    // how likely any random block is to be a bonus block
+    BONUS_BLOCK_PROBABILITY: 0.05,
 
     // how quickly to move the player's portal to where the controls are
     // (lerped)
