@@ -6,7 +6,8 @@ class LeapController {
                 // data.leapFrame = frame;
                 try {
                     this.lastPalmX = this.palmX;
-                    this.palmX = frame.hands[0].stabilizedPalmPosition[0];
+                    this.palmX = frame.hands[0].palmPosition[0];
+                    // this.palmX = frame.hands[0].stabilizedPalmPosition[0];
                     this.moveCallbacks.forEach(cb => cb(this));
                 } catch (e) {
                     this.lastPalmX = this.palmX;
