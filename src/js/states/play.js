@@ -10,6 +10,7 @@ class PlayState extends Phaser.State {
 
         this.createControlPosition();
         this.createPortalIn();
+        this.createPortalInBorders();
         this.createPortalOut();
         this.createBlockSpriteArray();
         this.createCapturedBlockSpriteArray();
@@ -25,6 +26,7 @@ class PlayState extends Phaser.State {
         this.updateTimeUI();
 
         this.handleCollisions();
+        // this.updatePortalSpin();
         this.updatePortalPosition();
         this.updatePlayerLeapControls();
         this.updateVulnPositions();
@@ -65,12 +67,30 @@ class PlayState extends Phaser.State {
         console.log('[play] creating portal-in');
         this.portalIn = this.game.add.sprite(0, 0, 'portal-in');
         this.game.physics.arcade.enableBody(this.portalIn);
-        // this.portalIn.body.immovable = true;
-        this.portalIn.anchor.set(0.5, 1.0);
-        this.portalIn.scale.set(0.6, 0.6);
-        this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING);
+        this.portalIn.anchor.set(0.5, 0.5);
+        this.portalIn.scale.set(0.8, 0.3);
+        this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING - this.portalIn.height / 2);
         this.portalSinkPosition = { x: 0, y: 0 }; // location captured blocks are tweened to
         this.portalIn.data.hasVuln = false;
+        this.portalInBorder1Angle = 0;
+        this.portalInBorder2Angle = 0;
+    }
+
+    createPortalInBorders() {
+        // create spinning border 1
+        this.portalInBorder1 = this.game.add.sprite(0, 0, 'portal-in-spin1');
+        this.portalInBorder1.anchor.set(0.5, 0.5);
+        this.portalInBorder1.angle = this.portalInBorder1Angle;
+        this.portalInBorder1.scale.set(0.8, 0.3);
+        this.portalInBorder1.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING - this.portalIn.height / 2);
+        this.portalInBorder1.moveDown();
+        // create spinning border 2
+        this.portalInBorder2 = this.game.add.sprite(0, 0, 'portal-in-spin2');
+        this.portalInBorder2.anchor.set(0.5, 0.5);
+        this.portalInBorder2.angle = this.portalInBorder2Angle;
+        this.portalInBorder2.scale.set(0.8, 0.3);
+        this.portalInBorder2.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING - this.portalIn.height / 2);
+        this.portalInBorder2.moveDown();
     }
 
     createPortalOut() {
@@ -150,7 +170,7 @@ class PlayState extends Phaser.State {
 
     updatePlayerLeapControls() {
         if (typeof this.game.data.leap.palmX === 'number') {
-            const leapX = 1000*(this.game.data.leap.palmX + 130) / 300;
+            const leapX = 1000*(this.game.data.leap.palmX + 280) / 300;
             console.log(`[play] leap X pos: ${leapX}`);
             this.controlPosition.set(leapX);
             this.showPortals();
@@ -169,11 +189,25 @@ class PlayState extends Phaser.State {
         this.portalIn.position.copyFrom(dest);
 
         // collide with walls
-        this.portalIn.position.x = Math.max(config.SIDE_CHAMBER_WIDTH + this.portalIn.width/2 + this.leftWall.width, this.portalIn.position.x);
-        this.portalIn.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalIn.width/2, this.portalIn.position.x);
+        this.portalIn.position.x = Math.max(config.SIDE_CHAMBER_WIDTH + this.portalInBorder1.width/2 + this.leftWall.width, this.portalIn.position.x);
+        this.portalIn.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalInBorder1.width/2, this.portalIn.position.x);
+        this.portalInBorder1.position.x = Math.max(config.SIDE_CHAMBER_WIDTH + this.portalIn.width/2 + this.leftWall.width, this.portalIn.position.x);
+        this.portalInBorder1.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalIn.width/2, this.portalIn.position.x);
+        this.portalInBorder2.position.x = Math.max(config.SIDE_CHAMBER_WIDTH + this.portalIn.width/2 + this.leftWall.width, this.portalIn.position.x);
+        this.portalInBorder2.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalIn.width/2, this.portalIn.position.x);
 
         this.portalSinkPosition.x = this.portalIn.position.x;
         this.portalSinkPosition.y = this.portalIn.position.y - this.portalIn.height / 4;
+    }
+
+    updatePortalSpin() {
+        this.portalInBorder1.destroy();
+        this.portalInBorder2.destroy();
+
+        this.portalInBorder1Angle += 1.01;
+        this.portalInBorder2Angle -= 1.02;
+
+        this.createPortalInBorders();
     }
 
     updateVulnPositions() {
@@ -296,7 +330,7 @@ class PlayState extends Phaser.State {
                     .tween(block)
                     .to(
                         { alpha: 0 },
-                        90,
+                        200,
                         Phaser.Easing.Linear.None,
                         true
                     );
