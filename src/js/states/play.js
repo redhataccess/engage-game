@@ -22,22 +22,23 @@ class PlayState extends Phaser.State {
     }
 
     update() {
+        this.updateTime();
+        this.updateTimeUI();
         this.handleCollisions();
-        // this.updatePortalSpin();
+        this.updatePortalSpin();
         this.updatePortalPosition();
         this.updatePlayerLeapControls();
         this.updateVulnPositions();
-        this.updateTimeUI();
     }
 
     render() {
-        // for (const block of this.capturedBlocks) {
-        //     this.game.debug.body(block);
-        // }
-        // for (const block of this.blockSprites) {
-        //     this.game.debug.body(block);
-        // }
-        // this.game.debug.body(this.portalIn);
+        for (const block of this.capturedBlocks) {
+            this.game.debug.body(block);
+        }
+        for (const block of this.blockSprites) {
+            this.game.debug.body(block);
+        }
+        this.game.debug.body(this.portalIn);
     }
 
     shutdown() {
@@ -61,34 +62,67 @@ class PlayState extends Phaser.State {
         this.timeText.setText('0s');
     }
 
+    applyPerspectiveFilter(sprite, rotate=false) {
+        const uniforms = {
+            uRotation: {
+                type: '1f',
+                value: 0.0,
+            },
+            uDim: {
+                type: 'v2',
+                value: [305, 305],
+            },
+        };
+        const filter = new Phaser.Filter(this.game, uniforms, this.game.cache.getShader('portal-perspective'));
+        filter.setResolution(sprite.width, sprite.height);
+        sprite.filters = [filter];
+
+        if (rotate) {
+            setInterval(() => {
+                filter.uniforms.uRotation.value += 0.02;
+                // filter.dirty = true;
+            }, 10);
+        }
+    }
+
     createPortalIn() {
         console.log('[play] creating portal-in');
         this.portalIn = this.game.add.sprite(0, 0, 'portal-in');
         this.game.physics.arcade.enableBody(this.portalIn);
         this.portalIn.anchor.set(0.5, 0.5);
-        this.portalIn.scale.set(0.8, 0.3);
+        // this.portalIn.scale.set(0.8, 0.3);
         this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING - this.portalIn.height / 2);
         this.portalSinkPosition = { x: 0, y: 0 }; // location captured blocks are tweened to
         this.portalIn.data.hasVuln = false;
-        this.portalInBorder1Angle = 0;
-        this.portalInBorder2Angle = 0;
+
+        this.applyPerspectiveFilter(this.portalIn, true);
     }
 
     createPortalInBorders() {
-        // create spinning border 1
-        this.portalInBorder1 = this.game.add.sprite(0, 0, 'portal-in-spin1');
+        // create three border sprites
+        this.portalInBorder1 = this.game.add.sprite(0, 0, 'portal-in-border1');
+        this.portalInBorder2 = this.game.add.sprite(0, 0, 'portal-in-border2');
+        this.portalInBorder3 = this.game.add.sprite(0, 0, 'portal-in-border3');
+
+        // anchor to center
         this.portalInBorder1.anchor.set(0.5, 0.5);
-        this.portalInBorder1.angle = this.portalInBorder1Angle;
-        this.portalInBorder1.scale.set(0.8, 0.3);
-        this.portalInBorder1.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING - this.portalIn.height / 2);
-        this.portalInBorder1.moveDown();
-        // create spinning border 2
-        this.portalInBorder2 = this.game.add.sprite(0, 0, 'portal-in-spin2');
         this.portalInBorder2.anchor.set(0.5, 0.5);
-        this.portalInBorder2.angle = this.portalInBorder2Angle;
-        this.portalInBorder2.scale.set(0.8, 0.3);
+        this.portalInBorder3.anchor.set(0.5, 0.5);
+
+        // place them
+        this.portalInBorder1.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING - this.portalIn.height / 2);
         this.portalInBorder2.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING - this.portalIn.height / 2);
+        this.portalInBorder3.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING - this.portalIn.height / 2);
+
+        // move them below the portal image
+        this.portalInBorder1.moveDown();
         this.portalInBorder2.moveDown();
+        this.portalInBorder3.moveDown();
+
+        // squash them
+        this.applyPerspectiveFilter(this.portalInBorder1);
+        this.applyPerspectiveFilter(this.portalInBorder2);
+        this.applyPerspectiveFilter(this.portalInBorder3);
     }
 
     createPortalOut() {
@@ -193,19 +227,17 @@ class PlayState extends Phaser.State {
         this.portalInBorder1.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalIn.width/2, this.portalIn.position.x);
         this.portalInBorder2.position.x = Math.max(config.SIDE_CHAMBER_WIDTH + this.portalIn.width/2 + this.leftWall.width, this.portalIn.position.x);
         this.portalInBorder2.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalIn.width/2, this.portalIn.position.x);
+        this.portalInBorder3.position.x = Math.max(config.SIDE_CHAMBER_WIDTH + this.portalIn.width/2 + this.leftWall.width, this.portalIn.position.x);
+        this.portalInBorder3.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalIn.width/2, this.portalIn.position.x);
 
         this.portalSinkPosition.x = this.portalIn.position.x;
         this.portalSinkPosition.y = this.portalIn.position.y - this.portalIn.height / 4;
     }
 
     updatePortalSpin() {
-        this.portalInBorder1.destroy();
-        this.portalInBorder2.destroy();
-
-        this.portalInBorder1Angle += 1.01;
-        this.portalInBorder2Angle -= 1.02;
-
-        this.createPortalInBorders();
+        // this.portalInBorder1.rotation = 2 * Math.PI * Math.sin(this.timePassed / 10000);
+        // this.portalInBorder2.rotation = 2 * Math.PI * Math.sin(this.timePassed / 20000);
+        // this.portalInBorder3.rotation = 2 * Math.PI * Math.sin(this.timePassed / 30000);
     }
 
     updateVulnPositions() {
@@ -228,8 +260,12 @@ class PlayState extends Phaser.State {
         }
     }
 
+    updateTime() {
+        this.timePassed = new Date().getTime() - this.startTimestamp;
+    }
+
     updateTimeUI() {
-        this.timeText.setText(((new Date().getTime() - this.startTimestamp) / 1000).toFixed(0));
+        this.timeText.setText((this.timePassed / 1000).toFixed(0));
     }
 
     /* misc functions */
