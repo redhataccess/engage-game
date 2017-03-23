@@ -11,7 +11,6 @@ class PlayState extends Phaser.State {
 
         this.createControlPosition();
         this.createPortalIn();
-        this.createPortalInBorders();
         this.createPortalOut();
         this.createBlockSpriteArray();
         this.createCapturedBlockSpriteArray();
@@ -69,29 +68,10 @@ class PlayState extends Phaser.State {
         this.portalIn = this.game.add.sprite(0, 0, 'portal-in');
         this.game.physics.arcade.enableBody(this.portalIn);
         this.portalIn.anchor.set(0.5, 0.5);
-        this.portalIn.scale.set(0.8, 0.3);
+        // this.portalIn.scale.set(0.8, 0.3);
         this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING - this.portalIn.height / 2);
         this.portalSinkPosition = { x: 0, y: 0 }; // location captured blocks are tweened to
         this.portalIn.data.hasVuln = false;
-        this.portalInBorder1Angle = 0;
-        this.portalInBorder2Angle = 0;
-    }
-
-    createPortalInBorders() {
-        // create spinning border 1
-        this.portalInBorder1 = this.game.add.sprite(0, 0, 'portal-in-spin1');
-        this.portalInBorder1.anchor.set(0.5, 0.5);
-        this.portalInBorder1.angle = this.portalInBorder1Angle;
-        this.portalInBorder1.scale.set(0.8, 0.3);
-        this.portalInBorder1.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING - this.portalIn.height / 2);
-        this.portalInBorder1.moveDown();
-        // create spinning border 2
-        this.portalInBorder2 = this.game.add.sprite(0, 0, 'portal-in-spin2');
-        this.portalInBorder2.anchor.set(0.5, 0.5);
-        this.portalInBorder2.angle = this.portalInBorder2Angle;
-        this.portalInBorder2.scale.set(0.8, 0.3);
-        this.portalInBorder2.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING - this.portalIn.height / 2);
-        this.portalInBorder2.moveDown();
     }
 
     createPortalOut() {
@@ -190,25 +170,11 @@ class PlayState extends Phaser.State {
         this.portalIn.position.copyFrom(dest);
 
         // collide with walls
-        this.portalIn.position.x = Math.max(config.SIDE_CHAMBER_WIDTH + this.portalInBorder1.width/2 + this.leftWall.width, this.portalIn.position.x);
-        this.portalIn.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalInBorder1.width/2, this.portalIn.position.x);
-        this.portalInBorder1.position.x = Math.max(config.SIDE_CHAMBER_WIDTH + this.portalIn.width/2 + this.leftWall.width, this.portalIn.position.x);
-        this.portalInBorder1.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalIn.width/2, this.portalIn.position.x);
-        this.portalInBorder2.position.x = Math.max(config.SIDE_CHAMBER_WIDTH + this.portalIn.width/2 + this.leftWall.width, this.portalIn.position.x);
-        this.portalInBorder2.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalIn.width/2, this.portalIn.position.x);
+        this.portalIn.position.x = Math.max(config.SIDE_CHAMBER_WIDTH + this.portalIn.width/2 + this.leftWall.width, this.portalIn.position.x);
+        this.portalIn.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalIn.width/2, this.portalIn.position.x);
 
         this.portalSinkPosition.x = this.portalIn.position.x;
         this.portalSinkPosition.y = this.portalIn.position.y - this.portalIn.height / 4;
-    }
-
-    updatePortalSpin() {
-        this.portalInBorder1.destroy();
-        this.portalInBorder2.destroy();
-
-        this.portalInBorder1Angle += 1.01;
-        this.portalInBorder2Angle -= 1.02;
-
-        this.createPortalInBorders();
     }
 
     updateVulnPositions() {
@@ -221,8 +187,6 @@ class PlayState extends Phaser.State {
                     const accel = Phaser.Point.subtract(this.portalIn.position, block.position);
                     accel.normalize();
                     accel.multiply(2000, 2000);
-                    // block.body.rotation = 180 / Math.PI * this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
-                    // block.body.rotation -= Math.PI;
                     block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
                     block.rotation -= Math.PI / 2;
                     block.body.acceleration.copyFrom(accel);
@@ -300,30 +264,7 @@ class PlayState extends Phaser.State {
                 );
                 block.data.relativeCapturePosition = relativePosition;
 
-                // if the block is overlapping the portal, make the object drift
-                // towards the center of the portal
                 block.data.captured = true;
-                // block.body.angularVelocity = block.data.captureRotation * Math.sign(relativePosition);
-                // block.body.velocity.y = 0;
-
-                // const positionTween = this.game.add
-                //     .tween(block.position)
-                //     .to(
-                //         this.portalSinkPosition,
-                //         config.BLOCK_CAPTURE_DURATION_MS,
-                //         Phaser.Easing.Linear.None,
-                //         true
-                //     );
-                // positionTween.onComplete.add(() => this.blockCaptured(portal, block), this);
-
-                // const sizeTween = this.game.add
-                //     .tween(block.scale)
-                //     .to(
-                //         { x: 0, y: 0 },
-                //         config.BLOCK_CAPTURE_DURATION_MS,
-                //         Phaser.Easing.Linear.None,
-                //         true
-                //     );
 
                 block.data.texture = block.generateTexture();
 
@@ -393,6 +334,16 @@ class PlayState extends Phaser.State {
 
         // every so often, run the check to determine whether to drop a block
         this.game.time.events.loop(config.BLOCK_DROP_MIN_INTERVAL_MS, this.blockDropCheck, this);
+
+        // schedule coffee and lunch
+        this.game.time.events.add(config.COFFEE_DELAY_MS, () => this.blockAppear(this.day.getCoffee()), this);
+        this.game.time.events.add(config.DAY_DURATION_MS / 2, () => this.blockAppear(this.day.getLunch()), this);
+
+        // schedule some vulns
+        for (let i = 1; i < config.VULNS_PER_DAY + 1; ++i) {
+            this.game.time.events.add(config.DAY_DURATION_MS / i, () => this.blockAppear(this.day.getVuln()), this);
+            this.game.time.events.add(Phaser.Timer.SECOND + config.DAY_DURATION_MS / i, () => this.blockAppear(this.day.getCVE()), this);
+        }
 
         // add game end timer
         this.game.time.events.add(config.DAY_DURATION_MS + config.END_DURATION_MS, this.gameEnd, this);

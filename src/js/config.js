@@ -22,6 +22,9 @@ const config = Object.freeze({
     // how long to wait after the last block falls before ending the game
     END_DURATION_MS: 3 * Phaser.Timer.SECOND,
 
+    // vulns per day
+    VULNS_PER_DAY: 3,
+
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 300,
 
@@ -29,7 +32,7 @@ const config = Object.freeze({
     BLOCK_DROP_MIN_INTERVAL_MS: 100,
 
     // how quickly should block drops ramp up?  any easing function can be used
-    BLOCK_DROP_PROBABILITY_FUNC: Phaser.Easing.Linear.None,
+    BLOCK_DROP_PROBABILITY_FUNC: Phaser.Easing.Quadratic.InOut,
 
     // how likely any random block is to be a bonus block
     BONUS_BLOCK_PROBABILITY: 0.05,
