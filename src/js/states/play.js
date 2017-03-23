@@ -3,6 +3,7 @@ class PlayState extends Phaser.State {
         console.log('[play] starting play state');
         this.score = 0;
         this.scoreMultiplier = 1;
+        this.rnd = new Phaser.RandomDataGenerator();
 
         this.startTime();
         this.createScoreUI();
@@ -22,7 +23,7 @@ class PlayState extends Phaser.State {
     }
 
     update() {
-        this.updateTime();
+        this.updatePlayTime();
         this.updateTimeUI();
 
         this.handleCollisions();
@@ -388,27 +389,29 @@ class PlayState extends Phaser.State {
         this.day = new Day();
         this.createPlayerControls();
 
+        this.blocksFalling = true;
+
+        // every so often, run the check to determine whether to drop a block
         this.game.time.events.loop(config.BLOCK_DROP_MIN_INTERVAL_MS, this.blockDropCheck, this);
 
-        // let delay = 0;
-
-        // for (let block of this.day.dayBlocks) {
-        //     this.game.time.events.add(block.timing + delay, () => this.blockAppear(block), this);
-        //     delay += block.delay;
-        // }
-
-        // console.log(`[play] this day will last ${(delay + config.DAY_DURATION_MS).toFixed(2)} seconds`);
-
         // add game end timer
-        // this.game.time.events.add(config.DAY_DURATION_MS + delay, this.gameEnd, this);
+        this.game.time.events.add(config.DAY_DURATION_MS + config.END_DURATION_MS, this.gameEnd, this);
+        this.game.time.events.add(config.DAY_DURATION_MS, this.stopDroppingBlocks, this);
     }
 
     blockDropCheck() {
         const progress = ( this.updateTimestamp - this.startTimestamp ) /  config.DAY_DURATION_MS;
-        console.log(`[play] progress: ${progress}`);
+        const p = config.BLOCK_DROP_PROBABILITY_FUNC(progress);
+        if (this.rnd.frac() < p) {
+            const block = this.day.getRandomBlock();
+            this.blockAppear(block);
+        }
+        console.log(`[play] progress: ${progress}/${config.DAY_DURATION_MS}, ${p} chance of block`);
     }
 
     blockAppear(block) {
+        if (!this.blocksFalling) return;
+
         console.log(`[play] now falling: ${block.name}`);
         const blockSprite = this.game.add.sprite(0, 0, `${block.name}-sprite`);
 
@@ -494,6 +497,10 @@ class PlayState extends Phaser.State {
 
     startTime() {
         this.startTimestamp = new Date().getTime();
+    }
+
+    stopDroppingBlocks() {
+        this.blocksFalling = false;
     }
 
     gameEnd() {

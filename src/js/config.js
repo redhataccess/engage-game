@@ -13,20 +13,14 @@ const config = Object.freeze({
     // once input is detected, how long to wait before beginning the game
     INPUT_WAIT_MS: Phaser.Timer.SECOND * 0.5,
 
-    // how many random blocks will fall from the sky each day
-    BLOCKS_PER_DAY: 200,
-
     // how long to wait after game begins before first event falls from sky
     COFFEE_DELAY_MS: 200,
 
     // how long the "day" lasts
-    DAY_DURATION_MS: 60000,
+    DAY_DURATION_MS: 50 * Phaser.Timer.SECOND,
 
-    // how long to wait after the day ends before going back to title screen
-    END_DURATION_MS: 5000,
-
-    // what fraction of BLOCK_INTERVAL_MS should vary randomly
-    BLOCK_INTERVAL_RANDOMNESS: 0.2,
+    // how long to wait after the last block falls before ending the game
+    END_DURATION_MS: 3 * Phaser.Timer.SECOND,
 
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 300,
@@ -34,28 +28,22 @@ const config = Object.freeze({
     // minimum interval between dropping blocks
     BLOCK_DROP_MIN_INTERVAL_MS: 100,
 
-    // velocity and gravity applied to blocks once they fall into the well of knowledge
-    BLOCK_VELOCITY_SINKING: 30,
-    BLOCK_GRAVITY_SINKING: 60,
-
-    // how quickly should events rotate when caught in the portal (degres)
-    BLOCK_CAPTURE_ROTATION: 360,
-
-    // how much randomness should be applied to the rotation
-    BLOCK_CAPTURE_ROTATION_RANDOMNESS: 0.9,
-
-    // how quickly should the event drift into the center of the portal
-    BLOCK_CAPTURE_DURATION_MS: 1337,
+    // how quickly should block drops ramp up?  any easing function can be used
+    BLOCK_DROP_PROBABILITY_FUNC: Phaser.Easing.Linear.None,
 
     // how likely any random block is to be a bonus block
     BONUS_BLOCK_PROBABILITY: 0.05,
+
+    // velocity and gravity applied to blocks once they fall into the well of knowledge
+    BLOCK_VELOCITY_SINKING: 30,
+    BLOCK_GRAVITY_SINKING: 60,
 
     // how quickly to move the player's portal to where the controls are
     // (lerped)
     CONTROL_RESPONSIVENESS: 1.0,
 
     // how long to wait after game over before restarting
-    GAME_OVER_RESTART_DURATION_MS: 4 * Phaser.Timer.SECOND,
+    GAME_OVER_RESTART_DURATION_MS: 7 * Phaser.Timer.SECOND,
 
     // how wide the side chambers should be (Portal chamber on left and Legend
     // chamber on right)
