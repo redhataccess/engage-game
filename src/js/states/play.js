@@ -247,6 +247,7 @@ class PlayState extends Phaser.State {
             console.log("[play] CVE Cleared VULN");
             portal.data.hasVuln = false;
             portal.tint = 0xffffff;
+            portal.loadTexture('portal-in');
         }
 
         if (!block.data.captured && !portal.data.hasVuln && (portal.position.y > block.position.y)) {
@@ -256,6 +257,7 @@ class PlayState extends Phaser.State {
                 portal.data.hasVuln = true;
                 block.data.captured = true;
                 portal.tint = 0xff0000
+                portal.loadTexture('portal-in_glitch_1');
             }
             else {
                 const relativePosition = new Phaser.Point(
