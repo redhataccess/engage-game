@@ -7,14 +7,15 @@ const config = Object.freeze({
     // padding around the edge of the viewport
     VIEWPORT_PADDING: 20,
 
-    // how long to show the splash screen
-    SPLASH_DURATION: Phaser.Timer.SECOND * 0.0,
+    // how long does it take to exit the splash screen (allowing animations to
+    // finish before the game begins)
+    SPLASH_TRANSITION_DURATION: 0.6 * Phaser.Timer.SECOND,
 
     // once input is detected, how long to wait before beginning the game
     INPUT_WAIT_MS: Phaser.Timer.SECOND * 0.5,
 
     // how long to wait after game begins before first event falls from sky
-    COFFEE_DELAY_MS: 200,
+    COFFEE_DELAY_MS: 1000,
 
     // how long the "day" lasts
     DAY_DURATION_MS: 50 * Phaser.Timer.SECOND,

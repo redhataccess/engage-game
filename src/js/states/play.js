@@ -340,9 +340,10 @@ class PlayState extends Phaser.State {
         this.game.time.events.add(config.DAY_DURATION_MS / 2, () => this.blockAppear(this.day.getLunch()), this);
 
         // schedule some vulns
+        const vulnTimespan = 0.9 * config.DAY_DURATION_MS;
         for (let i = 1; i < config.VULNS_PER_DAY + 1; ++i) {
-            this.game.time.events.add(config.DAY_DURATION_MS / i, () => this.blockAppear(this.day.getVuln()), this);
-            this.game.time.events.add(Phaser.Timer.SECOND + config.DAY_DURATION_MS / i, () => this.blockAppear(this.day.getCVE()), this);
+            this.game.time.events.add(vulnTimespan / i, () => this.blockAppear(this.day.getVuln()), this);
+            this.game.time.events.add(Phaser.Timer.SECOND + vulnTimespan / i, () => this.blockAppear(this.day.getCVE()), this);
         }
 
         // add game end timer
@@ -357,7 +358,7 @@ class PlayState extends Phaser.State {
             const block = this.day.getRandomBlock();
             this.blockAppear(block);
         }
-        console.log(`[play] progress: ${progress}/${config.DAY_DURATION_MS}, ${p} chance of block`);
+        // console.log(`[play] progress: ${progress}/${config.DAY_DURATION_MS}, ${p} chance of block`);
     }
 
     blockAppear(block) {
@@ -461,7 +462,8 @@ class PlayState extends Phaser.State {
 
     gameRestart() {
         console.log('[play] restarting');
-        this.game.state.start('SplashState');
+        // this.game.state.start('SplashState');
+        this.game.stateTransition.to('SplashState', true, false, { fromPlay: true });
     }
 
     showPortals() {

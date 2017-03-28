@@ -12,6 +12,17 @@ class BootState extends Phaser.State {
         // Phaser will automatically pause if the browser tab the game is in
         // loses focus. You can disable that here:
         this.stage.disableVisibilityChange = true;
+
+        // Initialize the state transition library
+        this.game.stateTransition = this.game.plugins.add(Phaser.Plugin.StateTransition);
+
+        this.game.stateTransition.configure({
+            duration: 2.8 * Phaser.Timer.SECOND,
+            ease: Phaser.Easing.Exponential.InOut,
+            properties: {
+                alpha: 0,
+            },
+        });
     }
 
     updateCanvasSize() {
