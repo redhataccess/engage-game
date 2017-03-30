@@ -29,11 +29,11 @@ class SplashState extends Phaser.State {
     }
 
     showLogo() {
-        document.querySelector('.splash-logo').classList.remove('hidden');
+        document.querySelector('.splash').classList.remove('hidden');
     }
 
     hideLogo() {
-        document.querySelector('.splash-logo').classList.add('hidden');
+        document.querySelector('.splash').classList.add('hidden');
     }
 
     drawCurtain() {
