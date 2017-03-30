@@ -7,6 +7,11 @@
         <title>Engage</title>
 
         <style type="text/css" media="screen">
+            * {
+                user-select: none;
+                cursor: ew-resize;
+                pointer-events: none;
+            }
             html, body {
                 margin: 0;
                 padding: 0;
@@ -27,6 +32,7 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
                 z-index: 50;
+                pointer-events: auto;
             }
             .splash .description {
                 font-size: 2rem;
