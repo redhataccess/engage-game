@@ -9,6 +9,7 @@ class PlayState extends Phaser.State {
         this.createScoreUI();
         this.createTimeUI();
 
+        this.createSounds();
         this.createControlPosition();
         this.createPortalIn();
         this.createPortalOut();
@@ -48,6 +49,22 @@ class PlayState extends Phaser.State {
     }
 
     /* create functions */
+
+    createSounds() {
+        this.sounds = {
+            Coffee           : this.game.add.audio('coffee'),
+            Lunch            : this.game.add.audio('coffee'),
+            CVE              : this.game.add.audio('cve'),
+            PCM              : this.game.add.audio('pickup1'),
+            ContainerCatalog : this.game.add.audio('pickup2'),
+            PackageSearch    : this.game.add.audio('pickup3'),
+            Documentation    : this.game.add.audio('pickup4'),
+            Labs             : this.game.add.audio('pickup5'),
+            Discussions      : this.game.add.audio('pickup6'),
+            Shellshock       : this.game.add.audio('shellshock'),
+            splash           : this.game.add.audio('splash', 0.1),
+        };
+    }
 
     createScoreUI() {
         let style = { font: "28px Monospace", fill: "#ffffff", align: "center" };
@@ -254,6 +271,8 @@ class PlayState extends Phaser.State {
             this.splashEmitter.y = well.top;
             this.splashEmitter.start(true, 1300, null, 20);
 
+            this.sounds.splash.play();
+
             // remove the block from the game after it's had time to sink
             this.game.time.events.add(1000, () => block.destroy(true), this);
         }
@@ -275,6 +294,7 @@ class PlayState extends Phaser.State {
                 portal.data.hasVuln = true;
                 block.data.captured = true;
                 this.setPortalGlitch(portal);
+                this.sounds.Shellshock.play();
             }
             else {
                 const relativePosition = new Phaser.Point(
@@ -286,6 +306,8 @@ class PlayState extends Phaser.State {
                 block.data.captured = true;
 
                 block.data.texture = block.generateTexture();
+
+                this.sounds[block.data.name].play();
 
                 const alphaTween = this.game.add
                     .tween(block)

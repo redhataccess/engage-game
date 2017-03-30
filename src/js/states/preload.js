@@ -2,6 +2,8 @@ class PreloadState extends Phaser.State {
     preload() {
         console.log('[preload] preloading assets');
 
+        // images
+
         this.game.load.image('title', 'images/title-draft.png');
 
         this.game.load.image('portal-in',                'images/portal-in.png');
@@ -27,6 +29,19 @@ class PreloadState extends Phaser.State {
         this.game.load.image('PackageSearch-sprite',     'images/package-search.png');
         this.game.load.image('square-blue3',             'images/square-blue3.png');
         this.game.load.image('square-blue1',             'images/square-blue1.png');
+
+        // audio
+
+        this.game.load.audio('coffee'     , 'sounds/coffee.wav');
+        this.game.load.audio('cve'        , 'sounds/cve.wav');
+        this.game.load.audio('pickup1'    , 'sounds/pickup1.wav');
+        this.game.load.audio('pickup2'    , 'sounds/pickup2.wav');
+        this.game.load.audio('pickup3'    , 'sounds/pickup3.wav');
+        this.game.load.audio('pickup4'    , 'sounds/pickup4.wav');
+        this.game.load.audio('pickup5'    , 'sounds/pickup5.wav');
+        this.game.load.audio('pickup6'    , 'sounds/pickup6.wav');
+        this.game.load.audio('shellshock' , 'sounds/shellshock.wav');
+        this.game.load.audio('splash'     , 'sounds/splash.wav');
 
         this.game.data = {
             leap: new LeapController()
