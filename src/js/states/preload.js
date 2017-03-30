@@ -42,6 +42,10 @@ class PreloadState extends Phaser.State {
         this.game.load.audio('pickup6'    , 'sounds/pickup6.wav');
         this.game.load.audio('shellshock' , 'sounds/shellshock.wav');
         this.game.load.audio('splash'     , 'sounds/splash.wav');
+        this.game.load.audio('static1'    , 'sounds/static1.wav');
+        this.game.load.audio('static2'    , 'sounds/static2.wav');
+        this.game.load.audio('static3'    , 'sounds/static3.wav');
+        this.game.load.audio('static4'    , 'sounds/static4.wav');
 
         this.game.data = {
             leap: new LeapController()

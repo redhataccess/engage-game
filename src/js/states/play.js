@@ -63,6 +63,10 @@ class PlayState extends Phaser.State {
             Discussions      : this.game.add.audio('pickup6'),
             Shellshock       : this.game.add.audio('shellshock'),
             splash           : this.game.add.audio('splash', 0.1),
+            static1          : this.game.add.audio('static1', 0.4),
+            static2          : this.game.add.audio('static2', 0.4),
+            static3          : this.game.add.audio('static3', 0.4),
+            static4          : this.game.add.audio('static4', 0.4),
         };
     }
 
@@ -198,6 +202,7 @@ class PlayState extends Phaser.State {
         if (this.portalIn.data.hasVuln) {
             if (this.portalIn.data.glitchFrames == 0) {
                 this.setPortalGlitch(this.portalIn);
+
             }
             else {
                 this.portalIn.data.glitchFrames--;
@@ -236,8 +241,10 @@ class PlayState extends Phaser.State {
 
     setPortalGlitch(portal) {
         // portal.tint = 0xff0000;  // Red tint
-        portal.data.glitchFrames = this.game.rnd.between(1, 15); // how many frames to keep this texture
-        portal.loadTexture('portal-in_glitch_' + this.game.rnd.between(1, 4));
+        const glitchNumber = this.game.rnd.between(1, 4);
+        portal.data.glitchFrames = this.game.rnd.between(10, 40); // how many frames to keep this texture
+        portal.loadTexture('portal-in_glitch_' + glitchNumber);
+        this.sounds[`static${glitchNumber}`].play();
     }
 
     handleCollisions() {
