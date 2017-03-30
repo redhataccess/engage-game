@@ -202,7 +202,7 @@ class PlayState extends Phaser.State {
             else {
                 this.portalIn.data.glitchFrames--;
             }
-            console.log(this.portalIn.data.glitchFrames);
+            // console.log(this.portalIn.data.glitchFrames);
         }
     }
 
