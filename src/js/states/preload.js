@@ -6,7 +6,9 @@ class PreloadState extends Phaser.State {
 
         this.game.load.image('portal-in',                'images/portal-in.png');
         this.game.load.image('portal-in_glitch_1',       'images/portal-in_glitch_1.png');
-        // this.game.load.image('portal-in_glitch_2',       'images/portal-in_glitch_2.png');
+        this.game.load.image('portal-in_glitch_2',       'images/portal-in_glitch_2.png');
+        this.game.load.image('portal-in_glitch_3',       'images/portal-in_glitch_3.png');
+        this.game.load.image('portal-in_glitch_4',       'images/portal-in_glitch_4.png');
         this.game.load.image('portal-in-spin1',          'images/portal-in-spin1.png');
         this.game.load.image('portal-in-spin2',          'images/portal-in-spin2.png');
         this.game.load.image('portal-out',               'images/portal-out.png');

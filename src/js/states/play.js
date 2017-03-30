@@ -27,7 +27,7 @@ class PlayState extends Phaser.State {
 
         this.handleCollisions();
         // this.updatePortalSpin();
-        this.updatePortalPosition();
+        this.updatePortalIn();
         this.updatePlayerLeapControls();
         this.updateVulnPositions();
     }
@@ -163,7 +163,8 @@ class PlayState extends Phaser.State {
         this.showPortals();
     }
 
-    updatePortalPosition() {
+    updatePortalIn() {
+        // Update Position
         const dest = this.portalIn.position.clone();
         dest.multiply(1 - config.CONTROL_RESPONSIVENESS, 1);
         dest.add(this.controlPosition.x * config.CONTROL_RESPONSIVENESS, 0);
@@ -175,6 +176,17 @@ class PlayState extends Phaser.State {
 
         this.portalSinkPosition.x = this.portalIn.position.x;
         this.portalSinkPosition.y = this.portalIn.position.y - this.portalIn.height / 4;
+
+        // Animate vuln glitch
+        if (this.portalIn.data.hasVuln) {
+            if (this.portalIn.data.glitchFrames == 0) {
+                this.setPortalGlitch(this.portalIn);
+            }
+            else {
+                this.portalIn.data.glitchFrames--;
+            }
+            console.log(this.portalIn.data.glitchFrames);
+        }
     }
 
     updateVulnPositions() {
@@ -204,6 +216,12 @@ class PlayState extends Phaser.State {
     }
 
     /* misc functions */
+
+    setPortalGlitch(portal) {
+        // portal.tint = 0xff0000;  // Red tint
+        portal.data.glitchFrames = this.game.rnd.between(1, 15); // how many frames to keep this texture
+        portal.loadTexture('portal-in_glitch_' + this.game.rnd.between(1, 4));
+    }
 
     handleCollisions() {
         this.game.physics.arcade.collide(this.portalIn, this.blockSprites, null, this.blockOverlap, this);
@@ -256,8 +274,7 @@ class PlayState extends Phaser.State {
                 console.log("[play] !!!!Captured VULN!!!!");
                 portal.data.hasVuln = true;
                 block.data.captured = true;
-                portal.tint = 0xff0000
-                portal.loadTexture('portal-in_glitch_1');
+                this.setPortalGlitch(portal);
             }
             else {
                 const relativePosition = new Phaser.Point(
