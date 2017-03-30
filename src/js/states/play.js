@@ -173,7 +173,6 @@ class PlayState extends Phaser.State {
     updatePlayerLeapControls() {
         if (typeof this.game.data.leap.palmX === 'number') {
             const leapX = 1000*(this.game.data.leap.palmX + 280) / 300;
-            console.log(`[play] leap X pos: ${leapX}`);
             this.controlPosition.set(leapX);
             this.showPortals();
         }
