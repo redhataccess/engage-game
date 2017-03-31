@@ -15,7 +15,7 @@ const config = Object.freeze({
     INPUT_WAIT_MS: Phaser.Timer.SECOND * 0.5,
 
     // how long to wait after game begins before first event falls from sky
-    COFFEE_DELAY_MS: 1000,
+    COFFEE_DELAY_MS: 3000,
 
     // how long the "day" lasts
     DAY_DURATION_MS: 50 * Phaser.Timer.SECOND,
