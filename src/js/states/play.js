@@ -400,7 +400,7 @@ class PlayState extends Phaser.State {
 
     blockDropCheck() {
         const progress = ( this.updateTimestamp - this.startTimestamp ) /  config.DAY_DURATION_MS;
-        const p = config.BLOCK_DROP_PROBABILITY_FUNC(progress);
+        const p = config.BLOCK_DROP_PROBABILITY_FUNC(progress) * config.BLOCK_DROP_PROBABILITY_MAX;
         if (this.rnd.frac() < p) {
             const block = this.day.getRandomBlock();
             this.blockAppear(block);

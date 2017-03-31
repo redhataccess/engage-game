@@ -34,6 +34,8 @@ const config = Object.freeze({
 
     // how quickly should block drops ramp up?  any easing function can be used
     BLOCK_DROP_PROBABILITY_FUNC: Phaser.Easing.Quadratic.InOut,
+    // the max probability of a block falling each tick
+    BLOCK_DROP_PROBABILITY_MAX: 0.55,
 
     // how likely any random block is to be a bonus block
     BONUS_BLOCK_PROBABILITY: 0.05,
