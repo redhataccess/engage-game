@@ -18,6 +18,7 @@ class PlayState extends Phaser.State {
         this.createChamberWalls();
         this.createWell();
         this.createSplash();
+        this.createShellBurst();
         this.hidePortals();
         this.startDay();
     }
@@ -168,6 +169,17 @@ class PlayState extends Phaser.State {
         this.splashEmitter.setYSpeed(-100, -130);
     }
 
+    createShellBurst() {
+        // burst viz
+        this.burstEmitter = game.add.emitter(0, 0, 1000);
+        this.burstEmitter.makeParticles('square-red1');
+        this.burstEmitter.gravity = 0;
+        this.burstEmitter.minParticleScale = 0.50;
+        this.burstEmitter.maxParticleScale = 0.50;
+        this.burstEmitter.minParticleSpeed.setTo(-600, -600);
+        this.burstEmitter.maxParticleSpeed.setTo(600, 600);
+    }
+
     /* update functions */
 
     updatePlayerLeapControls() {
@@ -299,6 +311,13 @@ class PlayState extends Phaser.State {
                 console.log("[play] !!!!Captured VULN!!!!");
                 portal.data.hasVuln = true;
                 block.data.captured = true;
+                block.destroy(true);
+                this.burstEmitter.x = block.position.x;
+                this.burstEmitter.y = block.position.y;
+
+                // this.splashEmitter.start(true, 1300, null, 20);
+                this.burstEmitter.start(true, 2000, null, 100);
+
                 this.setPortalGlitch(portal);
                 this.sounds.Shellshock.play();
             }

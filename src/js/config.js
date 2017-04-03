@@ -24,7 +24,7 @@ const config = Object.freeze({
     END_DURATION_MS: 3 * Phaser.Timer.SECOND,
 
     // vulns per day
-    VULNS_PER_DAY: 3,
+    VULNS_PER_DAY: 5,
 
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 300,
@@ -35,7 +35,7 @@ const config = Object.freeze({
     // how quickly should block drops ramp up?  any easing function can be used
     BLOCK_DROP_PROBABILITY_FUNC: Phaser.Easing.Quadratic.InOut,
     // the max probability of a block falling each tick
-    BLOCK_DROP_PROBABILITY_MAX: 0.55,
+    BLOCK_DROP_PROBABILITY_MAX: 0.25,
 
     // how likely any random block is to be a bonus block
     BONUS_BLOCK_PROBABILITY: 0.05,
