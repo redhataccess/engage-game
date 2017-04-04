@@ -172,12 +172,12 @@ class PlayState extends Phaser.State {
     createShellBurst() {
         // burst viz
         this.burstEmitter = game.add.emitter(0, 0, 1000);
-        this.burstEmitter.makeParticles('square-red1');
+        this.burstEmitter.makeParticles('shrapnel', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29], 30, false, false);
         this.burstEmitter.gravity = 0;
-        this.burstEmitter.minParticleScale = 0.50;
-        this.burstEmitter.maxParticleScale = 0.50;
         this.burstEmitter.minParticleSpeed.setTo(-600, -600);
         this.burstEmitter.maxParticleSpeed.setTo(600, 600);
+        this.burstEmitter.area.width = 50;
+        this.burstEmitter.area.height = 50;
     }
 
     /* update functions */
@@ -315,8 +315,18 @@ class PlayState extends Phaser.State {
                 this.burstEmitter.x = block.position.x;
                 this.burstEmitter.y = block.position.y;
 
-                // this.splashEmitter.start(true, 1300, null, 20);
-                this.burstEmitter.start(true, 2000, null, 100);
+                this.burstEmitter.alpha = 1;
+                this.burstEmitter.start(true, 1500, null, 30);
+                this.game.camera.shake(0.02, 500);
+
+                this.game.add
+                    .tween(this.burstEmitter)
+                    .to(
+                        { alpha: 0 },
+                        1500,
+                        Phaser.Easing.Linear.None,
+                        true
+                    );
 
                 this.setPortalGlitch(portal);
                 this.sounds.Shellshock.play();
@@ -408,8 +418,8 @@ class PlayState extends Phaser.State {
         // schedule some vulns
         const vulnTimespan = 0.9 * config.DAY_DURATION_MS;
         for (let i = 1; i < config.VULNS_PER_DAY + 1; ++i) {
-            this.game.time.events.add(vulnTimespan / i, () => this.blockAppear(this.day.getVuln()), this);
-            this.game.time.events.add(Phaser.Timer.SECOND + vulnTimespan / i, () => this.blockAppear(this.day.getCVE()), this);
+            this.game.time.events.add(vulnTimespan * i / config.VULNS_PER_DAY, () => this.blockAppear(this.day.getVuln()), this);
+            this.game.time.events.add(Phaser.Timer.SECOND + vulnTimespan * i / config.VULNS_PER_DAY, () => this.blockAppear(this.day.getCVE()), this);
         }
 
         // add game end timer

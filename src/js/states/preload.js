@@ -31,6 +31,9 @@ class PreloadState extends Phaser.State {
         this.game.load.image('square-blue1',             'images/square-blue1.png');
         this.game.load.image('square-red1',             'images/square-red1.png');
 
+        // Sprite sheets
+        this.game.load.spritesheet('shrapnel', 'images/shellshock.png', 44, 44, 30);
+
         // audio
 
         this.game.load.audio('coffee'     , 'sounds/coffee.wav');
