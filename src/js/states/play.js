@@ -308,51 +308,10 @@ class PlayState extends Phaser.State {
         if (!block.data.captured && !portal.data.hasVuln && (portal.position.y > block.position.y)) {
             // If captured vuln, disable portal
             if (block.data.name == 'Shellshock') {
-                console.log("[play] !!!!Captured VULN!!!!");
-                portal.data.hasVuln = true;
-                block.data.captured = true;
-                block.destroy(true);
-                this.burstEmitter.x = block.position.x;
-                this.burstEmitter.y = block.position.y;
-
-                this.burstEmitter.alpha = 1;
-                this.burstEmitter.start(true, 1500, null, 30);
-                this.game.camera.shake(0.02, 500);
-
-                this.game.add
-                    .tween(this.burstEmitter)
-                    .to(
-                        { alpha: 0 },
-                        1500,
-                        Phaser.Easing.Linear.None,
-                        true
-                    );
-
-                this.setPortalGlitch(portal);
-                this.sounds.Shellshock.play();
+                this.captureShellshock(portal, block);
             }
             else {
-                const relativePosition = new Phaser.Point(
-                    block.position.x - portal.position.x,
-                    block.position.y - portal.position.y
-                );
-                block.data.relativeCapturePosition = relativePosition;
-
-                block.data.captured = true;
-
-                block.data.texture = block.generateTexture();
-
-                this.sounds[block.data.name].play();
-
-                const alphaTween = this.game.add
-                    .tween(block)
-                    .to(
-                        { alpha: 0 },
-                        200,
-                        Phaser.Easing.Linear.None,
-                        true
-                    );
-                alphaTween.onComplete.add(() => this.blockCaptured(portal, block), this);
+                this.captureBlock(portal, block);
             }
         }
 
@@ -379,6 +338,55 @@ class PlayState extends Phaser.State {
         console.log(`[play] captured block: ${block.data.name}`);
 
         block.destroy(true);
+    }
+
+    captureBlock(portal, block) {
+        const relativePosition = new Phaser.Point(
+            block.position.x - portal.position.x,
+            block.position.y - portal.position.y
+        );
+        block.data.relativeCapturePosition = relativePosition;
+
+        block.data.captured = true;
+
+        block.data.texture = block.generateTexture();
+
+        this.sounds[block.data.name].play();
+
+        const alphaTween = this.game.add
+            .tween(block)
+            .to(
+                { alpha: 0 },
+                200,
+                Phaser.Easing.Linear.None,
+                true
+            );
+        alphaTween.onComplete.add(() => this.blockCaptured(portal, block), this);
+    }
+
+    captureShellshock(portal, block) {
+        console.log("[play] !!!!Captured VULN!!!!");
+        portal.data.hasVuln = true;
+        block.data.captured = true;
+        block.destroy(true);
+        this.burstEmitter.x = block.position.x;
+        this.burstEmitter.y = block.position.y;
+
+        this.burstEmitter.alpha = 1;
+        this.burstEmitter.start(true, 1500, null, 30);
+        this.game.camera.shake(0.02, 500);
+
+        this.game.add
+            .tween(this.burstEmitter)
+            .to(
+                { alpha: 0 },
+                1500,
+                Phaser.Easing.Linear.None,
+                true
+            );
+
+        this.setPortalGlitch(portal);
+        this.sounds.Shellshock.play();
     }
 
     emitCapturedBlock(inBlock) {
