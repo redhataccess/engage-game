@@ -29,6 +29,12 @@ const config = Object.freeze({
     // vulns per day
     VULNS_PER_DAY: 5,
 
+    // how long vuln explosion animation should last
+    VULN_EXPLODE_DURATION_MS: 1.5 * Phaser.Timer.SECOND,
+
+    VULN_CAM_SHAKE_AMOUNT: 0.02,
+    VULN_CAM_SHAKE_DURATION_MS: 0.5 * Phaser.Timer.SECOND,
+
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 300,
 

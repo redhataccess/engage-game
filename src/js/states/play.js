@@ -305,10 +305,17 @@ class PlayState extends Phaser.State {
             portal.loadTexture('portal-in');
         }
 
-        if (!block.data.captured && !portal.data.hasVuln && (portal.position.y > block.position.y)) {
+        const blockAbovePortal = portal.position.y > block.position.y;
+
+        if (!block.data.captured && !portal.data.hasVuln && blockAbovePortal) {
             // If captured vuln, disable portal
             if (block.data.name == 'Shellshock') {
-                this.captureShellshock(portal, block);
+                // wait for shellshock to overlap the portal somewhat before
+                // triggering capture
+                const distance = portal.position.distance(block.position);
+                if (distance < 120) {
+                    this.captureShellshock(portal, block);
+                }
             }
             else {
                 this.captureBlock(portal, block);
@@ -373,14 +380,14 @@ class PlayState extends Phaser.State {
         this.burstEmitter.y = block.position.y;
 
         this.burstEmitter.alpha = 1;
-        this.burstEmitter.start(true, 1500, null, 30);
-        this.game.camera.shake(0.02, 500);
+        this.burstEmitter.start(true, config.VULN_EXPLODE_DURATION_MS, null, 30);
+        this.game.camera.shake(config.VULN_CAM_SHAKE_AMOUNT, config.VULN_CAM_SHAKE_DURATION_MS);
 
         this.game.add
             .tween(this.burstEmitter)
             .to(
                 { alpha: 0 },
-                1500,
+                config.VULN_EXPLODE_DURATION_MS,
                 Phaser.Easing.Linear.None,
                 true
             );
