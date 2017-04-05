@@ -263,7 +263,6 @@ class PlayState extends Phaser.State {
         portal.data.lastGlitchSprite = glitchNumber;
 
         // only play the sound if the frame changed
-        console.log(`${portal.data.lastGlitchSprite}..${glitchNumber}`);
         if (!sameSprite) {
             this.sounds[`static${glitchNumber}`].play();
         }
