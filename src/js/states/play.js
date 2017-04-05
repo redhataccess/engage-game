@@ -255,11 +255,18 @@ class PlayState extends Phaser.State {
     /* misc functions */
 
     setPortalGlitch(portal) {
-        // portal.tint = 0xff0000;  // Red tint
         const glitchNumber = this.game.rnd.between(1, 4);
-        portal.data.glitchFrames = this.game.rnd.between(10, 40); // how many frames to keep this texture
+        const previousGlitchFrame = portal.data.glitchFrames;
+        portal.data.glitchFrames = this.game.rnd.between(config.VULN_GLITCH_FRAMES_MIN, config.VULN_GLITCH_FRAMES_MAX); // how many frames to keep this texture
         portal.loadTexture('portal-in_glitch_' + glitchNumber);
-        this.sounds[`static${glitchNumber}`].play();
+        const sameSprite = glitchNumber === portal.data.lastGlitchSprite;
+        portal.data.lastGlitchSprite = glitchNumber;
+
+        // only play the sound if the frame changed
+        console.log(`${portal.data.lastGlitchSprite}..${glitchNumber}`);
+        if (!sameSprite) {
+            this.sounds[`static${glitchNumber}`].play();
+        }
     }
 
     handleCollisions() {
@@ -305,6 +312,7 @@ class PlayState extends Phaser.State {
         if (!block.data.captured && block.data.name == 'CVE' && portal.data.hasVuln) {
             console.log("[play] CVE Cleared VULN");
             portal.data.hasVuln = false;
+            portal.data.glitchFrames = undefined;
             portal.tint = 0xffffff;
             portal.loadTexture('portal-in');
         }

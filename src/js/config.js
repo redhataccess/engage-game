@@ -35,6 +35,10 @@ const config = Object.freeze({
     VULN_CAM_SHAKE_AMOUNT: 0.02,
     VULN_CAM_SHAKE_DURATION_MS: 0.5 * Phaser.Timer.SECOND,
 
+    // how many frames to show each glitch sprite
+    VULN_GLITCH_FRAMES_MIN: 8,
+    VULN_GLITCH_FRAMES_MAX: 25,
+
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 300,
 
