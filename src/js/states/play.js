@@ -72,15 +72,19 @@ class PlayState extends Phaser.State {
     }
 
     createScoreUI() {
-        let style = { font: "28px Monospace", fill: "#ffffff", align: "center" };
+        let style = { fill: "#ffffff", align: "center" };
         this.scoreText = game.add.text(game.world.centerX, 4, "", style);
+        this.scoreText.font = 'Overpass Mono';
+        this.scoreText.fontSize = 28;
         this.scoreText.anchor.set(0.5, 0);
         this.scoreText.setText('Score: 0');
     }
 
     createTimeUI() {
-        let style = { font: "28px Monospace", fill: "#ffffff", align: "center" };
+        let style = { fill: "#ffffff", align: "center" };
         this.timeText = game.add.text(game.world.width - config.SIDE_CHAMBER_WIDTH - 48, 4, "", style);
+        this.timeText.font = 'Overpass Mono';
+        this.timeText.fontSize = 28;
         this.timeText.anchor.set(0, 0);
         this.timeText.setText('0s');
     }
