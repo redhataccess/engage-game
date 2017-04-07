@@ -7,6 +7,11 @@ class SplashState extends Phaser.State {
     create() {
         console.log('[splash] showing splash screen');
 
+        if (config.SKIP_BEGINNING) {
+            this.next();
+            return;
+        }
+
         if (this.fromPlay) {
             this.game.time.events.add(2000, this.startSplash, this);
         }

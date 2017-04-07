@@ -3,6 +3,8 @@ class IntroState extends Phaser.State {
     create() {
         console.log('[intro] showing intro');
 
+        if (config.SKIP_BEGINNING) this.next();
+
         this.createIntroText();
         this.game.time.events.add(1000, this.playIntro, this);
         this.drawCurtain();
