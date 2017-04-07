@@ -230,8 +230,9 @@ class PlayState extends Phaser.State {
         // make the vuln blocks track the portal position
         for (let i = 0, l = this.blockSprites.length; i < l; i++) {
             let block = this.blockSprites[i];
-            if (!block.data.captured && block.data.name == 'Shellshock' && block.data.state === 'falling') {
-                if (this.portalIn.position.y - block.position.y > 70) {
+            if (!block.data.captured && block.data.state === 'falling' && this.portalIn.position.y - block.position.y > 70) {
+
+                if (block.data.name == 'Shellshock') {
                     // block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, 0.05);
                     const accel = Phaser.Point.subtract(this.portalIn.position, block.position);
                     accel.normalize();
@@ -239,6 +240,17 @@ class PlayState extends Phaser.State {
                     block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
                     block.rotation -= Math.PI / 2;
                     block.body.acceleration.copyFrom(accel);
+                }
+                else if (this.portalIn.data.attractActive) {
+                    let direction = Phaser.Point.subtract(this.portalIn.position, block.position);
+
+                    direction.normalize();
+                    direction.multiply(config.ATTRACTION_POWER, config.ATTRACTION_POWER);
+
+                    block.position.add(direction.x, direction.y);
+
+                    block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
+                    block.rotation -= Math.PI / 2;
                 }
             }
         }

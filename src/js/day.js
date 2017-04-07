@@ -8,7 +8,6 @@ class Day {
             'PCM',
             'ContainerCatalog',
             'PackageSearch',
-
             'Documentation',
             'Labs',
             'Discussions',

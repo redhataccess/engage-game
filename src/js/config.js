@@ -32,6 +32,9 @@ const config = Object.freeze({
     // vulns per day
     VULNS_PER_DAY: 5,
 
+    // how fast blocks are attracted when surch bonus is active
+    ATTRACTION_POWER: 20,
+
     // how long vuln explosion animation should last
     VULN_EXPLODE_DURATION_MS: 1.5 * Phaser.Timer.SECOND,
 
