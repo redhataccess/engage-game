@@ -31,9 +31,9 @@ BUT FIRST... HAVE SOME COFFEE.`;
 
     playIntro() {
         this.scoreText = game.add.text(80, 80, "");
-        this.scoreText.font = 'Overpass Mono';
+        this.scoreText.font = 'overpass-mono';
         this.scoreText.fontSize = 68;
-        this.scoreText.fill = '#ffffff';
+        this.scoreText.fill = '#00fa00';
 
         this.scoreTextIndex = 0;
 
