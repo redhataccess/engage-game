@@ -4,8 +4,10 @@
   "description": "A videogame for Red Hat Summit 2017.",
   "main": "index.js",
   "scripts": {
+    "postinstall": "echo \"Play nice!\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "browser-sync start --server --serveStatic src --files 'src/**/*' --no-inject-changes --directory",
+    "leader-server": "mongodb-runner start && parse-server --appId ENGAGE --masterKey ENGAGE --databaseURI mongodb://localhost/engage",
     "build": "mkdir -p dist && cp -r src/* dist && babel src --out-dir dist --presets=env --ignore lib/*"
   },
   "author": "mwcz <mwc@clayto.com>",
@@ -14,6 +16,9 @@
     "babel-cli": "^6.18.0",
     "babel-preset-env": "^1.1.6",
     "browser-sync": "^2.18.2"
+  },
+  "dependencies": {
+    "mongodb-runner": "^3.4.0",
+    "parse-server": "^2.3.7"
   }
 }
-

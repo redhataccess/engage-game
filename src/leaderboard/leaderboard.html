@@ -11,8 +11,8 @@
     <ul class="leaders">
       <li ng-repeat="leader in vm.leaders">
         <span class="rank">{{::$index + 1 | ordinal}}</span>
-        <span class="username">{{::leader.gamerID}}</span>
-        <span class="score">{{::leader.ping.hiscore}}</span>
+        <span class="username">{{::leader.name}}</span>
+        <span class="score">{{::leader.score}}</span>
       </li>
     </ul>
   </section>

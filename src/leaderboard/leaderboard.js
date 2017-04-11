@@ -9,7 +9,7 @@
     leaderboardservice.$inject = ['$http'];
     LeaderboardController.$inject = ['$scope', '$interval', 'leaderboardservice'];
 
-    var serviceUrl = '/leaderboard/leaders.json',
+    var serviceUrl = 'http://localhost:1337/parse/classes/leaders',
         maxLeaders = 10,
         updateInterval = 5000;
 
@@ -30,21 +30,32 @@
         };
 
         function getLeaders() {
-            return $http.get(serviceUrl)
+            return $http.get(
+                serviceUrl,
+                {
+                    headers: {
+                        'X-Parse-Application-Id': 'ENGAGE'
+                    },
+                })
                 .then(getLeadersComplete)
                 .catch(getLeadersFailed);
 
             function getLeadersComplete(response) {
-                /*
-                 * crazy one liner
-                 */
-                return _.take(_.filter(_.sortByOrder(_.toArray(response.data), 'ping.hiscore', false), 'ping.hiscore'), maxLeaders);
+                const leaders = _(response.data.results)
+                    .sortBy('score')
+                    .reverse()
+                    .uniqBy('name')
+                    .take(10)
+                    .value();
+
+                return leaders;
             }
 
             function getLeadersFailed(error) {
                 /*
                  * there was an error
                  */
+                console.error(error);
             }
         }
     }
