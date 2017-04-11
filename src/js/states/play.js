@@ -570,6 +570,26 @@ class PlayState extends Phaser.State {
     }
 
     gameEnd() {
+        console.log(`[play] final score: ${this.score}`);
+
+        // const headers = new Headers();
+        // headers.append('X-Parse-Application-Id', 'ENGAGE');
+        fetch(
+            'http://localhost:1337/parse/classes/leaders',
+            {
+                method: 'POST',
+                headers: {
+                    'X-Parse-Application-Id': 'ENGAGE',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: 'Anonymous',
+                    email: '',
+                    score: this.score,
+                }),
+            }
+        );
+
         console.log('[play] game over');
         this.game.time.events.add(config.GAME_OVER_RESTART_DURATION_MS, this.gameRestart, this);
     }
