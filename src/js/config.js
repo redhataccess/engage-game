@@ -1,7 +1,7 @@
 const config = Object.freeze({
 
     // skip splash and intro states (for rapid development)
-    SKIP_BEGINNING: false,
+    SKIP_BEGINNING: !false,
 
     // canvas resolution
     CANVAS_WIDTH: 1920,

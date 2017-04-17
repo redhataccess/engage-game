@@ -570,6 +570,11 @@ class PlayState extends Phaser.State {
     }
 
     gameEnd() {
+        console.log('[play] game over');
+        this.game.time.events.add(config.GAME_OVER_RESTART_DURATION_MS, this.gameRestart, this);
+    }
+
+    gameRestart() {
         console.log(`[play] final score: ${this.score}`);
 
         // const headers = new Headers();
@@ -583,18 +588,13 @@ class PlayState extends Phaser.State {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    name: 'Anonymous',
+                    name: 'Anonymous' + (Math.random() * 10000).toPrecision(4),
                     email: '',
                     score: this.score,
                 }),
             }
         );
 
-        console.log('[play] game over');
-        this.game.time.events.add(config.GAME_OVER_RESTART_DURATION_MS, this.gameRestart, this);
-    }
-
-    gameRestart() {
         console.log('[play] restarting');
         // this.game.state.start('SplashState');
         this.game.stateTransition.to('SplashState', true, false, { fromPlay: true });
