@@ -127,14 +127,14 @@ let Animations = {
     },
     Shellshock: {
         Appear: {
-            Duration: 620,
+            Duration: 720,
             Easing: Phaser.Easing.Quadratic.Out,
             Scale: {
                 Start: 4,
                 End: 1,
             },
             Rotation: {
-                Start: 3*Math.PI,
+                Start: 4*Math.PI,
                 End: 0,
             },
         }
