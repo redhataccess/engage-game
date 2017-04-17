@@ -3,6 +3,9 @@ const config = Object.freeze({
     // skip splash and intro states (for rapid development)
     SKIP_BEGINNING: false,
 
+    // URL to parse leaderboard database
+    PARSE_URL: 'http://localhost:1337/parse/classes/leaders',
+
     // canvas resolution
     CANVAS_WIDTH: 1920,
     CANVAS_HEIGHT: 1080,

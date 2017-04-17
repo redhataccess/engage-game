@@ -583,7 +583,7 @@ class PlayState extends Phaser.State {
         // const headers = new Headers();
         // headers.append('X-Parse-Application-Id', 'ENGAGE');
         fetch(
-            'http://localhost:1337/parse/classes/leaders',
+            config.PARSE_URL,
             {
                 method: 'POST',
                 headers: {
