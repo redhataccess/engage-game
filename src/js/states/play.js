@@ -29,7 +29,6 @@ class PlayState extends Phaser.State {
         this.updateTimeUI();
 
         this.handleCollisions();
-        // this.updatePortalSpin();
         this.updatePortalIn();
         this.updatePlayerLeapControls();
         this.updateVulnPositions();
@@ -112,12 +111,6 @@ class PlayState extends Phaser.State {
         this.portalOut = this.game.add.sprite(0, 0, 'portal-out');
         this.portalOut.scale.set(0.6, 0.6);
         this.portalOut.sendToBack();
-        // this.game.physics.arcade.enableBody(this.portalIn);
-        // this.portalIn.body.immovable = true;
-        // this.portalIn.anchor.set(0.5, 1.0);
-        // this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING);
-        // this.portalSinkPosition = { x: 0, y: 0 }; // location captured blocks are tweened to
-        // this.portalIn.data.hasVuln = false;
     }
 
     createPlayerControls() {
@@ -174,8 +167,6 @@ class PlayState extends Phaser.State {
         this.splashEmitter.width = 20;
         this.splashEmitter.minParticleScale = 0.10;
         this.splashEmitter.maxParticleScale = 0.10;
-        // this.splashEmitter.minParticleSpeed = 10;
-        // this.splashEmitter.maxParticleSpeed = 100;
         this.splashEmitter.setXSpeed(-30, 30);
         this.splashEmitter.setYSpeed(-100, -130);
     }
@@ -229,7 +220,6 @@ class PlayState extends Phaser.State {
             else {
                 this.portalIn.data.glitchFrames--;
             }
-            // console.log(this.portalIn.data.glitchFrames);
         }
     }
 
@@ -240,7 +230,6 @@ class PlayState extends Phaser.State {
             if (!block.data.captured && block.data.state === 'falling' && this.portalIn.position.y - block.position.y > 70) {
 
                 if (block.data.name == 'Shellshock') {
-                    // block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, 0.05);
                     const accel = Phaser.Point.subtract(this.portalIn.position, block.position);
                     accel.normalize();
                     accel.multiply(2000, 2000);
@@ -292,7 +281,6 @@ class PlayState extends Phaser.State {
         this.game.physics.arcade.collide(this.fallingVuln, [this.leftWall, this.rightWall]);
         this.game.physics.arcade.collide(this.portalIn, [this.leftWall, this.rightWall]);
         this.game.physics.arcade.collide(this.well, this.capturedBlocks, null, this.blockSplash, this);
-        // this.game.physics.arcade.collide(this.capturedBlocks, this.capturedBlocks);
     }
 
     blockSplash(well, block) {
@@ -477,7 +465,6 @@ class PlayState extends Phaser.State {
             const block = this.day.getRandomBlock();
             this.blockAppear(block);
         }
-        // console.log(`[play] progress: ${progress}/${config.DAY_DURATION_MS}, ${p} chance of block`);
     }
 
     blockAppear(block) {
@@ -494,10 +481,6 @@ class PlayState extends Phaser.State {
             blockSprite.tint = 0xffff00;
             console.log(`[play] bonus ${blockSprite.data.name} block falling`)
         }
-
-        // if this block gets caught by the portal, set up how much it should rotate
-        // const randomness = config.BLOCK_CAPTURE_ROTATION * config.BLOCK_CAPTURE_ROTATION_RANDOMNESS;
-        // block.data.captureRotation = config.BLOCK_CAPTURE_ROTATION + (Math.random() * randomness - randomness / 2 );
 
         this.blockSprites.push(blockSprite);
         this.game.physics.arcade.enableBody(blockSprite);
@@ -525,7 +508,6 @@ class PlayState extends Phaser.State {
         blockSprite.rotation = anim.Appear.Rotation.Start;
         blockSprite.scale.set(anim.Appear.Scale.Start, anim.Appear.Scale.Start);
 
-        // blockSprite.rotation = this.game.physics.arcade.angleToXY(blockSprite, this.portalIn.position.x, this.portalIn.position.y);
         const entryTween = this.game.add
             .tween(blockSprite)
             .to(
@@ -559,7 +541,6 @@ class PlayState extends Phaser.State {
         switch (block.data.name) {
             case 'Shellshock':
                 // make vulns fall faster
-                // block.body.velocity.y = config.BLOCK_SKYFALL_BASE_VELOCITY * 1.5;
                 block.body.gravity.set(0, 0);
                 block.body.velocity.set(0, 0);
                 block.body.maxVelocity.set(400, 400);
@@ -587,8 +568,6 @@ class PlayState extends Phaser.State {
     gameRestart() {
         console.log(`[play] final score: ${this.score}`);
 
-        // const headers = new Headers();
-        // headers.append('X-Parse-Application-Id', 'ENGAGE');
         fetch(
             config.PARSE_URL,
             {
@@ -606,7 +585,6 @@ class PlayState extends Phaser.State {
         );
 
         console.log('[play] restarting');
-        // this.game.state.start('SplashState');
         this.game.stateTransition.to('SplashState', true, false, { fromPlay: true });
     }
 
