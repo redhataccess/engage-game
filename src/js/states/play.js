@@ -385,6 +385,11 @@ class PlayState extends Phaser.State {
                 true
             );
         alphaTween.onComplete.add(() => this.blockCaptured(portal, block), this);
+
+
+        // blink the portal so there's a visual indication of capture
+        this.game.time.events.add(100, () => this.portalIn.tint = 0xBBBBBB, this);
+        this.game.time.events.add(200, () => this.portalIn.tint = 0xFFFFFF, this);
     }
 
     captureShellshock(portal, block) {
