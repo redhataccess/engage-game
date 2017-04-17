@@ -336,9 +336,7 @@ class PlayState extends Phaser.State {
                 // wait for shellshock to overlap the portal somewhat before
                 // triggering capture
                 const distance = portal.position.distance(block.position);
-                if (distance < 120) {
-                    this.captureShellshock(portal, block);
-                }
+                this.captureShellshock(portal, block);
             }
             else {
                 this.captureBlock(portal, block);
@@ -500,6 +498,11 @@ class PlayState extends Phaser.State {
         blockSprite.anchor.set(0.5, 0.5);
         blockSprite.position.x = blockSprite.width*2 + config.SIDE_CHAMBER_WIDTH + (this.game.world.width - config.SIDE_CHAMBER_WIDTH*2 - blockSprite.width*4) * Math.random();
         blockSprite.position.y = Math.random() * 120 + 40;
+
+        // give shellshock a circular hitbox
+        if (block.name === 'Shellshock') {
+            blockSprite.body.setCircle(100); // width and height look backwards but it's on purpose
+        }
 
         // set up and execute an entry animation
 
