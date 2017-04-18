@@ -17,6 +17,9 @@ class PreloadState extends Phaser.State {
         this.game.load.image('portal-in-spin2',          'images/portal-in-spin2.png');
         this.game.load.image('portal-out',               'images/portal-out.png');
 
+        this.game.load.image('bonus-glow',               'images/bonus-glow.png');
+        this.game.load.image('bonus-rays',               'images/bonus-rays.png');
+
         this.game.load.image('Coffee-sprite',            'images/coffee.png');
         this.game.load.image('Lunch-sprite',             'images/lunch.png');
 
@@ -31,7 +34,7 @@ class PreloadState extends Phaser.State {
         this.game.load.image('PackageSearch-sprite',     'images/package-search.png');
         this.game.load.image('square-blue3',             'images/square-blue3.png');
         this.game.load.image('square-blue1',             'images/square-blue1.png');
-        this.game.load.image('square-red1',             'images/square-red1.png');
+        this.game.load.image('square-red1',              'images/square-red1.png');
 
         // Sprite sheets
         this.game.load.spritesheet('shrapnel', 'images/shellshock.png', 44, 44, 30);

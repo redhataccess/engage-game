@@ -376,20 +376,27 @@ class PlayState extends Phaser.State {
 
         this.sounds[block.data.name].play();
 
-        const alphaTween = this.game.add
-            .tween(block)
-            .to(
-                { alpha: 0 },
-                200,
-                Phaser.Easing.Linear.None,
-                true
-            );
+        const alphaTween = this.disappearTween(block, 200);
         alphaTween.onComplete.add(() => this.blockCaptured(portal, block), this);
 
+        if (block.data.rays) this.disappearTween(block.data.rays, 200);
+        if (block.data.glow) this.disappearTween(block.data.glow, 200);
 
         // blink the portal so there's a visual indication of capture
         this.game.time.events.add(100, () => this.portalIn.tint = 0xBBBBBB, this);
         this.game.time.events.add(200, () => this.portalIn.tint = 0xFFFFFF, this);
+    }
+
+    disappearTween(object, duration) {
+        const disappearTween = this.game.add
+            .tween(object)
+            .to(
+                { alpha: 0 },
+                duration,
+                Phaser.Easing.Linear.None,
+                true
+            );
+        return disappearTween;
     }
 
     captureShellshock(portal, block) {
@@ -475,17 +482,12 @@ class PlayState extends Phaser.State {
     blockAppear(block) {
         if (!this.blocksFalling) return;
 
-        console.log(`[play] now falling: ${block.name}`);
+        console.log(`[play] now falling: ${block.name} (${block.bonus ? "bonus" : "normal"})`);
         const blockSprite = this.game.add.sprite(0, 0, `${block.name}-sprite`);
 
         // attach a name to the block sprite
         blockSprite.data = block;
         blockSprite.data.state = 'appearing';
-
-        if (blockSprite.data.bonus) {
-            blockSprite.tint = 0xffff00;
-            console.log(`[play] bonus ${blockSprite.data.name} block falling`)
-        }
 
         this.blockSprites.push(blockSprite);
         this.game.physics.arcade.enableBody(blockSprite);
@@ -542,6 +544,38 @@ class PlayState extends Phaser.State {
     blockFall(block) {
         block.body.gravity.y = config.BLOCK_GRAVITY;
         block.data.state = 'falling';
+
+        if (block.data.bonus) {
+            const glow = this.game.add.sprite(block.position.x, block.position.y, 'bonus-glow');
+            const rays = this.game.add.sprite(block.position.x, block.position.y, 'bonus-rays');
+
+            glow.anchor.set(0.5, 0.5);
+            rays.anchor.set(0.5, 0.5);
+
+            // make glow and rays fall at the same rate as the block
+            this.game.physics.arcade.enableBody(glow);
+            this.game.physics.arcade.enableBody(rays);
+            glow.body.gravity.y = config.BLOCK_GRAVITY;
+            rays.body.gravity.y = config.BLOCK_GRAVITY;
+
+            // make the rays spin
+            rays.body.angularVelocity = Math.PI * 10;
+
+            // dim both, they start off a little bright
+            rays.alpha = 0;
+            glow.alpha = 0;
+
+            this.game.add.tween(rays).to({ alpha: 0.5 }, 300, Phaser.Easing.Linear.None, true);
+            this.game.add.tween(glow).to({ alpha: 0.5 }, 300, Phaser.Easing.Linear.None, true);
+
+            // bring block to the front
+            block.bringToTop();
+
+            // save a reference to this block's glow and rays so we can do
+            // stuff later, like make them disappear when captured
+            block.data.rays = rays;
+            block.data.glow = glow;
+        }
 
         switch (block.data.name) {
             case 'Shellshock':
