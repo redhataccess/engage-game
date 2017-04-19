@@ -13,7 +13,6 @@ class PlayState extends Phaser.State {
         this.createControlPosition();
         this.createPortalIn();
         this.createPortalOut();
-        this.createRoom();
         this.createBlockSpriteArray();
         this.createCapturedBlockSpriteArray();
         this.createChamberWalls();
@@ -87,12 +86,6 @@ class PlayState extends Phaser.State {
         this.timeText.fontSize = 28;
         this.timeText.anchor.set(0, 0);
         this.timeText.setText('0s');
-    }
-
-    createRoom() {
-        console.log('[play] creating room');
-        this.room = this.game.add.sprite(config.SIDE_CHAMBER_WIDTH, 0, 'room');
-        this.room.sendToBack();
     }
 
     createPortalIn() {
