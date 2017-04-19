@@ -35,6 +35,9 @@ const config = Object.freeze({
     // vulns per day
     VULNS_PER_DAY: 5,
 
+    // how long after a vuln should a CVE fall
+    CVE_DELAY: 2.0 * Phaser.Timer.SECOND,
+
     // how fast blocks are attracted when surch bonus is active
     ATTRACTION_POWER: 20,
 
