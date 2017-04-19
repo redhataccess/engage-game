@@ -104,6 +104,10 @@ class PlayState extends Phaser.State {
         this.portalIn.position.set(this.game.world.centerX, this.game.world.height - config.VIEWPORT_PADDING - this.portalIn.height / 2);
         this.portalSinkPosition = { x: 0, y: 0 }; // location captured blocks are tweened to
         this.portalIn.data.hasVuln = false;
+
+        // add shader filter
+        // const shimmer = new Phaser.Filter(this.game, null, this.game.cache.getText('portal-frag'));
+        // this.portalIn.filters = [ shimmer ];
     }
 
     createPortalOut() {
