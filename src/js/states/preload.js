@@ -56,6 +56,10 @@ class PreloadState extends Phaser.State {
         this.game.load.audio('static3'    , 'sounds/static3.wav');
         this.game.load.audio('static4'    , 'sounds/static4.wav');
 
+        // shaders
+
+        this.game.load.text('portal-frag' , 'shaders/portal.frag');
+
         this.game.data = {
             leap: new LeapController()
         };
