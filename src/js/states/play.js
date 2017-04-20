@@ -16,11 +16,13 @@ class PlayState extends Phaser.State {
         this.createBlockSpriteArray();
         this.createCapturedBlockSpriteArray();
         this.createChamberWalls();
-        this.createWell();
         this.createSplash();
         this.createShellBurst();
         this.hidePortals();
-        this.startDay();
+
+        this.fetchLatestScores()
+            .then(() => this.createWell())
+            .then(() => this.startDay());
     }
 
     update() {
@@ -145,8 +147,8 @@ class PlayState extends Phaser.State {
     }
 
     createWell() {
-        this.well = this.game.add.sprite(0, this.game.world.height, 'square-blue1');
-        this.well.height = 28;
+        this.well = this.game.add.sprite(0, this.game.world.height - this.scores.length / 2, 'square-blue1');
+        this.well.height = 2;
         this.well.width = config.SIDE_CHAMBER_WIDTH;
         this.well.anchor.set(0, 1);
         this.well.data.fill = 0.03; // how full the well is
@@ -154,6 +156,24 @@ class PlayState extends Phaser.State {
         this.game.physics.arcade.enableBody(this.well);
         this.well.body.immovable = true;
         this.well.bringToTop();
+        this.well.data.rows = [];
+
+        this.scores.forEach(this.createWellRow.bind(this));
+    }
+
+    createWellRow(score, index, scores) {
+        console.log(`adding row ${index}`);
+        const row = this.game.add.sprite(
+            0,
+            this.game.world.height - index/2,
+            ['square-blue1', 'square-blue3', 'square-red1'][Math.round(2*Math.random())]
+        );
+        row.height = 0.5;
+        row.width = config.SIDE_CHAMBER_WIDTH;
+        row.anchor.set(0, 1);
+        row.bringToTop();
+
+        this.well.data.rows.push(row);
     }
 
     createSplash() {
@@ -458,6 +478,7 @@ class PlayState extends Phaser.State {
 
     startDay() {
         console.log('[play] starting the day; good morning!');
+
         this.day = new Day();
         this.createPlayerControls();
 
@@ -619,7 +640,17 @@ class PlayState extends Phaser.State {
     gameRestart() {
         console.log(`[play] final score: ${this.score}`);
 
-        fetch(
+        this.reportScore(
+            'Anonymous' + (Math.random() * 10000000).toPrecision(4),
+            this.score
+        );
+
+        console.log('[play] restarting');
+        this.game.stateTransition.to('SplashState', true, false, { fromPlay: true });
+    }
+
+    reportScore(name, score) {
+        return fetch(
             config.PARSE_URL,
             {
                 method: 'POST',
@@ -628,15 +659,29 @@ class PlayState extends Phaser.State {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    name: 'Anonymous' + (Math.random() * 10000).toPrecision(4),
+                    name,
+                    score,
                     email: '',
-                    score: this.score,
                 }),
             }
-        );
+        ).then(response => response.json());
+    }
 
-        console.log('[play] restarting');
-        this.game.stateTransition.to('SplashState', true, false, { fromPlay: true });
+    fetchLatestScores() {
+        return fetch(
+            config.PARSE_URL + '?limit=1000',
+            {
+                method: 'GET',
+                headers: {
+                    'X-Parse-Application-Id': 'ENGAGE',
+                },
+            }
+        )
+            .then(response => response.json())
+            .then(scores => {
+                this.scores = scores.results;
+                return scores;
+            });
     }
 
     showPortals() {
