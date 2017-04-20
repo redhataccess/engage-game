@@ -41,6 +41,9 @@ const config = Object.freeze({
     // how fast blocks are attracted when surch bonus is active
     ATTRACTION_POWER: 20,
 
+    // How long does the search attraction last ms
+    SEARCH_BONUS_DURATION: 5000,
+
     // how long vuln explosion animation should last
     VULN_EXPLODE_DURATION_MS: 1.5 * Phaser.Timer.SECOND,
 
@@ -50,6 +53,8 @@ const config = Object.freeze({
     // how many frames to show each glitch sprite
     VULN_GLITCH_FRAMES_MIN: 8,
     VULN_GLITCH_FRAMES_MAX: 25,
+
+
 
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 300,

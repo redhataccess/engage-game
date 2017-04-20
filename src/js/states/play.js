@@ -331,6 +331,12 @@ class PlayState extends Phaser.State {
                 this.captureShellshock(portal, block);
             }
             else {
+                if (block.data.name == "PackageSearch") {
+                    console.log("Turning on search bonus");
+                    portal.data.attractActive = true;
+                    this.game.time.events.add(config.SEARCH_BONUS_DURATION, () => portal.data.attractActive = false, this);
+                }
+
                 this.captureBlock(portal, block);
             }
         }
