@@ -69,7 +69,7 @@ let Animations = {
             },
         }
     },
-    PackageSearch: {
+    Search: {
         Appear: {
             Duration: 300,
             Easing: Phaser.Easing.Linear.None,

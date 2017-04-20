@@ -31,7 +31,7 @@ class PreloadState extends Phaser.State {
         this.game.load.image('PCM-sprite',               'images/pcm.png');
 
         this.game.load.image('ContainerCatalog-sprite',  'images/container-catalog.png');
-        this.game.load.image('PackageSearch-sprite',     'images/package-search.png');
+        this.game.load.image('Search-sprite',            'images/search.png');
         this.game.load.image('square-blue3',             'images/square-blue3.png');
         this.game.load.image('square-blue1',             'images/square-blue1.png');
         this.game.load.image('square-red1',              'images/square-red1.png');

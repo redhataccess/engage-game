@@ -57,7 +57,7 @@ class PlayState extends Phaser.State {
             CVE              : this.game.add.audio('cve'),
             PCM              : this.game.add.audio('pickup1'),
             ContainerCatalog : this.game.add.audio('pickup2'),
-            PackageSearch    : this.game.add.audio('pickup3'),
+            Search           : this.game.add.audio('pickup3'),
             Documentation    : this.game.add.audio('pickup4'),
             Labs             : this.game.add.audio('pickup5'),
             Discussions      : this.game.add.audio('pickup6'),
@@ -331,7 +331,7 @@ class PlayState extends Phaser.State {
                 this.captureShellshock(portal, block);
             }
             else {
-                if (block.data.name == "PackageSearch") {
+                if (block.data.name == "Search") {
                     console.log("Turning on search bonus");
                     portal.data.attractActive = true;
                     this.game.time.events.add(config.SEARCH_BONUS_DURATION, () => portal.data.attractActive = false, this);
