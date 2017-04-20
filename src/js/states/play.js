@@ -30,7 +30,7 @@ class PlayState extends Phaser.State {
         this.handleCollisions();
         this.updatePortalIn();
         this.updatePlayerLeapControls();
-        this.updateVulnPositions();
+        this.updateBlockPositions();
     }
 
     render() {
@@ -220,7 +220,7 @@ class PlayState extends Phaser.State {
         }
     }
 
-    updateVulnPositions() {
+    updateBlockPositions() {
         // make the vuln blocks track the portal position
         for (let i = 0, l = this.blockSprites.length; i < l; i++) {
             let block = this.blockSprites[i];
@@ -235,18 +235,27 @@ class PlayState extends Phaser.State {
                     block.body.acceleration.copyFrom(accel);
                 }
                 else if (this.portalIn.data.attractActive) {
-                    let direction = Phaser.Point.subtract(this.portalIn.position, block.position);
+                    this.attractBlock(block);
 
-                    direction.normalize();
-                    direction.multiply(config.ATTRACTION_POWER, config.ATTRACTION_POWER);
-
-                    block.position.add(direction.x, direction.y);
-
-                    block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
-                    block.rotation -= Math.PI / 2;
+                    if (block.data.bonus) {
+                        this.attractBlock(block.data.rays);
+                        this.attractBlock(block.data.glow)
+                    }
                 }
             }
         }
+    }
+
+    attractBlock(block) {
+        let direction = Phaser.Point.subtract(this.portalIn.position, block.position);
+
+        direction.normalize();
+        direction.multiply(config.ATTRACTION_POWER, config.ATTRACTION_POWER);
+
+        block.position.add(direction.x, direction.y);
+
+        block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
+        block.rotation -= Math.PI / 2;
     }
 
     updatePlayTime() {
