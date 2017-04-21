@@ -146,30 +146,35 @@ class PlayState extends Phaser.State {
     }
 
     createWell() {
-        this.well = this.game.add.sprite(0, this.game.world.height - this.scores.length / 2, 'square-blue1');
+        this.well = this.game.add.sprite(0, 0, 'square-blue1');
         this.well.height = 2;
         this.well.width = config.SIDE_CHAMBER_WIDTH;
         this.well.anchor.set(0, 1);
-        this.well.data.fill = 0.03; // how full the well is
+        this.well.data.fill = 0; // how full the well is
         this.well.data.targetHeight = this.well.height; // how full the well is
         this.game.physics.arcade.enableBody(this.well);
         this.well.body.immovable = true;
         this.well.bringToTop();
         this.well.data.rows = [];
-
+        this.well.data.rowHeight = 0;
         this.scores.forEach(this.createWellRow.bind(this));
+        this.well.position.y = this.game.world.height - this.well.data.rowHeight;
     }
 
-    createWellRow(score, index, scores) {
+    createWellRow(leader, index, scores) {
+        const score = leader.score;
+        const height = score / 3000;
         const row = this.game.add.sprite(
             0,
-            this.game.world.height - index/2,
+            this.game.world.height - this.well.data.rowHeight,
             ['square-blue1', 'square-blue3', 'square-red1'][Math.round(2*Math.random())]
         );
-        row.height = 0.5;
+        row.height = height;
         row.width = config.SIDE_CHAMBER_WIDTH;
         row.anchor.set(0, 1);
         row.bringToTop();
+
+        this.well.data.rowHeight += height;
 
         this.well.data.rows.push(row);
     }
@@ -303,7 +308,7 @@ class PlayState extends Phaser.State {
             well.data.fill += config.WELL_FILL_PER_BLOCK;
             this.game.add.tween(well)
                 .to(
-                    { height: this.game.world.height * well.data.fill },
+                    { height: (this.game.world.height - this.well.data.rowHeight) * well.data.fill },
                     config.WELL_FILL_DURATION_MS,
                     Phaser.Easing.Linear.None,
                     true
