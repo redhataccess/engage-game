@@ -148,7 +148,7 @@ class PlayState extends Phaser.State {
     }
 
     createWell() {
-        this.well = this.game.add.sprite(0, this.game.world.height - this.scores.length / 2, 'Well-sprite');
+        this.well = this.game.add.sprite(0, 0, 'Well-sprite');
         this.well.tint = 0x00ff00;
         this.well.height = 2;
         this.well.width = config.SIDE_CHAMBER_WIDTH;
@@ -173,7 +173,7 @@ class PlayState extends Phaser.State {
             'Well-sprite'
         );
         row.tint = 0x00aa00;
-        row.height = 0.5;
+        row.height = height;
         row.width = config.SIDE_CHAMBER_WIDTH;
         row.anchor.set(0, 1);
         row.bringToTop();
