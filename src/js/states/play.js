@@ -162,7 +162,6 @@ class PlayState extends Phaser.State {
     }
 
     createWellRow(score, index, scores) {
-        console.log(`adding row ${index}`);
         const row = this.game.add.sprite(
             0,
             this.game.world.height - index/2,
