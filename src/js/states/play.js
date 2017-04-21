@@ -16,7 +16,6 @@ class PlayState extends Phaser.State {
         this.createBlockSpriteArray();
         this.createCapturedBlockSpriteArray();
         this.createChamberWalls();
-        this.createSplash();
         this.createShellBurst();
         this.hidePortals();
 
@@ -175,18 +174,6 @@ class PlayState extends Phaser.State {
         this.well.data.rows.push(row);
     }
 
-    createSplash() {
-        // splash viz
-        this.splashEmitter = game.add.emitter(0, 0, 400);
-        this.splashEmitter.makeParticles('square-blue1');
-        this.splashEmitter.gravity = config.BLOCK_GRAVITY;
-        this.splashEmitter.width = 20;
-        this.splashEmitter.minParticleScale = 0.10;
-        this.splashEmitter.maxParticleScale = 0.10;
-        this.splashEmitter.setXSpeed(-30, 30);
-        this.splashEmitter.setYSpeed(-100, -130);
-    }
-
     createShellBurst() {
         // burst viz
         this.burstEmitter = game.add.emitter(0, 0, 1000);
@@ -325,11 +312,6 @@ class PlayState extends Phaser.State {
             // make block bob and sink
             block.body.velocity.set(0, config.BLOCK_VELOCITY_SINKING); // bob
             block.body.gravity.set(0, config.BLOCK_GRAVITY_SINKING); // sink
-
-            // splash
-            this.splashEmitter.x = block.position.x;
-            this.splashEmitter.y = well.top;
-            this.splashEmitter.start(true, 1300, null, 20);
 
             this.sounds.splash.play();
 
