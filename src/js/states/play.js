@@ -15,6 +15,7 @@ class PlayState extends Phaser.State {
         this.createPortalOut();
         this.createBlockSpriteArray();
         this.createCapturedBlockSpriteArray();
+        this.createChamberWalls();
         this.createShellBurst();
         this.hidePortals();
 
@@ -130,14 +131,16 @@ class PlayState extends Phaser.State {
 
     createChamberWalls() {
         // create left chamber wall
-        this.leftWall = this.game.add.sprite(config.SIDE_CHAMBER_WIDTH, 0, 'square-blue3');
+        this.leftWall = this.game.add.sprite(config.SIDE_CHAMBER_WIDTH, 0, 'Well-sprite');
+        this.leftWall.tint = 0xff0000;
         this.leftWall.height = this.game.world.height;
         this.leftWall.width = 2;
         this.game.physics.arcade.enableBody(this.leftWall);
         this.leftWall.body.immovable = true;
 
         // create right chamber wall
-        this.rightWall = this.game.add.sprite(this.game.world.width - config.SIDE_CHAMBER_WIDTH, 0, 'square-blue3');
+        this.rightWall = this.game.add.sprite(this.game.world.width - config.SIDE_CHAMBER_WIDTH, 0, 'Well-sprite');
+        this.rightWall.tint = 0xff0000;
         this.rightWall.height = this.game.world.height;
         this.rightWall.width = 2;
         this.game.physics.arcade.enableBody(this.rightWall);
@@ -146,6 +149,7 @@ class PlayState extends Phaser.State {
 
     createWell() {
         this.well = this.game.add.sprite(0, this.game.world.height - this.scores.length / 2, 'Well-sprite');
+        this.well.tint = 0x00ff00;
         this.well.height = 2;
         this.well.width = config.SIDE_CHAMBER_WIDTH;
         this.well.anchor.set(0, 1);
@@ -168,7 +172,7 @@ class PlayState extends Phaser.State {
             this.game.world.height - this.well.data.rowHeight,
             'Well-sprite'
         );
-        row.tint = 0xff0000;
+        row.tint = 0x00aa00;
         row.height = 0.5;
         row.width = config.SIDE_CHAMBER_WIDTH;
         row.anchor.set(0, 1);
