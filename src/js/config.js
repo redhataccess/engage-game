@@ -71,7 +71,7 @@ const config = Object.freeze({
     BONUS_BLOCK_PROBABILITY: 0.05,
 
     // velocity and gravity applied to blocks once they fall into the well of knowledge
-    BLOCK_VELOCITY_SINKING: 30,
+    BLOCK_VELOCITY_SINKING: 50,
     BLOCK_GRAVITY_SINKING: 60,
 
     // how quickly to move the player's portal to where the controls are
