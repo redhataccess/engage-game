@@ -667,6 +667,7 @@ class PlayState extends Phaser.State {
     }
 
     fetchLatestScores() {
+        this.scores = [];
         return fetch(
             config.PARSE_URL + '?limit=1000',
             {
