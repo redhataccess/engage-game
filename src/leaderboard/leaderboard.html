@@ -8,7 +8,7 @@
         <span class="score">Score</span>
       </li>
     </ul>
-    <ul class="leaders">
+    <ul class="leaders fade">
       <li ng-repeat="leader in vm.leaders">
         <span class="rank">{{::$index + 1 | ordinal}}</span>
         <span class="username">{{::leader.name}}</span>
