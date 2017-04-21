@@ -28,6 +28,12 @@ class PreloadState extends Phaser.State {
         this.game.load.image('Search-sprite',            'images/search.png');
 
         this.game.load.image('Well-sprite',              'images/well.png');
+        this.game.load.image('Well-row1-sprite',         'images/well-row-1.png');
+        this.game.load.image('Well-row2-sprite',         'images/well-row-2.png');
+        this.game.load.image('Well-row3-sprite',         'images/well-row-3.png');
+        this.game.load.image('Well-row4-sprite',         'images/well-row-4.png');
+        this.game.load.image('Well-row5-sprite',         'images/well-row-5.png');
+        this.game.load.image('Well-row6-sprite',         'images/well-row-6.png');
 
         // Sprite sheets
         this.game.load.spritesheet('shrapnel', 'images/shellshock.png', 44, 44, 30);

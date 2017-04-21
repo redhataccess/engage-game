@@ -149,8 +149,8 @@ class PlayState extends Phaser.State {
 
     createWell() {
         this.well = this.game.add.sprite(0, 0, 'Well-sprite');
-        this.well.tint = 0x00ff00;
-        this.well.height = 2;
+        this.well.tint = 0x007C8B;
+        this.well.height = 0;
         this.well.width = config.SIDE_CHAMBER_WIDTH;
         this.well.anchor.set(0, 1);
         this.well.data.fill = 0; // how full the well is
@@ -160,6 +160,8 @@ class PlayState extends Phaser.State {
         this.well.bringToTop();
         this.well.data.rows = [];
         this.well.data.rowHeight = 0;
+        this.well.data.rowSprites = ['Well-row1-sprite','Well-row2-sprite','Well-row3-sprite','Well-row4-sprite','Well-row5-sprite','Well-row6-sprite'];
+        this.well.data.rowIndex = 0;
         this.scores.forEach(this.createWellRow.bind(this));
         this.well.position.y = this.game.world.height - this.well.data.rowHeight;
     }
@@ -170,9 +172,10 @@ class PlayState extends Phaser.State {
         const row = this.game.add.sprite(
             0,
             this.game.world.height - this.well.data.rowHeight,
-            'Well-sprite'
+            this.well.data.rowSprites[this.well.data.rowIndex]
         );
-        row.tint = 0x00aa00;
+        this.well.data.rowIndex += 1;
+        this.well.data.rowIndex %= this.well.data.rowSprites.length;
         row.height = height;
         row.width = config.SIDE_CHAMBER_WIDTH;
         row.anchor.set(0, 1);
