@@ -31,7 +31,7 @@
 
         function getLeaders() {
             return $http.get(
-                serviceUrl,
+                `${serviceUrl}?limit=1000`,
                 {
                     headers: {
                         'X-Parse-Application-Id': 'ENGAGE'
