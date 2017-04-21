@@ -15,8 +15,8 @@ class PlayState extends Phaser.State {
         this.createPortalOut();
         this.createBlockSpriteArray();
         this.createCapturedBlockSpriteArray();
-        this.createChamberWalls();
-        this.createSplash();
+        // this.createChamberWalls();
+        // this.createSplash();
         this.createShellBurst();
         this.hidePortals();
 
@@ -147,7 +147,7 @@ class PlayState extends Phaser.State {
     }
 
     createWell() {
-        this.well = this.game.add.sprite(0, this.game.world.height - this.scores.length / 2, 'square-blue1');
+        this.well = this.game.add.sprite(0, this.game.world.height - this.scores.length / 2, 'Well-sprite');
         this.well.height = 2;
         this.well.width = config.SIDE_CHAMBER_WIDTH;
         this.well.anchor.set(0, 1);
@@ -166,8 +166,9 @@ class PlayState extends Phaser.State {
         const row = this.game.add.sprite(
             0,
             this.game.world.height - index/2,
-            ['square-blue1', 'square-blue3', 'square-red1'][Math.round(2*Math.random())]
+            'Well-sprite'
         );
+        row.tint = 0xff0000;
         row.height = 0.5;
         row.width = config.SIDE_CHAMBER_WIDTH;
         row.anchor.set(0, 1);
