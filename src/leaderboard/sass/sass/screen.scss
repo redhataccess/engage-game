@@ -9,10 +9,10 @@ $font-base:                                12px;
 $font-base-lg:                             18px;
 $font-heading:                            4.2em;
 $font-table:                              1.7em;
-$font-titles:                             1.2em;
+// $font-titles:                             1.2em;
 $font-weight-light:                         500;
-$font-weight-bold:                          600;
-$font-weight-heavy:                         800;
+$font-weight-bold:                          800;
+$font-weight-heavy:                         900;
 
 /*
   -----------------------
@@ -29,15 +29,15 @@ html {
 }
 
 body {
-  margin: 0;
-  height: 100%;
-  font-family: 'Overpass', sans-serif;
-  font-size: $font-base;
-  font-weight: $font-weight-light;
   background-image: radial-gradient(75% 90% at top, $background-color-blue, #000e16 100%);
   background-color: $background-color;
   background-position: top center;
   overflow: hidden;
+  font-family: 'Overpass', sans-serif;
+  font-size: $font-base;
+  font-weight: $font-weight-light;
+  height: 100%;
+  margin: 0;
 }
 
 
@@ -49,14 +49,14 @@ pl-leaderboard {
 
   .leaders-header {
     margin: 4.3% auto 5.8%;
-    width: 39%;
+    width: 40%;
     content: url('../../assets/logo.png');
   }
 
   article {
-    margin: 1.5vh 0;
-    height: 100%;
-    max-height: 100%;
+    margin: 0 auto;
+    max-width: 70%;
+    max-height: 85%;
 
     section {
       width: 100%;
@@ -101,7 +101,7 @@ pl-leaderboard {
 
 /*
   -----------------------
-       leaders list
+       list styles
   -----------------------
 */
 
@@ -133,48 +133,30 @@ pl-leaderboard article section ul li {
     width: 26%;
     max-width: 26%;
     text-align: right;
-
-    // &::before {
-    //   content: "|";
-    //   padding-right: 20%;
-    // }
   }
 }
 
 ul.leaders li {
+  background-color: rgba(0,61,75,.8);
+  border-bottom: 2px solid rgba(0,0,0,.4);
   font-size: $font-table;
-  font-weight: $font-weight-heavy;
+  font-weight: $font-weight-bold;
   letter-spacing: 2px;
   padding: 2.4% 2.55% 2.4%;
   height: 100%;
-  background-color: rgba(0,61,75,.8);
-  border-bottom: 2px solid rgba(0,0,0,.4);
 
   &:first-child {
-    color: #5db358; //orange: f6c982;
-    font-weight: 900;
+    color: #5db358; // or orange: f6c982;
+    font-weight: $font-weight-heavy;
   }
 }
 
 
 /*
   -----------------------
-      media queries
+        scaling
   -----------------------
 */
-
-@media (min-width: 1024px) and (max-width: 1920px) {
-
-  h1.leaders-header {
-    max-width: 75%;
-  }
-
-  pl-leaderboard article {
-    margin: 0 auto;
-    max-width: 75%;
-    max-height: 80%;
-  }
-}
 
 @media (min-width: 1920px) {
 
@@ -182,10 +164,6 @@ ul.leaders li {
     font-size: $font-base-lg;
   }
 
-  pl-leaderboard article h1.leaders-header {
-    max-width: 60%;
-  }
-
   pl-leaderboard article {
     margin: 0 auto;
     max-width: 60%;
@@ -196,19 +174,19 @@ ul.leaders li {
 
 /*
   -----------------------
-    rank color gradient
+      list gradient
   -----------------------
 */
 
-pl-leaderboard article section ul.leaders li:first-child   { background-color: rgba(0,136,163,.38); }
-pl-leaderboard article section ul.leaders li:nth-child(2)  { background-color: rgba(1,128,154,.38); }
-pl-leaderboard article section ul.leaders li:nth-child(3)  { background-color: rgba(1,116,140,.38); }
-pl-leaderboard article section ul.leaders li:nth-child(4)  { background-color: rgba(0,105,126,.38); }
-pl-leaderboard article section ul.leaders li:nth-child(5)  { background-color: rgba(1,96,116,.38); }
-pl-leaderboard article section ul.leaders li:nth-child(6)  { background-color: rgba(0,86,104,.38); }
-pl-leaderboard article section ul.leaders li:nth-child(7)  { background-color: rgba(0,81,98,.38); }
-pl-leaderboard article section ul.leaders li:nth-child(8)  { background-color: rgba(0,74,90,.38); }
-pl-leaderboard article section ul.leaders li:nth-child(9)  { background-color: rgba(0,68,82,.38); }
-pl-leaderboard article section ul.leaders li:nth-child(10) { background-color: rgba(0,61,75,.38); }
+pl-leaderboard article section ul.leaders li:first-child   { background-color: lighten(rgba(0,136,163,.50), 10%); }
+pl-leaderboard article section ul.leaders li:nth-child(2)  { background-color: lighten(rgba(1,128,154,.50), 10%); }
+pl-leaderboard article section ul.leaders li:nth-child(3)  { background-color: lighten(rgba(1,116,140,.50), 10%); }
+pl-leaderboard article section ul.leaders li:nth-child(4)  { background-color: lighten(rgba(0,105,126,.50), 10%); }
+pl-leaderboard article section ul.leaders li:nth-child(5)  { background-color: lighten(rgba(1,96,116,.50), 10%); }
+pl-leaderboard article section ul.leaders li:nth-child(6)  { background-color: lighten(rgba(0,86,104,.50), 10%); }
+pl-leaderboard article section ul.leaders li:nth-child(7)  { background-color: lighten(rgba(0,81,98,.50), 10%); }
+pl-leaderboard article section ul.leaders li:nth-child(8)  { background-color: lighten(rgba(0,74,90,.50), 10%); }
+pl-leaderboard article section ul.leaders li:nth-child(9)  { background-color: lighten(rgba(0,68,82,.50), 10%); }
+pl-leaderboard article section ul.leaders li:nth-child(10) { background-color: lighten(rgba(0,61,75,.50), 10%); }
 
 @import "animations.scss";
