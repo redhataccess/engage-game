@@ -252,10 +252,13 @@ class PlayState extends Phaser.State {
                 if (block.data.name == 'Shellshock') {
                     const accel = Phaser.Point.subtract(this.portalIn.position, block.position);
                     accel.normalize();
-                    accel.multiply(2200, 2200);
+                    accel.multiply(config.VULN_ACCEL, config.VULN_ACCEL);
+                    block.body.acceleration.copyFrom(accel);
+
+                    block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, 0.04);
                     block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
                     block.rotation -= Math.PI / 2;
-                    block.body.acceleration.copyFrom(accel);
+
                 }
                 else if (this.portalIn.data.attractActive) {
                     this.attractBlock(block);

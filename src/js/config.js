@@ -53,6 +53,7 @@ const config = Object.freeze({
     // how many frames to show each glitch sprite
     VULN_GLITCH_FRAMES_MIN: 8,
     VULN_GLITCH_FRAMES_MAX: 25,
+    VULN_ACCEL: 1900,
 
 
 
