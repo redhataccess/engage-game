@@ -19,15 +19,13 @@ class IntroState extends Phaser.State {
         this.introText = `
 2:00 AM...
 ____
-You are responsible for an urgent
-production deployment.
+You are responsible for an urgent production
+deployment.
 ____
-Wave your hand left and right to catch
-the Customer Portal's resources.  Catch
-enough and you will meet the deadline!
+To meet the deadline, wave your hand left and
+right to catch Customer Portal resources.
 
-But first thing's first...
-Get some coffee. :)`;
+But first thing's first... get some coffee.`;
     }
 
     next() {
@@ -35,16 +33,16 @@ Get some coffee. :)`;
     }
 
     playIntro() {
-        this.scoreText = game.add.text(80, 40, "");
+        this.scoreText = game.add.text(80, 10, "");
         this.scoreText.font = 'overpass-mono';
-        this.scoreText.fontSize = 68;
+        this.scoreText.fontSize = 54;
         this.scoreText.fill = '#00ABCF';
 
         this.scoreTextIndex = 0;
 
         // kick off the intro animation
         // this.advanceIntro();
-        this.game.time.events.loop(55, this.advanceIntro, this);
+        this.game.time.events.loop(48, this.advanceIntro, this);
     }
 
     advanceIntro() {
