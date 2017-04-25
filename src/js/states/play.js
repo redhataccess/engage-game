@@ -252,7 +252,7 @@ class PlayState extends Phaser.State {
                 if (block.data.name == 'Shellshock') {
                     const accel = Phaser.Point.subtract(this.portalIn.position, block.position);
                     accel.normalize();
-                    accel.multiply(2000, 2000);
+                    accel.multiply(2200, 2200);
                     block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
                     block.rotation -= Math.PI / 2;
                     block.body.acceleration.copyFrom(accel);
@@ -482,12 +482,16 @@ class PlayState extends Phaser.State {
 
         this.blocksFalling = true;
 
-        // every so often, run the check to determine whether to drop a block
-        this.game.time.events.loop(config.BLOCK_DROP_MIN_INTERVAL_MS, this.blockDropCheck, this);
-
         // schedule coffee and lunch
         this.game.time.events.add(config.COFFEE_DELAY_MS, () => this.blockAppear(this.day.getCoffee()), this);
         this.game.time.events.add(config.DAY_DURATION_MS / 2, () => this.blockAppear(this.day.getLunch()), this);
+
+        // Never drop any blocks until coffee has come
+        this.game.time.events.add(config.COFFEE_DELAY_MS * 2, () => {
+            // every so often, run the check to determine whether to drop a block
+            this.game.time.events.loop(config.BLOCK_DROP_MIN_INTERVAL_MS, this.blockDropCheck, this);
+        }, this);
+
 
         // schedule some vulns
         const vulnTimespan = 0.9 * config.DAY_DURATION_MS;
@@ -613,7 +617,7 @@ class PlayState extends Phaser.State {
                 // make vulns fall faster
                 block.body.gravity.set(0, 0);
                 block.body.velocity.set(0, 0);
-                block.body.maxVelocity.set(400, 400);
+                block.body.maxVelocity.set(1000, 1000);
                 block.body.bounce.set(0.7, 0);
                 this.fallingVuln = block; // a handy reference to the vuln currently falling
                 break;

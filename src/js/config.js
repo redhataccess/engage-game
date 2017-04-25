@@ -21,10 +21,10 @@ const config = Object.freeze({
     INPUT_WAIT_MS: Phaser.Timer.SECOND * 0.5,
 
     // how long to wait after game begins before first event falls from sky
-    COFFEE_DELAY_MS: 3 * Phaser.Timer.SECOND,
+    COFFEE_DELAY_MS: 1 * Phaser.Timer.SECOND,
 
     // how long the "day" lasts
-    DAY_DURATION_MS: 50 * Phaser.Timer.SECOND,
+    DAY_DURATION_MS: 60 * Phaser.Timer.SECOND,
 
     // how long to wait after the last block falls before ending the game
     END_DURATION_MS: 3 * Phaser.Timer.SECOND,
@@ -33,10 +33,10 @@ const config = Object.freeze({
     GAME_OVER_RESTART_DURATION_MS: 1.6 * Phaser.Timer.SECOND,
 
     // vulns per day
-    VULNS_PER_DAY: 5,
+    VULNS_PER_DAY: 10,
 
     // how long after a vuln should a CVE fall
-    CVE_DELAY: 2.0 * Phaser.Timer.SECOND,
+    CVE_DELAY: 4.0 * Phaser.Timer.SECOND,
 
     // how fast blocks are attracted when surch bonus is active
     ATTRACTION_POWER: 20,
@@ -57,13 +57,13 @@ const config = Object.freeze({
 
 
     // gravity applied to falling blocks
-    BLOCK_GRAVITY: 300,
+    BLOCK_GRAVITY: 350,
 
     // minimum interval between dropping blocks
     BLOCK_DROP_MIN_INTERVAL_MS: 0.1 * Phaser.Timer.SECOND,
 
     // how quickly should block drops ramp up?  any easing function can be used
-    BLOCK_DROP_PROBABILITY_FUNC: Phaser.Easing.Quadratic.InOut,
+    BLOCK_DROP_PROBABILITY_FUNC: Phaser.Easing.Quartic.Out,
     // the max probability of a block falling each tick
     BLOCK_DROP_PROBABILITY_MAX: 0.25,
 
