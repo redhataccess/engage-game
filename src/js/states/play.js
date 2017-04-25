@@ -255,7 +255,7 @@ class PlayState extends Phaser.State {
                     accel.multiply(config.VULN_ACCEL, config.VULN_ACCEL);
                     block.body.acceleration.copyFrom(accel);
 
-                    block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, 0.04);
+                    block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, config.VULN_TRACKING);
                     block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
                     block.rotation -= Math.PI / 2;
 
@@ -509,10 +509,19 @@ class PlayState extends Phaser.State {
     }
 
     blockDropCheck() {
-        const progress = ( this.updateTimestamp - this.startTimestamp ) /  config.DAY_DURATION_MS;
+        const progress = ( this.updateTimestamp - this.startTimestamp ) / config.DAY_DURATION_MS;
         const p = config.BLOCK_DROP_PROBABILITY_FUNC(progress) * config.BLOCK_DROP_PROBABILITY_MAX;
         if (this.rnd.frac() < p) {
-            const block = this.day.getRandomBlock();
+            let block;
+
+            if (this.rnd.between(1, 100) <= config.SEARCH_BLOCK_DROP_CHANCE) {
+                console.log('[play] Dropping Search attract block');
+                block = this.day.getBlock({name: 'Search'});
+            }
+            else {
+                block = this.day.getRandomBlock();
+            }
+
             this.blockAppear(block);
         }
     }

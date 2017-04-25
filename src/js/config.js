@@ -43,6 +43,7 @@ const config = Object.freeze({
 
     // How long does the search attraction last ms
     SEARCH_BONUS_DURATION: 5000,
+    SEARCH_BLOCK_DROP_CHANCE: 7,
 
     // how long vuln explosion animation should last
     VULN_EXPLODE_DURATION_MS: 1.5 * Phaser.Timer.SECOND,
@@ -54,6 +55,7 @@ const config = Object.freeze({
     VULN_GLITCH_FRAMES_MIN: 8,
     VULN_GLITCH_FRAMES_MAX: 25,
     VULN_ACCEL: 1900,
+    VULN_TRACKING: 0.03, // how fast should the vuln track the x position of the portal
 
 
 

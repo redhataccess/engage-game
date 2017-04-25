@@ -7,7 +7,6 @@ class Day {
         return [
             'PCM',
             'ContainerCatalog',
-            'Search',
             'Documentation',
             'Labs',
             'Discussions',
