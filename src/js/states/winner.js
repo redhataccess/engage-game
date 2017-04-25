@@ -27,6 +27,7 @@ class WinnerState extends Phaser.State {
         this.form.removeEventListener('submit', this.myOnSubmit);
         this.formWrap.classList.add('hidden');
         this.agree.classList.remove('please');
+        this.agree.checked = false;
         this.name.value = '';
         this.email.value = '';
     }

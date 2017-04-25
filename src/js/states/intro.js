@@ -24,7 +24,7 @@ deployment.
 ____
 To meet the deadline, wave your hand left and
 right to catch Customer Portal resources.
-
+____
 But first thing's first... get some coffee.`;
     }
 
