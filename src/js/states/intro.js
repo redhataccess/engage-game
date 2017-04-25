@@ -17,12 +17,17 @@ class IntroState extends Phaser.State {
         // underscores will not be printed, but they cause a pause in the
         // "typing".
         this.introText = `
-8:00 AM...____GOOD MORNING.
+2:00 AM...
 ____
-USE THE RED HAT CUSTOMER PORTAL
-TO KEEP YOUR SYSTEMS SAFE.
+You are responsible for an urgent
+production deployment.
+____
+Wave your hand left and right to catch
+the Customer Portal's resources.  Catch
+enough and you will meet the deadline!
 
-BUT FIRST... HAVE SOME COFFEE.`;
+But first thing's first...
+Get some coffee. :)`;
     }
 
     next() {
@@ -30,10 +35,10 @@ BUT FIRST... HAVE SOME COFFEE.`;
     }
 
     playIntro() {
-        this.scoreText = game.add.text(80, 80, "");
+        this.scoreText = game.add.text(80, 40, "");
         this.scoreText.font = 'overpass-mono';
         this.scoreText.fontSize = 68;
-        this.scoreText.fill = '#00fa00';
+        this.scoreText.fill = '#00ABCF';
 
         this.scoreTextIndex = 0;
 

@@ -7,6 +7,7 @@
         <title>Engage</title>
 
         <link rel="stylesheet" href="http://overpass-30e2.kxcdn.com/overpass-mono.css">
+        <link rel="stylesheet" href="leaderboard/stylesheets/sass/animations.css">
 
         <style type="text/css" media="screen">
             @keyframes spin {
@@ -29,12 +30,15 @@
                 width: 100%;
                 overflow: hidden;
                 color: white;
-                font-family: 'overpass-mono', sans-serif;
+                font-family: 'overpass', sans-serif;
             }
             body {
-                background: #000;
-                background-size: cover;
+                background-image: radial-gradient(75% 90% at top, #01121b, #000e16 100%);
+                background-color: #010202;
+                background-position: top center;
             }
+            a { color: #5db358; }
+            a:visited { color: #5db358; }
             canvas {
                 position: absolute;
                 top: 50%;
@@ -99,6 +103,59 @@
                 animation-direction: alternate;
                 /* transform-origin: 50% 50%; */
             }
+            .winner-form {
+                position: absolute;
+                z-index: 300;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                max-width: 600px;
+                transition: opacity linear 0.35s, transform linear 0.36s;
+                background-color: rgba(0,61,75,.8);
+                margin: 40px;
+                letter-spacing: 2px;
+                padding: 3rem;
+            }
+            .winner-form, .winner-form input {
+                font-family: 'Overpass', sans-serif;
+                font-size: 1.7em;
+                font-weight: 800;
+                letter-spacing: 2px;
+            }
+            .winner-form label {
+                display: block;
+                font-weight: 500;
+                margin-bottom: 2rem;
+            }
+            .winner-form h1 {
+                color: #5db358;
+                margin-top: 0.2rem;
+            }
+            .winner-form form {
+                margin-top: 2rem;
+            }
+            .winner-form input {
+                margin-top: 0.3rem;
+                color: #5db358;
+                background-color: #001018;
+                border: 1px solid #003F4E;
+                border-radius: 2px;
+                padding: 2px 6px;
+                line-height: 1;
+            }
+            .winner-form #agree.please {
+                outline: 5px solid #5db358;
+            }
+            .winner-form, .winner-form * {
+                user-select: auto;
+                cursor: auto;
+                pointer-events: auto;
+            }
+            .winner-form.hidden {
+                opacity: 0.0;
+                z-index: 1;
+            }
         </style>
     </head>
     <body>
@@ -115,7 +172,37 @@
             </div>
         </div>
 
+        <div class="winner-form hidden">
+            <h1>Congratulations!</h1>
+            <p>Your score made it onto the leaderboard!</p>
+            <p>That makes you eligible to win a prize.  For information on how
+                the prize will be awarded, see the Terms and Conditions link
+                below.</p>
+            <form>
+                <label>
+                    <b>Player Nickname</b> (displayed on leaderboard)<br>
+                    <input placeholder="Nickname" id="nick" type="text">
+                </label>
+                <label>
+                    <b>Email address</b> (to arrange prize delivery if you win)<br>
+                    <input placeholder="Email address" id="email" type="text">
+                </label>
+                <label>
+                    <input id="agree" type="checkbox">
+                    I agree to the <a href="#">Terms and Conditions</a> of this contest.
+                </label>
+                <label>
+                    <input id="submit-form" type="submit" value="Enter Contest">
+                </label>
+            </form>
+        </div>
+
+        <div id='stars-1'></div>
+        <div id='stars-2'></div>
+        <div id='stars-3'></div>
+
         <!-- third party -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/phaser.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.0.5/es6-promise.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.1/fetch.min.js"></script>
@@ -132,6 +219,7 @@
         <script src="js/states/splash.js"></script>
         <script src="js/states/intro.js"></script>
         <script src="js/states/play.js"></script>
+        <script src="js/states/winner.js"></script>
         <script src="js/leap.js"></script>
         <script src="js/day.js"></script>
         <script src="js/animations.js"></script>

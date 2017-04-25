@@ -1,6 +1,7 @@
 class PlayState extends Phaser.State {
     create() {
         console.log('[play] starting play state');
+        window.play = this;
         this.score = 0;
         this.scoreMultiplier = 1;
         this.rnd = new Phaser.RandomDataGenerator();
@@ -21,7 +22,11 @@ class PlayState extends Phaser.State {
 
         this.fetchLatestScores()
             .then(() => this.createWell())
-            .then(() => this.startDay());
+            .then(() => this.startDay())
+            .catch(() => {
+                this.createWell();
+                this.startDay();
+            });;
     }
 
     update() {
@@ -132,7 +137,6 @@ class PlayState extends Phaser.State {
     createChamberWalls() {
         // create left chamber wall
         this.leftWall = this.game.add.sprite(config.SIDE_CHAMBER_WIDTH, 0, 'Well-sprite');
-        this.leftWall.tint = 0xff0000;
         this.leftWall.height = this.game.world.height;
         this.leftWall.width = 2;
         this.game.physics.arcade.enableBody(this.leftWall);
@@ -140,11 +144,12 @@ class PlayState extends Phaser.State {
 
         // create right chamber wall
         this.rightWall = this.game.add.sprite(this.game.world.width - config.SIDE_CHAMBER_WIDTH, 0, 'Well-sprite');
-        this.rightWall.tint = 0xff0000;
         this.rightWall.height = this.game.world.height;
         this.rightWall.width = 2;
         this.game.physics.arcade.enableBody(this.rightWall);
         this.rightWall.body.immovable = true;
+        this.leftWall.alpha = 0.2;
+        this.rightWall.alpha = 0.2;
     }
 
     createWell() {
@@ -627,37 +632,30 @@ class PlayState extends Phaser.State {
 
     gameEnd() {
         console.log('[play] game over');
-        this.game.time.events.add(config.GAME_OVER_RESTART_DURATION_MS, this.gameRestart, this);
+        this.game.time.events.add(config.GAME_OVER_RESTART_DURATION_MS, this.gameOver, this);
     }
 
-    gameRestart() {
+    gameOver(alwaysWinner = false) {
         console.log(`[play] final score: ${this.score}`);
 
-        this.reportScore(
-            'Anonymous' + (Math.random() * 10000000).toPrecision(4),
-            this.score
-        );
+        const hiScores = _(this.scores)
+            .sortBy('score')
+            .reverse()
+            .uniqBy('name')
+            .take(10)
+            .map('score')
+            .value();
 
-        console.log('[play] restarting');
-        this.game.stateTransition.to('SplashState', true, false, { fromPlay: true });
-    }
+        const lowestHiScore = _.min(hiScores);
 
-    reportScore(name, score) {
-        return fetch(
-            config.PARSE_URL,
-            {
-                method: 'POST',
-                headers: {
-                    'X-Parse-Application-Id': 'ENGAGE',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name,
-                    score,
-                    email: '',
-                }),
-            }
-        ).then(response => response.json());
+        if (alwaysWinner || (this.score > lowestHiScore)) {
+            console.log(`[play] hiscore? ${this.score} > ${lowestHiScore}`);
+            this.game.stateTransition.to('WinnerState', true, false, { score: this.score });
+        }
+        else {
+            console.log(`[play] hiscore? ${this.score} < ${lowestHiScore}`);
+            this.game.stateTransition.to('SplashState', true, false, { fromPlay: true });
+        }
     }
 
     fetchLatestScores() {

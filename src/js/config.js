@@ -30,7 +30,7 @@ const config = Object.freeze({
     END_DURATION_MS: 3 * Phaser.Timer.SECOND,
 
     // how long to wait after game over before restarting
-    GAME_OVER_RESTART_DURATION_MS: 7 * Phaser.Timer.SECOND,
+    GAME_OVER_RESTART_DURATION_MS: 1.6 * Phaser.Timer.SECOND,
 
     // vulns per day
     VULNS_PER_DAY: 5,
