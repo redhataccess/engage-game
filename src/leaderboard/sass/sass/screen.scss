@@ -4,12 +4,11 @@
 $background-color:                rgba(1,2,2,1);
 $background-color-blue:         rgba(1,18,27,1);
 $color-grey:                   rgba(56,73,90,1);
-$color-white:              rgba(252,250,249,.6);
+$color-white:             rgba(252,250,249,.75);
 $font-base:                                12px;
 $font-base-lg:                             18px;
 $font-heading:                            4.2em;
 $font-table:                              1.7em;
-// $font-titles:                             1.2em;
 $font-weight-light:                         500;
 $font-weight-bold:                          800;
 $font-weight-heavy:                         900;
@@ -48,7 +47,7 @@ pl-leaderboard {
   color: $color-white;
 
   .leaders-header {
-    margin: 4.3% auto 5.8%;
+    margin: 4.2% auto 5.8%;
     width: 40%;
     content: url('../../assets/logo.png');
   }
@@ -75,32 +74,6 @@ pl-leaderboard {
 
 /*
   -----------------------
-      leader titles
-  -----------------------
-*/
-
-// ul.leader-titles {
-//   margin-bottom: 1.5vh;
-//   padding-bottom: .8vh; //flag - adjust padding/margin
-//   border-bottom: 1px solid rgba(255, 255, 255, .2);
-//   text-transform: uppercase;
-//
-//   li {
-//     font-size: $font-titles;
-//     font-weight: $font-weight-bold;
-//     letter-spacing: .5px;
-//     padding: 0 2% .5%;
-//     opacity: .675;
-//
-//     .username::before {
-//       content: "";
-//     }
-//   }
-// }
-
-
-/*
-  -----------------------
        list styles
   -----------------------
 */
@@ -111,43 +84,69 @@ pl-leaderboard article section ul li {
   align-items: center;
 
   .rank {
-    width: 9%;
-    max-width: 9%;
+    width: 12%;
+    max-width: 12%;
   }
 
   .username {
-    width: 65%;
-    max-width: 65%;
+    width: 64%;
+    max-width: 64%;
     word-break: break-all;
     text-transform: lowercase;
 
-    &::before {
-      content: "|";
-      margin-right: 5.5%;
-      text-shadow: none;
-      opacity: .12;
-    }
+    // &::before {
+    //   content: "";
+    //   margin-right: 5.5%;
+    //   opacity: .12;
+    //   color: black;
+    // }
   }
 
   .score {
-    width: 26%;
-    max-width: 26%;
+    width: 24%;
+    max-width: 24%;
     text-align: right;
   }
 }
 
 ul.leaders li {
-  background-color: rgba(0,61,75,.8);
-  border-bottom: 2px solid rgba(0,0,0,.4);
+  border-bottom: 2px solid rgba(0,0,0,.3);
   font-size: $font-table;
   font-weight: $font-weight-bold;
   letter-spacing: 2px;
-  padding: 2.4% 2.55% 2.4%;
+  padding: 2.35% 2.55%;
   height: 100%;
 
   &:first-child {
-    color: #5db358; // or orange: f6c982;
+    color: #5daa59; // or orange: f6c982;
     font-weight: $font-weight-heavy;
+  }
+
+  .rank {
+    font-size: 1.1em; //increase the rank size for visibility
+  }
+
+  .rank:after {
+    display: inline-block;
+    content: "th";
+    font-weight: $font-weight-light;
+    text-transform: uppercase;
+    font-size: .6em;
+    vertical-align: top;
+    line-height: 1em;
+    margin: .15em 0 0 .2em;
+  }
+
+  &:nth-child(1) .rank:after {
+    content: "st";
+  }
+
+  &:nth-child(2) .rank:after {
+    content: "nd";
+  }
+
+  &:nth-child(3) .rank:after {
+    content: "rd";
   }
 }
 
@@ -166,7 +165,7 @@ ul.leaders li {
 
   pl-leaderboard article {
     margin: 0 auto;
-    max-width: 60%;
+    max-width: 58%;
     max-height: 80%;
   }
 }

@@ -137,23 +137,17 @@ $shadow-lg: multi-box-shadow(500);
  * Change Spots Animation
  */
 
-// @keyframes hoverboard-glow{
-//   to {
-//     filter: opacity(.7);
-//   }
-// }
-//
-// @keyframes change{
-//   from { background: rgba(255,255,255,.3); }
-//   to { background: rgba(0,0,0,.2); transform: rotate3d(1,0,0,360deg); }
-// }
-//
-// ul.leaders{
-//   > li{
-//     will-change: transform;
-//
-//     &.change{
-//       animation: change 1s ease;
-//     }
-//   }
-// }
+@keyframes change{
+  from { background: rgba(255,255,255,.3); }
+  to { background: rgba(0,0,0,.2); transform: rotate3d(1,0,0,360deg); }
+}
+
+ul.leaders{
+  > li{
+    will-change: transform;
+
+    &.change{
+      animation: change 1s ease;
+    }
+  }
+}
