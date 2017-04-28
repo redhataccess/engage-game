@@ -1,15 +1,9 @@
 <article class="table">
   <section class="table-cell">
     <h1 class="leaders-header"></h1>
-    <ul class="leader-titles" hidden>
-      <li>
-        <span class="rank">Rank</span>
-        <span class="username">Leaders</span>
-        <span class="score">Top Scores</span>
-      </li>
-    </ul>
+
     <ul class="leaders fade">
-      <li ng-repeat="leader in vm.leaders">
+      <li ng-repeat="leader in vm.leaders" ng-class="{'change': leader.animate}">
         <span class="rank">{{::$index + 1}}</span>
         <span class="username">{{::leader.name}}</span>
         <span class="score">{{::leader.score}}</span>

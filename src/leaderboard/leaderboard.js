@@ -41,6 +41,7 @@
                 .catch(getLeadersFailed);
 
             function getLeadersComplete(response) {
+              console.log("getLeadersComplete");
                 const leaders = _(response.data.results)
                     .sortBy('score')
                     .reverse()
@@ -63,9 +64,25 @@
     function LeaderboardController($scope, $interval, leaderboardservice) {
         var vm = this;
         vm.leaders = [];
+        console.log("controller");
 
         $interval(getLeaders, updateInterval);
         getLeaders();
+
+        $scope.$watch("vm.leaders", function (newLeaders, oldLeaders) {
+          console.log(newLeaders, oldLeaders);
+
+          if (!newLeaders.length || !oldLeaders.length){
+            return;
+          }
+
+          newLeaders.forEach(function (leader, index) {
+            if (leader.name !== oldLeaders[index].name) {
+              leader.animate = true;
+            }
+          })
+
+        }, true);
 
         function getLeaders() {
             return leaderboardservice.getLeaders()
