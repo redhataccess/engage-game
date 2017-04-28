@@ -4,7 +4,7 @@ class PlayState extends Phaser.State {
         window.play = this;
         this.score = 0;
         this.scoreMultiplier = 1;
-        this.rnd = new Phaser.RandomDataGenerator();
+        this.between = this.game.rnd.between.bind(this.game.rnd);
 
         this.startTime();
         this.createScoreUI();
@@ -465,7 +465,7 @@ class PlayState extends Phaser.State {
         newBlock.moveUp(); // move on top of exit portal
         newBlock.anchor.set(0.5, 0.5);
         this.game.physics.arcade.enableBody(newBlock);
-        newBlock.position.set(this.rnd.between(40, config.SIDE_CHAMBER_WIDTH - 40), 40);
+        newBlock.position.set(this.between(40, config.SIDE_CHAMBER_WIDTH - 40), 40);
         newBlock.body.gravity.y = config.BLOCK_GRAVITY;
         newBlock.body.velocity.copyFrom(inBlock.body.velocity.clone());
         newBlock.body.drag.set(0, 0);
@@ -511,11 +511,13 @@ class PlayState extends Phaser.State {
     blockDropCheck() {
         const progress = ( this.updateTimestamp - this.startTimestamp ) / config.DAY_DURATION_MS;
         const p = config.BLOCK_DROP_PROBABILITY_FUNC(progress) * config.BLOCK_DROP_PROBABILITY_MAX;
-        if (this.rnd.frac() < p) {
+        if (this.game.rnd.frac() < p) {
             let block;
 
-            if (this.rnd.between(1, 100) <= config.SEARCH_BLOCK_DROP_CHANCE) {
-                console.log('[play] Dropping Search attract block');
+
+            let rndNum = this.between(1, 100);
+            if (rndNum <= config.SEARCH_BLOCK_DROP_CHANCE) {
+                console.log('[play] Dropping Search attract block: ', rndNum);
                 block = this.day.getBlock({name: 'Search'});
             }
             else {

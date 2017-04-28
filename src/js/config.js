@@ -43,7 +43,7 @@ const config = Object.freeze({
 
     // How long does the search attraction last ms
     SEARCH_BONUS_DURATION: 5000,
-    SEARCH_BLOCK_DROP_CHANCE: 7,
+    SEARCH_BLOCK_DROP_CHANCE: 5,
 
     // how long vuln explosion animation should last
     VULN_EXPLODE_DURATION_MS: 1.5 * Phaser.Timer.SECOND,
