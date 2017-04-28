@@ -18,7 +18,7 @@ html, body {
     width: 100%;
     overflow: hidden;
     color: white;
-    font-family: 'overpass', sans-serif;
+    font-family: 'overpass-mono', sans-serif;
 }
 body {
     background-image: radial-gradient(75% 90% at top, #01121b, #000e16 100%);

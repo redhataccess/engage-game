@@ -18,6 +18,7 @@ class PlayState extends Phaser.State {
         this.createCapturedBlockSpriteArray();
         this.createChamberWalls();
         this.createShellBurst();
+        this.createLegend();
         this.hidePortals();
 
         this.fetchLatestScores()
@@ -189,6 +190,58 @@ class PlayState extends Phaser.State {
         this.well.data.rowHeight += height;
 
         this.well.data.rows.push(row);
+    }
+
+    createLegend() {
+        this.legendGroup = this.game.add.group();
+        this.legendGroup.position.x = this.game.world.width - config.SIDE_CHAMBER_WIDTH / 2;
+
+        const legendSprites = [
+            { name: 'Labs-sprite', label: 'Labs' },
+            { name: 'Documentation-sprite', label: 'Documentation' },
+            { name: 'Discussions-sprite', label: 'Discussions' },
+            { name: 'PCM-sprite', label: 'Support Cases' },
+            { name: 'ContainerCatalog-sprite', label: 'Container Catalog' },
+            { name: 'Search-sprite', label: 'Find everything!' },
+            { name: 'CVE-sprite', label: 'Solves vuln.' },
+            { name: 'Shellshock-sprite', label: 'Vuln: AVOID!' },
+
+        ];
+
+        const heightPerRow = 120;
+        let y = 0;
+
+        legendSprites
+            .map(def => this.game.add.sprite(0, y += heightPerRow, def.name))
+            .forEach((sprite, i) => {
+                const label = legendSprites[i].label || 'NO LABEL';
+
+                // save reference to sprite
+                legendSprites[i].sprite = sprite;
+
+                // center anchor
+                sprite.anchor.set(0.5, 0.5);
+
+                // create a text label
+                let style = { fill: "#ffffff", align: "center" };
+                const text = game.add.text(0, 0, "", style);
+                text.font = 'overpass-mono';
+                text.fontSize = 28;
+                text.position.set(sprite.position.x, sprite.position.y - 40);
+                text.anchor.set(0.5, 0.5);
+                text.setText(label);
+                this.legendGroup.add(text);
+
+                // make all sprites same width
+                const ratio = sprite.width / sprite.height;
+                const width = config.SIDE_CHAMBER_WIDTH / 4;
+                const height = width / ratio;
+                sprite.width = width;
+                sprite.height = height;
+
+                // add to group, can move all together
+                this.legendGroup.add(sprite);
+            });
     }
 
     createShellBurst() {

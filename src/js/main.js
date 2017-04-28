@@ -1,3 +1,5 @@
 console.log('[main] initializing');
 
-const game = new Game();
+window.addEventListener('load', () => {
+    setTimeout(() => window.game = new Game(), 1000);
+});

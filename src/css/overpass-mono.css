@@ -9,8 +9,6 @@
        font-style: normal;
 }
 
-
-
 @font-face {
   font-family: 'overpass-mono';
   src: url('../fonts/overpass-mono/overpass-mono-regular.eot');
@@ -22,8 +20,6 @@
        font-style: normal;
 }
 
-
-
 @font-face {
   font-family: 'overpass-mono';
   src: url('../fonts/overpass-mono/overpass-mono-semibold.eot');
@@ -34,8 +30,6 @@
        font-weight: 500;
        font-style: normal;
 }
-
-
 
 @font-face {
   font-family: 'overpass-mono';
