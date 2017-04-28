@@ -260,7 +260,7 @@ class PlayState extends Phaser.State {
                     block.rotation -= Math.PI / 2;
 
                 }
-                else if (this.portalIn.data.attractActive) {
+                else if (this.portalIn.data.attractActive && !this.portalIn.data.hasVuln) {
                     this.attractBlock(block);
 
                     if (block.data.bonus) {
