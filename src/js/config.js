@@ -3,8 +3,17 @@ const config = Object.freeze({
     // skip splash and intro states (for rapid development)
     SKIP_BEGINNING: !false,
 
+    // Treat user as always winning top score for testing
+    ALWAYS_WINNER: false,
+
     // URL to parse leaderboard database
     PARSE_URL: 'http://localhost:1337/parse/classes/leaders',
+
+    // Mail gun url for notifying leaders
+    ENGAGE_SERVER_URL: 'http://localhost:8000',
+
+    // Max character length for name and email submissions
+    MAX_INPUT_LENGTH: 30,
 
     // canvas resolution
     CANVAS_WIDTH: 1920,
@@ -61,6 +70,12 @@ const config = Object.freeze({
 
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 350,
+
+    // Score value of a regular block
+    BLOCK_SCORE_VALUE: 100,
+
+    // Score value of bonus blocks
+    BLOCK_BONUS_SCORE_VALUE: 1000,
 
     // minimum interval between dropping blocks
     BLOCK_DROP_MIN_INTERVAL_MS: 0.1 * Phaser.Timer.SECOND,

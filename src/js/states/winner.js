@@ -49,6 +49,15 @@ class WinnerState extends Phaser.State {
 
     reportScore(name, email, score) {
         console.log('[winner] reporting score');
+
+        // remove < characters to prevent any chance of xss attack
+        name = name.replace(/</g , "");
+        email = email.replace(/</g , "");
+
+        // also make max length for names and emails
+        name = name.substr(0, config.MAX_INPUT_LENGTH);
+        email = email.substr(0, config.MAX_INPUT_LENGTH);
+
         return fetch(
             config.PARSE_URL,
             {

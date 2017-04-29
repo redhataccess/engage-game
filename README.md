@@ -1,6 +1,6 @@
 # Engage
 
-A game.
+A Customer Portal game for Red Hat Summit 2017 in Boston.
 
 ## Setup
 
@@ -34,3 +34,10 @@ Once mongodb is installed and running you can run the prod leaderboard parse ser
     npm run leader-server-prod
 
 This will persiste leaderboard data across retarts.
+
+To enable sending notifications to top score bumps, you mus have a engage-server-running
+and the client configured to point to it. Example:
+
+    ENGAGE_SERVER_URL: 'http://localhost:8000'
+    
+Get the engage game server here: https://github.com/redhataccess/engage-game-server

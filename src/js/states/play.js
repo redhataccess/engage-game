@@ -430,7 +430,7 @@ class PlayState extends Phaser.State {
     blockCaptured(portal, block) {
         this.emitCapturedBlock(block);
 
-        let scoreValue = 100;
+        let scoreValue = config.BLOCK_SCORE_VALUE;
 
         if (block.data.name == 'Lunch') {
             console.log("[play] Lunch Boost!");
@@ -438,7 +438,7 @@ class PlayState extends Phaser.State {
             this.game.time.events.add(config.LUNCH_BOOST_DURATION, () => this.scoreMultiplier = 1, this);
         }
         else if (block.data.bonus) {
-            scoreValue = 1000;
+            scoreValue = config.BLOCK_BONUS_SCORE_VALUE;
         }
 
         this.score += scoreValue * this.scoreMultiplier;
@@ -706,27 +706,70 @@ class PlayState extends Phaser.State {
         this.game.time.events.add(config.GAME_OVER_RESTART_DURATION_MS, this.gameOver, this);
     }
 
-    gameOver(alwaysWinner = false) {
+    gameOver(alwaysWinner = config.ALWAYS_WINNER) {
         console.log(`[play] final score: ${this.score}`);
+        this.fetchLatestScores().then(() => {
+            let topEmail = '';
+            let topName = '';
 
-        const hiScores = _(this.scores)
-            .sortBy('score')
-            .reverse()
-            .uniqBy('name')
-            .take(10)
-            .map('score')
-            .value();
+            const hiScores = _(this.scores)
+                .sortBy('score')
+                .reverse()
+                .uniqBy('name')
+                .take(10)
+                .tap(top10 => {
+                    if (top10[0])
+                        topEmail = top10[0].email
+                })
+                .tap(top10 => {
+                    if (top10[0])
+                        topName = top10[0].name
+                })
+                .map('score')
+                .value();
 
-        const lowestHiScore = _.min(hiScores);
 
-        if (alwaysWinner || (this.score > lowestHiScore)) {
-            console.log(`[play] hiscore? ${this.score} > ${lowestHiScore}`);
-            this.game.stateTransition.to('WinnerState', true, false, { score: this.score });
-        }
-        else {
-            console.log(`[play] hiscore? ${this.score} < ${lowestHiScore}`);
-            this.game.stateTransition.to('SplashState', true, false, { fromPlay: true });
-        }
+            console.log('Top email: ', topEmail);
+
+            const lowestHiScore = _.min(hiScores);
+            const topHiScore = _.max(hiScores);
+
+            if (alwaysWinner || (this.score > lowestHiScore)) {
+                console.log(`[play] hiscore? ${this.score} > ${lowestHiScore}`);
+                this.game.stateTransition.to('WinnerState', true, false, { score: this.score });
+
+                // Also check to see if this is a new top score
+                if (alwaysWinner || (this.score > topHiScore)) {
+                    console.log("[play] New TOP high score! ");
+                    console.log("[play] previous top score: ", topHiScore, topEmail);
+                    console.log("[play] new top score: ", this.score);
+
+                    if (alwaysWinner || (topEmail && validator.isEmail(topEmail))) {
+                        // send an email notification to the previous top score that they've been bumped
+                        let formData = new FormData();
+                        formData.set('to', topEmail);
+                        formData.set('subject', "Someone beat your Engage high score");
+                        formData.set('text', topName + ", Someone beat your high score in Engage! Come to the Customer Portal Engage Game area and defend your title!");
+
+                        fetch(
+                            config.ENGAGE_SERVER_URL + '/sendMessage',
+                            {
+                                method: 'POST',
+                                body: formData
+                            }
+                        ).then(response => {
+                            console.log("sendMessage status: ", response.status);
+                            response.text().then(text => console.log("sendMessage response:", text));
+                        });
+
+                    }
+                }
+            }
+            else {
+                console.log(`[play] hiscore? ${this.score} < ${lowestHiScore}`);
+                this.game.stateTransition.to('SplashState', true, false, { fromPlay: true });
+            }
+        });
     }
 
     fetchLatestScores() {
