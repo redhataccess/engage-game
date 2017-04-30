@@ -746,10 +746,11 @@ class PlayState extends Phaser.State {
 
                     if (alwaysWinner || (topEmail && validator.isEmail(topEmail))) {
                         // send an email notification to the previous top score that they've been bumped
+                        console.log("[play] Sending email message to prev top score player: ", topName, topEmail);
                         let formData = new FormData();
                         formData.set('to', topEmail);
                         formData.set('subject', "Someone beat your Engage high score");
-                        formData.set('text', topName + ", Someone beat your high score in Engage! Come to the Customer Portal Engage Game area and defend your title!");
+                        formData.set('text', topName + ",\n\nSomeone beat your high score in Engage! Come to the Customer Portal Engage Game area and defend your title! \n\n Engage Game Team,\n    Michael Clayton mclayton@redhat.com\n    Jared Sprague jsprague@redhat.com");
 
                         fetch(
                             config.ENGAGE_SERVER_URL + '/sendMessage',
@@ -758,8 +759,8 @@ class PlayState extends Phaser.State {
                                 body: formData
                             }
                         ).then(response => {
-                            console.log("sendMessage status: ", response.status);
-                            response.text().then(text => console.log("sendMessage response:", text));
+                            console.log("[play] sendMessage status: ", response.status);
+                            response.text().then(text => console.log("[play] sendMessage response:", text));
                         });
 
                     }
