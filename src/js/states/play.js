@@ -736,10 +736,11 @@ class PlayState extends Phaser.State {
 
             if (alwaysWinner || (this.score > lowestHiScore)) {
                 console.log(`[play] hiscore? ${this.score} > ${lowestHiScore}`);
-                this.game.stateTransition.to('WinnerState', true, false, { score: this.score });
 
                 // Also check to see if this is a new top score
-                if (alwaysWinner || (this.score > topHiScore)) {
+                let isNewTopScore = this.score > topHiScore;
+
+                if (alwaysWinner || isNewTopScore) {
                     console.log("[play] New TOP high score! ");
                     console.log("[play] previous top score: ", topHiScore, topEmail);
                     console.log("[play] new top score: ", this.score);
@@ -762,9 +763,10 @@ class PlayState extends Phaser.State {
                             console.log("[play] sendMessage status: ", response.status);
                             response.text().then(text => console.log("[play] sendMessage response:", text));
                         });
-
                     }
                 }
+
+                this.game.stateTransition.to('WinnerState', true, false, { score: this.score, isNewTopScore: isNewTopScore });
             }
             else {
                 console.log(`[play] hiscore? ${this.score} < ${lowestHiScore}`);
