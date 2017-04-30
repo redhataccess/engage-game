@@ -80,6 +80,9 @@ const config = Object.freeze({
     // Score value of bonus blocks
     BLOCK_BONUS_SCORE_VALUE: 1000,
 
+    // How much so to scale the well row height based on score
+    WELL_ROW_HIGHT_SCORE_DIVISOR: 40000,
+
     // minimum interval between dropping blocks
     BLOCK_DROP_MIN_INTERVAL_MS: 0.1 * Phaser.Timer.SECOND,
 
