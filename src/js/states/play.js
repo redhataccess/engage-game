@@ -414,7 +414,6 @@ class PlayState extends Phaser.State {
             if (block.data.name == 'Shellshock') {
                 // wait for shellshock to overlap the portal somewhat before
                 // triggering capture
-                const distance = portal.position.distance(block.position);
                 this.captureShellshock(portal, block);
             }
             else {
