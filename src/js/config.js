@@ -51,8 +51,11 @@ const config = Object.freeze({
     ATTRACTION_POWER: 20,
 
     // How long does the search attraction last ms
-    SEARCH_BONUS_DURATION: 5000,
+    SEARCH_BONUS_DURATION: 5 * Phaser.Timer.SECOND,
     SEARCH_BLOCK_DROP_CHANCE: 4,
+
+    // How often does the 2x multiplier block drop
+    X2_BLOCK_DROP_CHANCE: 3,
 
     // how long vuln explosion animation should last
     VULN_EXPLODE_DURATION_MS: 1.5 * Phaser.Timer.SECOND,
@@ -86,7 +89,7 @@ const config = Object.freeze({
     BLOCK_DROP_PROBABILITY_MAX: 0.25,
 
     // how likely any random block is to be a bonus block
-    BONUS_BLOCK_PROBABILITY: 0.05,
+    BONUS_BLOCK_PROBABILITY: 0.06,
 
     // velocity and gravity applied to blocks once they fall into the well of knowledge
     BLOCK_VELOCITY_SINKING: 50,
@@ -105,7 +108,7 @@ const config = Object.freeze({
     WELL_FILL_PER_BLOCK: 0.003,
     WELL_FILL_DURATION_MS: 0.1 * Phaser.Timer.SECOND, // how long it takes to tween height after each splashdown
 
-    // How long the lunch score multiplier bonus will last
-    LUNCH_BOOST_DURATION: 7 * Phaser.Timer.SECOND,
+    // How long the score multiplier bonus will last
+    X2_BOOST_DURATION: 5 * Phaser.Timer.SECOND,
 
 });

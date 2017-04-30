@@ -65,6 +65,7 @@ class PlayState extends Phaser.State {
             PCM              : this.game.add.audio('pickup1'),
             ContainerCatalog : this.game.add.audio('pickup2'),
             Search           : this.game.add.audio('pickup3'),
+            x2               : this.game.add.audio('pickup3'),
             Documentation    : this.game.add.audio('pickup4'),
             Labs             : this.game.add.audio('pickup5'),
             Discussions      : this.game.add.audio('pickup6'),
@@ -79,11 +80,14 @@ class PlayState extends Phaser.State {
 
     createScoreUI() {
         let style = { fill: "#ffffff", align: "center" };
-        this.scoreText = game.add.text(game.world.centerX, 4, "", style);
+        this.scoreText = game.add.text(game.world.centerX, 10, "", style);
         this.scoreText.font = 'overpass-mono';
         this.scoreText.fontSize = 28;
         this.scoreText.anchor.set(0.5, 0);
         this.scoreText.setText('Score: 0');
+        this.x2 = this.game.add.sprite(game.world.centerX - 175, -5, 'x2-sprite');
+        this.x2.scale.set(0.5, 0.5);
+        this.x2.alpha = 0; // make invisible
     }
 
     createTimeUI() {
@@ -432,10 +436,10 @@ class PlayState extends Phaser.State {
 
         let scoreValue = config.BLOCK_SCORE_VALUE;
 
-        if (block.data.name == 'Lunch') {
-            console.log("[play] Lunch Boost!");
+        if (block.data.name == 'x2') {
+            console.log("[play] 2x multiplier!");
             this.scoreMultiplier = 2;
-            this.game.time.events.add(config.LUNCH_BOOST_DURATION, () => this.scoreMultiplier = 1, this);
+            this.game.time.events.add(config.X2_BOOST_DURATION, () => this.scoreMultiplier = 1, this);
         }
         else if (block.data.bonus) {
             scoreValue = config.BLOCK_BONUS_SCORE_VALUE;
@@ -443,6 +447,12 @@ class PlayState extends Phaser.State {
 
         this.score += scoreValue * this.scoreMultiplier;
         this.scoreText.setText('Score: ' + this.score);
+        if (this.scoreMultiplier == 2) {
+            this.x2.alpha = 1;
+        }
+        else {
+            this.x2.alpha = 0;
+        }
 
         console.log(`[play] captured block: ${block.data.name}`);
 
@@ -540,7 +550,7 @@ class PlayState extends Phaser.State {
 
         // schedule coffee and lunch
         this.game.time.events.add(config.COFFEE_DELAY_MS, () => this.blockAppear(this.day.getCoffee()), this);
-        this.game.time.events.add(config.DAY_DURATION_MS / 2, () => this.blockAppear(this.day.getLunch()), this);
+        // this.game.time.events.add(config.DAY_DURATION_MS / 2, () => this.blockAppear(this.day.getLunch()), this);
 
         // Never drop any blocks until coffee has come
         this.game.time.events.add(config.COFFEE_DELAY_MS * 2, () => {
@@ -568,10 +578,13 @@ class PlayState extends Phaser.State {
             let block;
 
 
-            let rndNum = this.between(1, 100);
-            if (rndNum <= config.SEARCH_BLOCK_DROP_CHANCE) {
-                console.log('[play] Dropping Search attract block: ', rndNum);
+            if (this.between(1, 100) <= config.SEARCH_BLOCK_DROP_CHANCE) {
+                console.log('[play] Dropping Search attract block');
                 block = this.day.getBlock({name: 'Search'});
+            }
+            else if (this.between(1, 100) <= config.X2_BLOCK_DROP_CHANCE) {
+                console.log('[play] Dropping 2x multiplier block');
+                block = this.day.getBlock({name: 'x2'});
             }
             else {
                 block = this.day.getRandomBlock();
