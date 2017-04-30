@@ -27,6 +27,10 @@ class Day {
         return this.getBlock({ name: 'Shellshock' });
     }
 
+    getX2() {
+        return this.getBlock({ name: 'x2' });
+    }
+
     getCVE() {
         return this.getBlock({ name: 'CVE' });
     }

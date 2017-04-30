@@ -573,11 +573,16 @@ class PlayState extends Phaser.State {
         }, this);
 
 
+        // Schedule some 2x blocks
+        const timespan = 0.9 * config.DAY_DURATION_MS;
+        for (let i = 1; i < config.X2_PER_DAY + 1; ++i) {
+            this.game.time.events.add(timespan * i / config.X2_PER_DAY, () => this.blockAppear(this.day.getX2()), this);
+        }
+
         // schedule some vulns
-        const vulnTimespan = 0.9 * config.DAY_DURATION_MS;
         for (let i = 1; i < config.VULNS_PER_DAY + 1; ++i) {
-            this.game.time.events.add(vulnTimespan * i / config.VULNS_PER_DAY, () => this.blockAppear(this.day.getVuln()), this);
-            this.game.time.events.add(config.CVE_DELAY + vulnTimespan * i / config.VULNS_PER_DAY, () => this.blockAppear(this.day.getCVE()), this);
+            this.game.time.events.add(timespan * i / config.VULNS_PER_DAY, () => this.blockAppear(this.day.getVuln()), this);
+            this.game.time.events.add(config.CVE_DELAY + timespan * i / config.VULNS_PER_DAY, () => this.blockAppear(this.day.getCVE()), this);
         }
 
         // add game end timer
@@ -595,10 +600,6 @@ class PlayState extends Phaser.State {
             if (this.between(1, 100) <= config.SEARCH_BLOCK_DROP_CHANCE) {
                 console.log('[play] Dropping Search attract block');
                 block = this.day.getBlock({name: 'Search'});
-            }
-            else if (this.between(1, 100) <= config.X2_BLOCK_DROP_CHANCE) {
-                console.log('[play] Dropping 2x multiplier block');
-                block = this.day.getBlock({name: 'x2'});
             }
             else {
                 block = this.day.getRandomBlock();
