@@ -419,9 +419,16 @@ class PlayState extends Phaser.State {
             }
             else {
                 if (block.data.name == "Search") {
-                    console.log("Turning on search bonus");
-                    portal.data.attractActive = true;
-                    this.game.time.events.add(config.SEARCH_BONUS_DURATION, () => portal.data.attractActive = false, this);
+                    if (!portal.data.attractActive) {
+                        console.log("[play] Turning on search bonus");
+                        portal.data.attractActive = true;
+                        portal.data.disableAttractEvent = this.game.time.events.add(config.SEARCH_BONUS_DURATION, () => portal.data.attractActive = false, this);
+                    }
+                    else {
+                        console.log("[play] caught a search while search active, extending bonus");
+                        portal.data.disableAttractEvent.delay = config.SEARCH_BONUS_DURATION;
+                    }
+
                 }
 
                 this.captureBlock(portal, block);
@@ -437,9 +444,16 @@ class PlayState extends Phaser.State {
         let scoreValue = config.BLOCK_SCORE_VALUE;
 
         if (block.data.name == 'x2') {
-            console.log("[play] 2x multiplier!");
-            this.scoreMultiplier = 2;
-            this.game.time.events.add(config.X2_BOOST_DURATION, () => this.scoreMultiplier = 1, this);
+            if (this.scoreMultiplier === 1) {
+                console.log("[play] 2x multiplier!");
+                this.scoreMultiplier = 2;
+                this.disableScoreMultiplyerEvent = this.game.time.events.add(config.X2_BOOST_DURATION, () => this.scoreMultiplier = 1, this);
+            }
+            else if (this.scoreMultiplier === 2) {
+                console.log("[play] caught a 2x while bonus active, extending bonus");
+                this.disableScoreMultiplyerEvent.delay = config.X2_BOOST_DURATION;
+            }
+
         }
         else if (block.data.bonus) {
             scoreValue = config.BLOCK_BONUS_SCORE_VALUE;
