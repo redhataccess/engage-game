@@ -674,6 +674,11 @@ class PlayState extends Phaser.State {
         block.body.gravity.y = config.BLOCK_GRAVITY;
         block.data.state = 'falling';
 
+        if (block.data.name == 'x2') {
+            // make 2x blocks fall faster
+            block.body.gravity.y *= config.X2_GRAVITY_MULTIPLYER;
+        }
+
         if (block.data.bonus) {
             const glow = this.game.add.sprite(block.position.x, block.position.y, 'bonus-glow');
             const rays = this.game.add.sprite(block.position.x, block.position.y, 'bonus-rays');

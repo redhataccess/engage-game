@@ -57,6 +57,7 @@ const config = Object.freeze({
     // How often does the 2x multiplier block drop
     X2_BLOCK_DROP_CHANCE: 3,
     X2_PER_DAY: 5,
+    X2_GRAVITY_MULTIPLYER: 10,
 
     // how long vuln explosion animation should last
     VULN_EXPLODE_DURATION_MS: 1.5 * Phaser.Timer.SECOND,
