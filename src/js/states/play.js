@@ -674,14 +674,18 @@ class PlayState extends Phaser.State {
             rays.body.gravity.y = config.BLOCK_GRAVITY;
 
             // make the rays spin
-            rays.body.angularVelocity = Math.PI * 10;
+            rays.body.angularVelocity = Math.PI * 20;
 
             // dim both, they start off a little bright
             rays.alpha = 0;
             glow.alpha = 0;
 
-            this.game.add.tween(rays).to({ alpha: 0.5 }, 300, Phaser.Easing.Linear.None, true);
-            this.game.add.tween(glow).to({ alpha: 0.5 }, 300, Phaser.Easing.Linear.None, true);
+            // Make bit bigger they are hidden behind some blocks
+            rays.scale.set(1.2, 1.2);
+            glow.scale.set(1.2, 1.2);
+
+            this.game.add.tween(rays).to({ alpha: 0.9 }, 300, Phaser.Easing.Linear.None, true);
+            this.game.add.tween(glow).to({ alpha: 0.9 }, 300, Phaser.Easing.Linear.None, true);
 
             // bring block to the front
             block.bringToTop();

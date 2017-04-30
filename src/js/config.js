@@ -75,7 +75,7 @@ const config = Object.freeze({
     BLOCK_GRAVITY: 350,
 
     // Score value of a regular block
-    BLOCK_SCORE_VALUE: 100,
+    BLOCK_SCORE_VALUE: 500,
 
     // Score value of bonus blocks
     BLOCK_BONUS_SCORE_VALUE: 1000,
