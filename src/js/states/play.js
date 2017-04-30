@@ -178,7 +178,7 @@ class PlayState extends Phaser.State {
 
     createWellRow(leader, index, scores) {
         const score = leader.score;
-        const height = score / config.WELL_ROW_HIGHT_SCORE_DIVISOR;
+        const height = score / config.WELL_ROW_HEIGHT_SCORE_DIVISOR;
         const row = this.game.add.sprite(
             0,
             this.game.world.height - this.well.data.rowHeight,
