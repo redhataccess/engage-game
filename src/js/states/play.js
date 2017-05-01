@@ -424,8 +424,9 @@ class PlayState extends Phaser.State {
                         portal.data.disableAttractEvent = this.game.time.events.add(config.SEARCH_BONUS_DURATION, () => portal.data.attractActive = false, this);
                     }
                     else {
-                        console.log("[play] caught a search while search active, extending bonus");
-                        portal.data.disableAttractEvent.delay = config.SEARCH_BONUS_DURATION;
+                        console.log("[play] caught a search while search active, resetting timer");
+                        this.game.time.events.remove(portal.data.disableAttractEvent);
+                        portal.data.disableAttractEvent = this.game.time.events.add(config.SEARCH_BONUS_DURATION, () => portal.data.attractActive = false, this);
                     }
 
                 }
@@ -449,8 +450,9 @@ class PlayState extends Phaser.State {
                 this.disableScoreMultiplyerEvent = this.game.time.events.add(config.X2_BOOST_DURATION, () => this.scoreMultiplier = 1, this);
             }
             else if (this.scoreMultiplier === 2) {
-                console.log("[play] caught a 2x while bonus active, extending bonus");
-                this.disableScoreMultiplyerEvent.delay = config.X2_BOOST_DURATION;
+                console.log("[play] caught a 2x while bonus active, resetting timer");
+                this.game.time.events.remove(this.disableScoreMultiplyerEvent);
+                this.disableScoreMultiplyerEvent = this.game.time.events.add(config.X2_BOOST_DURATION, () => this.scoreMultiplier = 1, this);
             }
 
         }
