@@ -212,24 +212,72 @@ class PlayState extends Phaser.State {
         this.legendGroup.position.x = this.game.world.width - config.SIDE_CHAMBER_WIDTH / 2;
 
         const legendSprites = [
-            { name: 'Labs-sprite', label: 'Labs' },
-            { name: 'Documentation-sprite', label: 'Documentation' },
-            { name: 'Discussions-sprite', label: 'Discussions' },
-            { name: 'PCM-sprite', label: 'Support Cases' },
-            { name: 'ContainerCatalog-sprite', label: 'Container Catalog' },
-            { name: 'Search-sprite', label: 'Find everything!' },
-            { name: 'CVE-sprite', label: 'Solves vuln.' },
-            { name: 'Shellshock-sprite', label: 'Vuln: AVOID!' },
-
+            {
+                name: 'ContainerCatalog-sprite',
+                label: 'Container\nCatalog',
+                offset: { x: 0, y: 0 },
+                position: { x: -55, y: 200 },
+            },
+            {
+                name: 'Labs-sprite',
+                label: 'Labs',
+                offset: { x: 0, y: 0 },
+                position: { x: 55, y: 200 },
+            },
+            {
+                name: 'Search-sprite',
+                label: 'Find everything!',
+                offset: { x: 0, y: 0 },
+                position: { x: -55, y: 300 },
+            },
+            {
+                name: 'PCM-sprite',
+                label: 'Support Cases',
+                offset: { x: 0, y: 0 },
+                position: { x: 55, y: 300 },
+            },
+            {
+                name: 'Documentation-sprite',
+                label: 'Documentation',
+                offset: { x: 0, y: 0 },
+                position: { x: -55, y: 400 },
+            },
+            {
+                name: 'Discussions-sprite',
+                label: 'Discussions',
+                offset: { x: 0, y: 0 },
+                position: { x: 55, y: 400 },
+            },
+            {
+                name: 'Shellshock-sprite',
+                label: 'Vuln: DANGER!',
+                offset: { x: 0, y: 0 },
+                position: { x: 0, y: 640 },
+            },
+            {
+                name: 'CVE-sprite',
+                label: 'Solves vulns.',
+                offset: { x: 0, y: 0 },
+                position: { x: 0, y: 840 },
+            },
         ];
 
         const heightPerRow = 120;
-        let y = 0;
+
+        const catchThese = this.createText('Use Portal!', 0, 130);
+        this.legendGroup.add(catchThese);
+
+        const danger = this.createText('AVOID Vulns!', 0, 565);
+        this.legendGroup.add(danger);
+
+        const getCVE = this.createText('To solve vulns:', 0, 770);
+        this.legendGroup.add(getCVE);
 
         legendSprites
-            .map(def => this.game.add.sprite(0, y += heightPerRow, def.name))
+            .map(def => this.game.add.sprite(def.position.x, def.position.y, def.name))
             .forEach((sprite, i) => {
-                const label = legendSprites[i].label || 'NO LABEL';
+                const def = legendSprites[i];
+                const label = def.label || 'NO LABEL';
 
                 // save reference to sprite
                 legendSprites[i].sprite = sprite;
@@ -238,14 +286,8 @@ class PlayState extends Phaser.State {
                 sprite.anchor.set(0.5, 0.5);
 
                 // create a text label
-                let style = { fill: "#ffffff", align: "center" };
-                const text = game.add.text(0, 0, "", style);
-                text.font = 'overpass-mono';
-                text.fontSize = 28;
-                text.position.set(sprite.position.x, sprite.position.y - 40);
-                text.anchor.set(0.5, 0.5);
-                text.setText(label);
-                this.legendGroup.add(text);
+                // const text = this.createText(label, def.position.x + def.offset.x, def.position.y + def.offset.y);
+                // this.legendGroup.add(text);
 
                 // make all sprites same width
                 const ratio = sprite.width / sprite.height;
@@ -257,6 +299,18 @@ class PlayState extends Phaser.State {
                 // add to group, can move all together
                 this.legendGroup.add(sprite);
             });
+    }
+
+    createText(str, x, y) {
+        let style = { fill: "#ffffff", align: "center" };
+        const text = game.add.text(0, 0, "", style);
+        // text.font = 'overpass-mono';
+        // text.fontSize = 24;
+        text.cssFont = 'bold 24px "Overpass Mono"';
+        text.position.set(x, y);
+        text.anchor.set(0.5, 0.5);
+        text.setText(str);
+        return text;
     }
 
     createShellBurst() {
