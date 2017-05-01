@@ -16,7 +16,7 @@ class PlayState extends Phaser.State {
         this.createPortalOut();
         this.createBlockSpriteArray();
         this.createCapturedBlockSpriteArray();
-        this.createChamberWalls();
+        this.createChambers();
         this.createShellBurst();
         this.hidePortals();
         setTimeout(() => this.createLegend(), 10);
@@ -127,8 +127,8 @@ class PlayState extends Phaser.State {
 
     createPortalOut() {
         console.log('[play] creating portal-out');
-        this.portalOut = this.game.add.sprite(0, 0, 'portal-out');
-        this.portalOut.scale.set(0.6, 0.6);
+        this.portalOut = this.game.add.sprite(15, 15, 'portal-out');
+        this.portalOut.scale.set(0.55, 0.55);
         this.portalOut.sendToBack();
     }
 
@@ -150,22 +150,28 @@ class PlayState extends Phaser.State {
         this.controlPosition = new Phaser.Point();
     }
 
-    createChamberWalls() {
+    createChambers() {
         // create left chamber wall
-        this.leftWall = this.game.add.sprite(config.SIDE_CHAMBER_WIDTH, 0, 'Well-sprite');
-        this.leftWall.height = this.game.world.height;
-        this.leftWall.width = 2;
-        this.game.physics.arcade.enableBody(this.leftWall);
-        this.leftWall.body.immovable = true;
+        this.leftChamber = this.game.add.sprite(0, 0, 'Well-sprite');
+        this.leftChamber.height = this.game.world.height;
+        this.leftChamber.width = config.SIDE_CHAMBER_WIDTH;
+        this.leftChamber.anchor.set(0, 0);
+        this.game.physics.arcade.enableBody(this.leftChamber);
+        this.leftChamber.body.immovable = true;
+        this.leftChamber.alpha = 0.9;
+        this.leftChamber.tint = 0x3f3f4f;
+        this.leftChamber.sendToBack();
 
         // create right chamber wall
-        this.rightWall = this.game.add.sprite(this.game.world.width - config.SIDE_CHAMBER_WIDTH, 0, 'Well-sprite');
-        this.rightWall.height = this.game.world.height;
-        this.rightWall.width = 2;
-        this.game.physics.arcade.enableBody(this.rightWall);
-        this.rightWall.body.immovable = true;
-        this.leftWall.alpha = 0.2;
-        this.rightWall.alpha = 0.2;
+        this.rightChamber = this.game.add.sprite(this.game.world.width, 0, 'Well-sprite');
+        this.rightChamber.height = this.game.world.height;
+        this.rightChamber.width = config.SIDE_CHAMBER_WIDTH;
+        this.rightChamber.anchor.set(1, 0);
+        this.game.physics.arcade.enableBody(this.rightChamber);
+        this.rightChamber.body.immovable = true;
+        this.rightChamber.alpha = 0.9;
+        this.rightChamber.tint = 0x004952;
+        this.rightChamber.sendToBack();
     }
 
     createWell() {
@@ -347,7 +353,7 @@ class PlayState extends Phaser.State {
         this.portalIn.position.copyFrom(dest);
 
         // collide with walls
-        this.portalIn.position.x = Math.max(config.SIDE_CHAMBER_WIDTH + this.portalIn.width/2 + this.leftWall.width, this.portalIn.position.x);
+        this.portalIn.position.x = Math.max(this.portalIn.width/2 + this.leftChamber.width, this.portalIn.position.x);
         this.portalIn.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalIn.width/2, this.portalIn.position.x);
 
         this.portalSinkPosition.x = this.portalIn.position.x;
@@ -432,8 +438,8 @@ class PlayState extends Phaser.State {
 
     handleCollisions() {
         this.game.physics.arcade.collide(this.portalIn, this.blockSprites, null, this.blockOverlap, this);
-        this.game.physics.arcade.collide(this.fallingVuln, [this.leftWall, this.rightWall]);
-        this.game.physics.arcade.collide(this.portalIn, [this.leftWall, this.rightWall]);
+        this.game.physics.arcade.collide(this.fallingVuln, [this.leftChamber, this.rightChamber]);
+        this.game.physics.arcade.collide(this.portalIn, [this.leftChamber, this.rightChamber]);
         this.game.physics.arcade.collide(this.well, this.capturedBlocks, null, this.blockSplash, this);
     }
 
@@ -621,7 +627,7 @@ class PlayState extends Phaser.State {
         const newBlock = this.game.add.sprite(0, 0, inBlock.data.texture);
         newBlock.scale.set(1/3, 1/3);
         newBlock.data.splashed = false;
-        newBlock.sendToBack();
+        // newBlock.sendToBack();
         newBlock.moveUp(); // move on top of exit portal
         newBlock.anchor.set(0.5, 0.5);
         this.game.physics.arcade.enableBody(newBlock);
