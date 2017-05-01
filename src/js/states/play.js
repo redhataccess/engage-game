@@ -86,8 +86,19 @@ class PlayState extends Phaser.State {
         this.scoreText.anchor.set(0.5, 0);
         this.scoreText.setText('Score: 0');
         this.x2 = this.game.add.sprite(game.world.centerX - 175, -5, 'x2-sprite');
-        this.x2.scale.set(0.5, 0.5);
+        this.x2.scale.set(0.4);
+        this.x2.position.y = 2;
         this.x2.alpha = 0; // make invisible
+        this.x2.data.breatheTween = this.game.add.tween(this.x2)
+            .to(
+                { alpha: 0.5 },
+                500,
+                Phaser.Easing.Cubic.InOut,
+                false,
+                0,
+                true,
+                true
+            );
     }
 
     createTimeUI() {
@@ -463,10 +474,15 @@ class PlayState extends Phaser.State {
         this.score += scoreValue * this.scoreMultiplier;
         this.scoreText.setText('Score: ' + this.score);
         if (this.scoreMultiplier == 2) {
-            this.x2.alpha = 1;
+            const alreadyBreathing = this.x2.data.breatheTween.isRunning;
+            if (!alreadyBreathing) {
+                this.appearTween(this.x2, 300).onComplete.add(() => {
+                    this.x2.data.breatheTween.start()
+                }, this);
+            }
         }
         else {
-            this.x2.alpha = 0;
+            this.disappearTween(this.x2, 300).onComplete.add(() => this.x2.data.breatheTween.stop(), this);
         }
 
         console.log(`[play] captured block: ${block.data.name}`);
@@ -496,6 +512,18 @@ class PlayState extends Phaser.State {
         // blink the portal so there's a visual indication of capture
         this.game.time.events.add(100, () => this.portalIn.tint = 0xBBBBBB, this);
         this.game.time.events.add(200, () => this.portalIn.tint = 0xFFFFFF, this);
+    }
+
+    appearTween(object, duration) {
+        const disappearTween = this.game.add
+            .tween(object)
+            .to(
+                { alpha: 1 },
+                duration,
+                Phaser.Easing.Linear.None,
+                true
+            );
+        return disappearTween;
     }
 
     disappearTween(object, duration) {
@@ -676,11 +704,6 @@ class PlayState extends Phaser.State {
         block.body.gravity.y = config.BLOCK_GRAVITY;
         block.data.state = 'falling';
 
-        if (block.data.name == 'x2') {
-            // make 2x blocks fall faster
-            block.body.gravity.y *= config.X2_GRAVITY_MULTIPLYER;
-        }
-
         if (block.data.bonus) {
             const glow = this.game.add.sprite(block.position.x, block.position.y, 'bonus-glow');
             const rays = this.game.add.sprite(block.position.x, block.position.y, 'bonus-rays');
@@ -726,6 +749,11 @@ class PlayState extends Phaser.State {
                 block.body.bounce.set(0.7, 0);
                 this.fallingVuln = block; // a handy reference to the vuln currently falling
                 break;
+
+            case 'x2':
+                block.body.velocity.y = 800; // config.X2_GRAVITY_MULTIPLYER;
+                break;
+
             default:
                 block.body.velocity.y = 0; //config.BLOCK_SKYFALL_BASE_VELOCITY;
         }
