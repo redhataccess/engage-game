@@ -18,8 +18,8 @@ class PlayState extends Phaser.State {
         this.createCapturedBlockSpriteArray();
         this.createChamberWalls();
         this.createShellBurst();
-        this.createLegend();
         this.hidePortals();
+        setTimeout(() => this.createLegend(), 10);
 
         this.fetchLatestScores()
             .then(() => this.createWell())
