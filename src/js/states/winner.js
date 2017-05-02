@@ -37,8 +37,9 @@ class WinnerState extends Phaser.State {
         this.game.stateTransition.to('SplashState', true, false, { fromPlay: true });
     }
 
-    onSubmit() {
+    onSubmit(evt) {
         console.log('[winner] submitting form');
+        evt.preventDefault();
         if (agree.checked) {
             this.reportScore(this.name.value, this.email.value, this.score);
         }
