@@ -811,7 +811,7 @@ class PlayState extends Phaser.State {
                 break;
 
             case 'x2':
-                block.body.velocity.y = 800; // config.X2_GRAVITY_MULTIPLYER;
+                block.body.velocity.y = 1000;
                 break;
 
             default:
