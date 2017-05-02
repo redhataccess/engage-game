@@ -458,8 +458,8 @@ class PlayState extends Phaser.State {
                 );
 
             // make block bob and sink
-            block.body.velocity.set(0, config.BLOCK_VELOCITY_SINKING); // bob
-            block.body.gravity.set(0, config.BLOCK_GRAVITY_SINKING); // sink
+            block.body.velocity.set(0, -config.BLOCK_VELOCITY_SINKING); // bob
+            // block.body.gravity.set(0, config.BLOCK_GRAVITY_SINKING); // sink
 
             this.sounds.splash.play();
 
