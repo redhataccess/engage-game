@@ -17,7 +17,7 @@ class IntroState extends Phaser.State {
         // underscores will not be printed, but they cause a pause in the
         // "typing".
         this.introText = `
-2:00 AM...
+It's 2:00 AM...
 ____
 You are responsible for an urgent production
 deployment.
@@ -25,7 +25,7 @@ ____
 To meet the deadline, wave your hand left and
 right to catch Customer Portal resources.
 ____
-But first thing's first... get some coffee.`;
+But first... get some coffee.`;
     }
 
     next() {
