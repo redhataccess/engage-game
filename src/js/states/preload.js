@@ -12,21 +12,31 @@ class PreloadState extends Phaser.State {
         this.game.load.image('portal-out',               'images/portal-out.png');
 
         this.game.load.image('bonus-glow',               'images/bonus-glow.png');
+        this.game.load.image('bonus-glow-gray',               'images/gray/bonus-glow.png');
         this.game.load.image('bonus-rays',               'images/bonus-rays.png');
+        this.game.load.image('bonus-rays-gray',               'images/gray/bonus-rays.png');
         this.game.load.image('x2-sprite',                'images/2x.png');
+        this.game.load.image('x2-sprite-gray',                'images/gray/2x.png');
 
         this.game.load.image('Coffee-sprite',            'images/coffee.png');
         this.game.load.image('Lunch-sprite',             'images/lunch.png');
 
         this.game.load.image('CVE-sprite',               'images/cve.png');
         this.game.load.image('Labs-sprite',              'images/labs.png');
+        this.game.load.image('Labs-sprite-gray',              'images/gray/labs.png');
         this.game.load.image('Shellshock-sprite',        'images/shellshock.png');
+        this.game.load.image('Shellshock-sprite-gray',        'images/gray/shellshock.png');
         this.game.load.image('Documentation-sprite',     'images/documentation.png');
+        this.game.load.image('Documentation-sprite-gray',     'images/gray/documentation.png');
         this.game.load.image('Discussions-sprite',       'images/discussion.png');
+        this.game.load.image('Discussions-sprite-gray',       'images/gray/discussion.png');
         this.game.load.image('PCM-sprite',               'images/pcm.png');
+        this.game.load.image('PCM-sprite-gray',               'images/gray/pcm.png');
 
         this.game.load.image('ContainerCatalog-sprite',  'images/container-catalog.png');
+        this.game.load.image('ContainerCatalog-sprite-gray',  'images/gray/container-catalog.png');
         this.game.load.image('Search-sprite',            'images/search.png');
+        this.game.load.image('Search-sprite-gray',            'images/gray/search.png');
 
         this.game.load.image('Well-sprite',              'images/well.png');
         this.game.load.image('Well-row1-sprite',         'images/well-row-1.png');

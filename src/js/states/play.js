@@ -493,6 +493,15 @@ class PlayState extends Phaser.State {
             portal.data.glitchFrames = undefined;
             portal.tint = 0xffffff;
             portal.loadTexture('portal-in');
+
+            for (let i = 0, l = this.blockSprites.length; i < l; i++) {
+                let zblock = this.blockSprites[i];
+
+                // Re-color falling blocks
+                if ((zblock.data.state === 'falling' || zblock.data.state === 'appearing') && zblock.data.name) {
+                    zblock.loadTexture(zblock.data.name + '-sprite');
+                }
+            }
         }
 
         const blockAbovePortal = portal.position.y > block.position.y;
@@ -633,6 +642,17 @@ class PlayState extends Phaser.State {
 
         this.setPortalGlitch(portal);
         this.sounds.Shellshock.play();
+
+        // turn blocks gray
+        for (let i = 0, l = this.blockSprites.length; i < l; i++) {
+            let zblock = this.blockSprites[i];
+
+            // Re-color falling blocks
+            if ((zblock.data.state === 'falling' || zblock.data.state === 'appearing') && zblock.data.name) {
+                zblock.loadTexture(zblock.data.name + '-sprite-gray');
+            }
+        }
+
     }
 
     emitCapturedBlock(inBlock) {
@@ -704,6 +724,10 @@ class PlayState extends Phaser.State {
             }
             else {
                 block = this.day.getRandomBlock();
+
+                if (this.portalIn.data.hasVuln) {
+                    block.bonus = false;   // never drop other bonus blocks while vuln only CVEs
+                }
             }
 
             this.blockAppear(block);
@@ -730,6 +754,18 @@ class PlayState extends Phaser.State {
         // give shellshock a circular hitbox
         if (block.name === 'Shellshock') {
             blockSprite.body.setCircle(100); // width and height look backwards but it's on purpose
+        }
+
+        // vuln coloring
+        if (this.portalIn.data.hasVuln) {
+            if (block.name == 'CVE') {
+                // if vuln CVEs are always bonus
+                blockSprite.data.bonus = true;
+            }
+            else {
+                // make all other blocks gray while vuln
+                blockSprite.loadTexture(block.name + '-sprite-gray');
+            }
         }
 
         // set up and execute an entry animation
