@@ -56,7 +56,6 @@ const config = Object.freeze({
 
     // How often does the 2x multiplier block drop
     X2_PER_DAY: 5,
-    X2_GRAVITY_MULTIPLYER: 10,
 
     // how long vuln explosion animation should last
     VULN_EXPLODE_DURATION_MS: 1.5 * Phaser.Timer.SECOND,
@@ -69,8 +68,6 @@ const config = Object.freeze({
     VULN_GLITCH_FRAMES_MAX: 25,
     VULN_ACCEL: 1900,
     VULN_TRACKING: 0.03, // how fast should the vuln track the x position of the portal
-
-
 
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 350,
