@@ -216,74 +216,87 @@ class PlayState extends Phaser.State {
     createLegend() {
         this.legendGroup = this.game.add.group();
         this.legendGroup.position.x = this.game.world.width - config.SIDE_CHAMBER_WIDTH / 2;
+        this.legendGroup.position.y = 30;
 
         const legendSprites = [
             {
                 name: 'ContainerCatalog-sprite',
-                label: 'Container\nCatalog',
+                offset: { x: 0, y: 0 },
+                position: { x: -55, y: 100 },
+            },
+            {
+                name: 'Labs-sprite',
+                offset: { x: 0, y: 0 },
+                position: { x: 55, y: 100 },
+            },
+            {
+                name: 'Search-sprite',
                 offset: { x: 0, y: 0 },
                 position: { x: -55, y: 200 },
             },
             {
-                name: 'Labs-sprite',
-                label: 'Labs',
+                name: 'PCM-sprite',
                 offset: { x: 0, y: 0 },
                 position: { x: 55, y: 200 },
             },
             {
-                name: 'Search-sprite',
-                label: 'Find everything!',
+                name: 'Documentation-sprite',
                 offset: { x: 0, y: 0 },
                 position: { x: -55, y: 300 },
             },
             {
-                name: 'PCM-sprite',
-                label: 'Support Cases',
+                name: 'Discussions-sprite',
                 offset: { x: 0, y: 0 },
                 position: { x: 55, y: 300 },
             },
             {
-                name: 'Documentation-sprite',
-                label: 'Documentation',
-                offset: { x: 0, y: 0 },
-                position: { x: -55, y: 400 },
-            },
-            {
-                name: 'Discussions-sprite',
-                label: 'Discussions',
-                offset: { x: 0, y: 0 },
-                position: { x: 55, y: 400 },
-            },
-            {
                 name: 'Shellshock-sprite',
-                label: 'Vuln: DANGER!',
                 offset: { x: 0, y: 0 },
-                position: { x: 0, y: 640 },
+                position: { x: 0, y: 540 },
             },
             {
                 name: 'CVE-sprite',
-                label: 'Solves vulns.',
                 offset: { x: 0, y: 0 },
-                position: { x: 0, y: 840 },
+                position: { x: 0, y: 740 },
+            },
+            {
+                name: 'bonus-glow',
+                offset: { x: 0, y: 0 },
+                scale: 1.00,
+                position: { x: -55, y: 930 },
+            },
+            {
+                name: 'bonus-rays',
+                scale: 1.00,
+                offset: { x: 0, y: 0 },
+                position: { x: -55, y: 930 },
+            },
+            {
+                name: 'x2-sprite',
+                offset: { x: 0, y: 0 },
+                position: { x: 55, y: 930 },
             },
         ];
 
         const heightPerRow = 120;
 
-        const catchThese = this.createText('Use Portal!', 0, 130);
+        const catchThese = this.createText('Catch these!', 0, 30);
         this.legendGroup.add(catchThese);
 
-        const danger = this.createText('AVOID Vulns!', 0, 565);
+        const danger = this.createText('AVOID Vulns!', 0, 465);
         this.legendGroup.add(danger);
 
-        const getCVE = this.createText('To solve vulns:', 0, 770);
+        const getCVE = this.createText('Solves vulns:', 0, 670);
         this.legendGroup.add(getCVE);
+
+        const bonus = this.createText('Bonus points:', 0, 860);
+        this.legendGroup.add(bonus);
+
 
         legendSprites
             .map(def => this.game.add.sprite(def.position.x, def.position.y, def.name))
             .forEach((sprite, i) => {
                 const def = legendSprites[i];
-                const label = def.label || 'NO LABEL';
 
                 // save reference to sprite
                 legendSprites[i].sprite = sprite;
@@ -291,16 +304,17 @@ class PlayState extends Phaser.State {
                 // center anchor
                 sprite.anchor.set(0.5, 0.5);
 
-                // create a text label
-                // const text = this.createText(label, def.position.x + def.offset.x, def.position.y + def.offset.y);
-                // this.legendGroup.add(text);
-
                 // make all sprites same width
                 const ratio = sprite.width / sprite.height;
                 const width = config.SIDE_CHAMBER_WIDTH / 4;
                 const height = width / ratio;
                 sprite.width = width;
                 sprite.height = height;
+
+                // make bonus a little bigger
+                if (def.name === 'bonus-rays' || def.name === 'bonus-glow') {
+                    sprite.scale.set(0.45);
+                }
 
                 // add to group, can move all together
                 this.legendGroup.add(sprite);
