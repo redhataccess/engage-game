@@ -1,7 +1,8 @@
 class WinnerState extends Phaser.State {
 
-    init({ score }) {
+    init({ score, scores }) {
         this.score = score;
+        this.scores = scores;
     }
 
     create() {

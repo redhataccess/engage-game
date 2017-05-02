@@ -896,7 +896,7 @@ Engage Game Team,
                     }
                 }
 
-                this.game.stateTransition.to('WinnerState', true, false, { score: this.score, isNewTopScore: isNewTopScore });
+                this.game.stateTransition.to('WinnerState', true, false, { score: this.score, scores: this.scores, isNewTopScore });
             }
             else {
                 console.log(`[play] hiscore? ${this.score} < ${lowestHiScore}`);
