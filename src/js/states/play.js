@@ -478,7 +478,10 @@ class PlayState extends Phaser.State {
             this.sounds.splash.play();
 
             // remove the block from the game after it's had time to sink
-            this.game.time.events.add(1000, () => block.destroy(true), this);
+            const disappear = this.disappearTween(block, 1000);
+            disappear.onComplete.add(() => {
+                block.destroy(true);
+            });
         }
         return false; // don't actually collide, we only want to detect overlap
     }
@@ -548,15 +551,10 @@ class PlayState extends Phaser.State {
         this.score += scoreValue * this.scoreMultiplier;
         this.scoreText.setText('Score: ' + this.score);
         if (this.scoreMultiplier == 2) {
-            const alreadyBreathing = this.x2.data.breatheTween.isRunning;
-            if (!alreadyBreathing) {
-                this.appearTween(this.x2, 300).onComplete.add(() => {
-                    this.x2.data.breatheTween.start()
-                }, this);
-            }
+            this.x2.alpha = 1;
         }
         else {
-            this.disappearTween(this.x2, 300).onComplete.add(() => this.x2.data.breatheTween.stop(), this);
+            this.x2.alpha = 0;
         }
 
         console.log(`[play] captured block: ${block.data.name}`);
