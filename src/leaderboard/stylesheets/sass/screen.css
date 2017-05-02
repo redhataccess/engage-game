@@ -143,7 +143,6 @@ pl-leaderboard article section ul li .username {
   width: 64%;
   max-width: 64%;
   word-break: break-all;
-  text-transform: lowercase;
 }
 /* line 104, ../../sass/sass/screen.scss */
 pl-leaderboard article section ul li .score {
