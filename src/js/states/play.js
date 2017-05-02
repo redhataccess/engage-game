@@ -844,12 +844,10 @@ class PlayState extends Phaser.State {
                 .uniqBy('name')
                 .take(10)
                 .tap(top10 => {
-                    if (top10[0])
-                        topEmail = top10[0].email
-                })
-                .tap(top10 => {
-                    if (top10[0])
-                        topName = top10[0].name
+                    if (top10[0]) {
+                        topEmail = top10[0].email;
+                        topName = top10[0].name;
+                    }
                 })
                 .map('score')
                 .value();
@@ -877,7 +875,13 @@ class PlayState extends Phaser.State {
                         let formData = new FormData();
                         formData.set('to', topEmail);
                         formData.set('subject', "Someone beat your Engage high score");
-                        formData.set('text', topName + ",\n\nSomeone beat your high score in Engage! Come to the Customer Portal Engage Game area and defend your title! \n\n Engage Game Team,\n    Michael Clayton mclayton@redhat.com\n    Jared Sprague jsprague@redhat.com");
+                        formData.set('text', `${topName},
+
+Someone beat your high score in Engage! Come to the Customer Portal Engage Game in Participation Square and defend your title!
+
+Engage Game Team,
+    Michael Clayton <mclayton@redhat.com>
+    Jared Sprague <jsprague@redhat.com>`);
 
                         fetch(
                             config.ENGAGE_SERVER_URL + '/sendMessage',
