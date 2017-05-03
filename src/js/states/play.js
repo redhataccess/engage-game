@@ -69,6 +69,7 @@ class PlayState extends Phaser.State {
             Documentation    : this.game.add.audio('pickup4'),
             Labs             : this.game.add.audio('pickup5'),
             Discussions      : this.game.add.audio('pickup6'),
+            Downloads        : this.game.add.audio('pickup6'),
             Shellshock       : this.game.add.audio('shellshock'),
             splash           : this.game.add.audio('splash', 0.1),
             static1          : this.game.add.audio('static1', 0.4),
@@ -244,8 +245,13 @@ class PlayState extends Phaser.State {
                 offset: { x: 0, y: 0 },
                 position: { x: -55, y: 300 },
             },
+            // {
+            //     name: 'Discussions-sprite',
+            //     offset: { x: 0, y: 0 },
+            //     position: { x: 55, y: 300 },
+            // },
             {
-                name: 'Discussions-sprite',
+                name: 'Downloads-sprite',
                 offset: { x: 0, y: 0 },
                 position: { x: 55, y: 300 },
             },

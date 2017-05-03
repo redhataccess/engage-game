@@ -9,7 +9,8 @@ class Day {
             'ContainerCatalog',
             'Documentation',
             'Labs',
-            'Discussions',
+            // 'Discussions',
+            'Downloads',
         ];
     }
 

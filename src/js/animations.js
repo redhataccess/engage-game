@@ -69,6 +69,20 @@ let Animations = {
             },
         }
     },
+    Downloads: {
+        Appear: {
+            Duration: 300,
+            Easing: Phaser.Easing.Linear.None,
+            Rotation: {
+                Start: 0,
+                End: 0,
+            },
+            Scale: {
+                Start: 0.6,
+                End: 1,
+            },
+        }
+    },
     Search: {
         Appear: {
             Duration: 300,
