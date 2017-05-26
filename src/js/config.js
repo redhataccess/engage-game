@@ -42,7 +42,7 @@ const config = Object.freeze({
     GAME_OVER_RESTART_DURATION_MS: 1.6 * Phaser.Timer.SECOND,
 
     // vulns per day
-    VULNS_PER_DAY: 10,
+    VULNS_PER_DAY: 7,
 
     // how long after a vuln should a CVE fall
     CVE_DELAY: 4.0 * Phaser.Timer.SECOND,
@@ -66,8 +66,10 @@ const config = Object.freeze({
     // how many frames to show each glitch sprite
     VULN_GLITCH_FRAMES_MIN: 8,
     VULN_GLITCH_FRAMES_MAX: 25,
-    VULN_ACCEL: 1900,
-    VULN_TRACKING: 0.03, // how fast should the vuln track the x position of the portal
+
+    // Vuln difficulty.  Tune these to make shellshocks easier to avoid
+    VULN_ACCEL: 1200,
+    VULN_TRACKING: 0.016,
 
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 350,
