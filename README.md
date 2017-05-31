@@ -55,3 +55,13 @@ and the client configured to point to it. Example:
     ENGAGE_SERVER_URL: 'http://localhost:8000'
     
 Get the engage game server here: https://github.com/redhataccess/engage-game-server
+
+## Configuration
+
+There are a ton of configuration options in src/js/config.js  most of them are well documented in the code.
+
+If the game seems to hard to avoid the Shellshock you can turn the values of these to settings:
+
+    // Vuln difficulty.  Tune these to make shellshocks easier to avoid
+    VULN_ACCEL: 1200,
+    VULN_TRACKING: 0.016,
