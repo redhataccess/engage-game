@@ -35,7 +35,7 @@ If you also want to test the leaderboard server, run this in another terminal:
 
     npm run leader-server-test
 
-NOTE! The above will not persist
+Once that's running, in another terminal run `bash populate_leaders.sh` to inject some placeholder leaders.  NOTE! This database does not persist.  It's only for testing.
 
 If you want to run the game in prod with a persistant leaderboard server you'll first need to install and run mongodb:
 
@@ -47,7 +47,7 @@ Once mongodb is installed and running you can run the prod leaderboard parse ser
 
     npm run leader-server-prod
 
-This will persiste leaderboard data across retarts.
+This will persist leaderboard data across retarts.
 
 To enable sending notifications to top score bumps, you mus have a engage-server-running
 and the client configured to point to it. Example:
