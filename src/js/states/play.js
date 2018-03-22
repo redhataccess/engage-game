@@ -13,19 +13,16 @@ class PlayState extends Phaser.State {
         this.createSounds();
         this.createControlPosition();
         this.createPortalIn();
-        this.createPortalOut();
+        // this.createPortalOut();
         this.createBlockSpriteArray();
-        this.createCapturedBlockSpriteArray();
         this.createChambers();
         this.createShellBurst();
         this.hidePortals();
         setTimeout(() => this.createLegend(), 10);
 
         this.fetchLatestScores()
-            .then(() => this.createWell())
             .then(() => this.startDay())
             .catch(() => {
-                this.createWell();
                 this.startDay();
             });;
     }
@@ -143,25 +140,11 @@ class PlayState extends Phaser.State {
         this.blockSprites = [];
     }
 
-    createCapturedBlockSpriteArray() {
-        this.capturedBlocks = [];
-    }
-
     createControlPosition() {
         this.controlPosition = new Phaser.Point();
     }
 
     createChambers() {
-        // create left chamber wall
-        this.leftChamber = this.game.add.sprite(0, 0, 'Well-sprite');
-        this.leftChamber.height = this.game.world.height;
-        this.leftChamber.width = config.SIDE_CHAMBER_WIDTH;
-        this.leftChamber.anchor.set(0, 0);
-        this.game.physics.arcade.enableBody(this.leftChamber);
-        this.leftChamber.body.immovable = true;
-        this.leftChamber.alpha = 0.9;
-        this.leftChamber.tint = 0x3f3f4f;
-        this.leftChamber.sendToBack();
 
         // create right chamber wall
         this.rightChamber = this.game.add.sprite(this.game.world.width, 0, 'Well-sprite');
@@ -173,45 +156,6 @@ class PlayState extends Phaser.State {
         this.rightChamber.alpha = 0.9;
         this.rightChamber.tint = 0x004952;
         this.rightChamber.sendToBack();
-    }
-
-    createWell() {
-        this.well = this.game.add.sprite(0, 0, 'Well-sprite');
-        this.well.tint = 0x007C8B;
-        this.well.height = 0;
-        this.well.width = config.SIDE_CHAMBER_WIDTH;
-        this.well.anchor.set(0, 1);
-        this.well.data.fill = 0; // how full the well is
-        this.well.data.targetHeight = this.well.height; // how full the well is
-        this.game.physics.arcade.enableBody(this.well);
-        this.well.body.immovable = true;
-        this.well.bringToTop();
-        this.well.data.rows = [];
-        this.well.data.rowHeight = 0;
-        this.well.data.rowSprites = ['Well-row1-sprite','Well-row2-sprite','Well-row3-sprite','Well-row4-sprite','Well-row5-sprite','Well-row6-sprite'];
-        this.well.data.rowIndex = 0;
-        this.scores.forEach(this.createWellRow.bind(this));
-        this.well.position.y = this.game.world.height - this.well.data.rowHeight;
-    }
-
-    createWellRow(leader, index, scores) {
-        const score = leader.score;
-        const height = score / config.WELL_ROW_HEIGHT_SCORE_DIVISOR;
-        const row = this.game.add.sprite(
-            0,
-            this.game.world.height - this.well.data.rowHeight,
-            this.well.data.rowSprites[this.well.data.rowIndex]
-        );
-        this.well.data.rowIndex += 1;
-        this.well.data.rowIndex %= this.well.data.rowSprites.length;
-        row.height = height;
-        row.width = config.SIDE_CHAMBER_WIDTH;
-        row.anchor.set(0, 1);
-        row.bringToTop();
-
-        this.well.data.rowHeight += height;
-
-        this.well.data.rows.push(row);
     }
 
     createLegend() {
@@ -373,7 +317,7 @@ class PlayState extends Phaser.State {
         this.portalIn.position.copyFrom(dest);
 
         // collide with walls
-        this.portalIn.position.x = Math.max(this.portalIn.width/2 + this.leftChamber.width, this.portalIn.position.x);
+        this.portalIn.position.x = Math.max(this.portalIn.width/2, this.portalIn.position.x);
         this.portalIn.position.x = Math.min(this.game.world.width - config.SIDE_CHAMBER_WIDTH - this.portalIn.width/2, this.portalIn.position.x);
 
         this.portalSinkPosition.x = this.portalIn.position.x;
@@ -458,38 +402,8 @@ class PlayState extends Phaser.State {
 
     handleCollisions() {
         this.game.physics.arcade.collide(this.portalIn, this.blockSprites, null, this.blockOverlap, this);
-        this.game.physics.arcade.collide(this.fallingVuln, [this.leftChamber, this.rightChamber]);
-        this.game.physics.arcade.collide(this.portalIn, [this.leftChamber, this.rightChamber]);
-        this.game.physics.arcade.collide(this.well, this.capturedBlocks, null, this.blockSplash, this);
-    }
-
-    blockSplash(well, block) {
-        if (!block.data.splashed) {
-            block.data.splashed = true;
-
-            // update height of well sprite
-            well.data.fill += config.WELL_FILL_PER_BLOCK;
-            this.game.add.tween(well)
-                .to(
-                    { height: (this.game.world.height - this.well.data.rowHeight) * well.data.fill },
-                    config.WELL_FILL_DURATION_MS,
-                    Phaser.Easing.Linear.None,
-                    true
-                );
-
-            // make block bob and sink
-            block.body.velocity.set(0, -config.BLOCK_VELOCITY_SINKING); // bob
-            // block.body.gravity.set(0, config.BLOCK_GRAVITY_SINKING); // sink
-
-            this.sounds.splash.play();
-
-            // remove the block from the game after it's had time to sink
-            const disappear = this.disappearTween(block, 1000);
-            disappear.onComplete.add(() => {
-                block.destroy(true);
-            });
-        }
-        return false; // don't actually collide, we only want to detect overlap
+        this.game.physics.arcade.collide(this.fallingVuln, this.rightChamber);
+        this.game.physics.arcade.collide(this.portalIn, this.rightChamber);
     }
 
     blockOverlap(portal, block) {
@@ -542,8 +456,6 @@ class PlayState extends Phaser.State {
     }
 
     blockCaptured(portal, block) {
-        this.emitCapturedBlock(block);
-
         let scoreValue = config.BLOCK_SCORE_VALUE;
 
         if (block.data.name == 'x2') {
@@ -659,26 +571,6 @@ class PlayState extends Phaser.State {
             }
         }
 
-    }
-
-    emitCapturedBlock(inBlock) {
-        const newBlock = this.game.add.sprite(0, 0, inBlock.data.texture);
-        newBlock.scale.set(1/3, 1/3);
-        newBlock.data.splashed = false;
-        // newBlock.sendToBack();
-        newBlock.moveUp(); // move on top of exit portal
-        newBlock.anchor.set(0.5, 0.5);
-        this.game.physics.arcade.enableBody(newBlock);
-        newBlock.position.set(this.between(40, config.SIDE_CHAMBER_WIDTH - 40), 40);
-        newBlock.body.gravity.y = config.BLOCK_GRAVITY;
-        newBlock.body.velocity.copyFrom(inBlock.body.velocity.clone());
-        newBlock.body.drag.set(0, 0);
-        newBlock.body.collideWorldBounds = true;
-        newBlock.body.angularVelocity = inBlock.body.angularVelocity / 4;
-        newBlock.body.angularDrag = 20;
-        newBlock.body.bounce.set(0.6,0.1);
-        newBlock.body.setSize(20, 20, 30, 50);
-        this.capturedBlocks.push(newBlock);
     }
 
     startDay() {

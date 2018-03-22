@@ -47,7 +47,7 @@ const config = Object.freeze({
     // how long after a vuln should a CVE fall
     CVE_DELAY: 4.0 * Phaser.Timer.SECOND,
 
-    // how fast blocks are attracted when surch bonus is active
+    // how fast blocks are attracted when search bonus is active
     ATTRACTION_POWER: 20,
 
     // How long does the search attraction last ms
