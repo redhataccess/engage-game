@@ -21,7 +21,9 @@ html, body {
     font-family: 'overpass-mono', sans-serif;
 }
 body {
-    background-image: radial-gradient(75% 90% at top, #01121b, #000e16 100%);
+    /* background-image: radial-gradient(75% 90% at top, #01121b, #000e16 100%); */
+    background-image: url(../images/background.jpg);
+    background-size: cover;
     background-color: #010202;
     background-position: top center;
 }
