@@ -84,13 +84,15 @@ canvas {
 }
 .splash .splash-logo .ring-outer {
     /* outline: 1px dotted grey; */
-    animation: spin 20s infinite ease-in-out;
-    animation-direction: alternate;
+    animation: spin 35s infinite linear;
+    /* transform-origin: 50% 50%; */
+}
+.splash .splash-logo .ring-middle {
+    animation: spin 25s infinite linear;
     /* transform-origin: 50% 50%; */
 }
 .splash .splash-logo .ring-inner {
-    animation: spin 30s infinite ease-in-out;
-    animation-direction: alternate;
+    animation: spin 15s infinite linear;
     /* transform-origin: 50% 50%; */
 }
 .winner-form {
