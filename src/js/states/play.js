@@ -101,7 +101,7 @@ class PlayState extends Phaser.State {
 
     createTimeUI() {
         let style = { fill: "#ffffff", align: "center" };
-        this.timeText = game.add.text(game.world.width - config.SIDE_CHAMBER_WIDTH - 48, 4, "", style);
+        this.timeText = game.add.text(game.world.width - config.SIDE_CHAMBER_WIDTH - 100, 4, "", style);
         this.timeText.font = 'overpass-mono';
         this.timeText.fontSize = 28;
         this.timeText.anchor.set(0, 0);
