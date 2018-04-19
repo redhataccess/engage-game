@@ -165,12 +165,12 @@ class PlayState extends Phaser.State {
 
         const legendSprites = [
             {
-                name: 'ContainerCatalog-sprite',
+                name: 'Documentation-sprite',
                 offset: { x: 0, y: 0 },
                 position: { x: -55, y: 100 },
             },
             {
-                name: 'Labs-sprite',
+                name: 'ContainerCatalog-sprite',
                 offset: { x: 0, y: 0 },
                 position: { x: 55, y: 100 },
             },
@@ -185,9 +185,9 @@ class PlayState extends Phaser.State {
                 position: { x: 55, y: 200 },
             },
             {
-                name: 'Documentation-sprite',
+                name: 'Labs-sprite',
                 offset: { x: 0, y: 0 },
-                position: { x: -55, y: 300 },
+                position: { x: -55, y: 302 },
             },
             // {
             //     name: 'Discussions-sprite',
