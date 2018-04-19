@@ -2,8 +2,8 @@
 <!-- Generator: Adobe Illustrator 21.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1"
 	 id="svg8" inkscape:export-filename="/home/mclayton/workspace/engage/src/images/cve.png" inkscape:export-xdpi="1808.04" inkscape:export-ydpi="1808.04" inkscape:version="0.92.1 r" sodipodi:docname="documentation.svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 82 100"
-	 style="enable-background:new 0 0 82 100;" xml:space="preserve">
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 90 100"
+	 style="enable-background:new 0 0 90 100;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:url(#path7659_1_);}
 	.st1{fill:#AD9976;stroke:#6C5B3D;stroke-width:0.4592;stroke-linecap:round;stroke-linejoin:round;}
@@ -12,7 +12,7 @@
 	.st4{fill:#422A2A;}
 	.st5{fill:#2D1010;}
 	.st6{font-family:'Interstate-Bold';}
-	.st7{font-size:21.3929px;}
+	.st7{font-size:20.6643px;}
 	.st8{fill:#F1EDE7;}
 	.st9{fill-opacity:0.2;}
 	.st10{fill-opacity:0.15;}
@@ -28,43 +28,43 @@
 </defs>
 <g id="Documentation" transform="translate(-123.58021,-84.57551)" inkscape:groupmode="layer" inkscape:label="Layer 1">
 	
-		<linearGradient id="path7659_1_" gradientUnits="userSpaceOnUse" x1="-825.1981" y1="1226.5701" x2="-824.4341" y2="1226.5701" gradientTransform="matrix(101.9205 0 0 -125.1115 84230.2031 153592.9375)">
+		<linearGradient id="path7659_1_" gradientUnits="userSpaceOnUse" x1="-821.1879" y1="1226.5676" x2="-820.45" y2="1226.5676" gradientTransform="matrix(101.9205 0 0 -125.1115 83826.5234 153592.9375)">
 		<stop  offset="0" style="stop-color:#000000"/>
 		<stop  offset="1" style="stop-color:#000000"/>
 	</linearGradient>
 	
 		<path id="path7659" inkscape:connector-curvature="0" inkscape:export-xdpi="64.30999755859375" inkscape:export-ydpi="64.30999755859375" sodipodi:nodetypes="ccccccc" class="st0" d="
-		M128.3,87.2c1.7,0,50-0.1,75.1-0.1v95.5c-24.6,0.2-71.7,0-75.1,0c-1.7,0-2.8-1.1-2.8-2.7V89.8C125.6,88.2,126.7,87.2,128.3,87.2
-		L128.3,87.2z"/>
+		M133.3,89.1c1.6,0,48.3-0.1,72.5-0.1v92.2c-23.8,0.2-69.3,0-72.5,0c-1.6,0-2.7-1-2.7-2.6V91.6C130.6,90.1,131.7,89.1,133.3,89.1
+		L133.3,89.1z"/>
 	
 		<path id="path7657" inkscape:connector-curvature="0" inkscape:export-xdpi="64.30999755859375" inkscape:export-ydpi="64.30999755859375" sodipodi:nodetypes="ccccccc" class="st1" d="
-		M127.3,88.8c1.7,0,51.6-0.1,77.4-0.1v95.2c-25.4,0.2-73.9,0-77.4,0c-1.7,0-2.9-1.1-2.9-2.6V91.3C124.4,89.8,125.6,88.8,127.3,88.8
-		L127.3,88.8z"/>
+		M132.3,90.6c1.7,0,49.8-0.1,74.8-0.1v91.9c-24.5,0.2-71.4,0-74.8,0c-1.7,0-2.8-1-2.8-2.6V93.1C129.5,91.6,130.6,90.6,132.3,90.6
+		L132.3,90.6z"/>
 	
 		<path id="rect5660" inkscape:connector-curvature="0" inkscape:export-xdpi="64.30999755859375" inkscape:export-ydpi="64.30999755859375" sodipodi:nodetypes="ccccccc" class="st2" d="
-		M127.3,85.3c1.7,0,51.6-0.1,77.4-0.1v95.2c-25.4,0.2-73.9,0-77.4,0c-1.7,0-2.9-1.1-2.9-2.6V87.9C124.4,86.3,125.6,85.3,127.3,85.3
-		L127.3,85.3z"/>
+		M132.3,87.3c1.7,0,49.8-0.1,74.8-0.1v91.9c-24.5,0.2-71.4,0-74.8,0c-1.7,0-2.8-1-2.8-2.6V89.8C129.5,88.3,130.6,87.3,132.3,87.3
+		L132.3,87.3z"/>
 	
 		<path id="path7661" inkscape:connector-curvature="0" inkscape:export-xdpi="64.30999755859375" inkscape:export-ydpi="64.30999755859375" sodipodi:nodetypes="ccsccc" class="st3" d="
-		M132.5,85.3c-0.8,0-5,0-5.2,0c-1.7,0-2.9,1-2.9,2.6v93.2c3.3,0.1,5-0.7,8-0.7V85.3z"/>
+		M137.3,87.3c-0.8,0-4.9,0-5,0c-1.7,0-2.8,1-2.8,2.5v90c3.2,0.1,4.8-0.7,7.8-0.7V87.3z"/>
 	
-		<rect id="rect7632" x="131.8" y="85.5" inkscape:export-xdpi="64.30999755859375" inkscape:export-ydpi="64.30999755859375" class="st4" width="1.3" height="94.7">
+		<rect id="rect7632" x="136.6" y="87.4" inkscape:export-xdpi="64.30999755859375" inkscape:export-ydpi="64.30999755859375" class="st4" width="1.2" height="91.5">
 	</rect>
 	
 		<path id="path7670" inkscape:connector-curvature="0" inkscape:export-xdpi="64.30999755859375" inkscape:export-ydpi="64.30999755859375" class="st1" d="
-		M182.4,178.4c-24.5,0-52.5,0.1-55.1,0.1c-2,0-2.8,1-2.9,2.6h0v0.1v0.1v0.1h0c0,1.6,1.2,2.6,2.9,2.6c3.5,0,52,0.2,77.4,0v-2.6v-0.2
-		v-2.6C198.4,178.5,190.6,178.4,182.4,178.4L182.4,178.4z"/>
-	<text transform="matrix(1.0769 0 0 1 138.3576 122.9405)" class="st5 st6 st7">DOCS</text>
+		M185.5,177.3c-23.7,0-50.7,0.1-53.2,0.1c-1.9,0-2.7,1-2.8,2.5h0v0.1v0v0.1h0c0,1.5,1.1,2.5,2.8,2.5c3.3,0,50.2,0.2,74.8,0V180v-0.2
+		v-2.5C201,177.3,193.4,177.3,185.5,177.3L185.5,177.3z"/>
+	<text transform="matrix(1.0769 0 0 1 142.9597 125.6463)" class="st5 st6 st7">DOCS</text>
 	
 		<path id="path7670-3" inkscape:connector-curvature="0" inkscape:export-xdpi="64.30999755859375" inkscape:export-ydpi="64.30999755859375" sodipodi:nodetypes="cccccccc" class="st8" d="
-		M182.1,178.9c-24.8,0-52.2,0.2-54.8,0.2c-1.6,0.1-2.2,1-2.1,2.1c0.1,0.9,0.4,1.5,2.1,1.6c3.4,0,51.2,0,76.1-0.2
-		c-0.5-1.8-0.1-3.6-0.1-3.6C197.2,179,189.9,178.9,182.1,178.9L182.1,178.9z"/>
+		M185.2,177.7c-24,0-50.4,0.2-52.9,0.2c-1.5,0-2.2,1-2,2c0.1,0.9,0.3,1.5,2.1,1.6c3.3,0,49.4,0,73.5-0.2c-0.5-1.7-0.1-3.5-0.1-3.5
+		C199.8,177.8,192.7,177.7,185.2,177.7L185.2,177.7z"/>
 	
 		<path id="path7699" inkscape:connector-curvature="0" inkscape:export-xdpi="64.30999755859375" inkscape:export-ydpi="64.30999755859375" sodipodi:nodetypes="cccccccc" class="st9" d="
-		M182.2,178.9c-24.7,0-52,0.2-54.6,0.2c-3,0.1-2.2,2.5-2.3,2.4c0,0,0.4-1.5,2.4-1.5c3.4,0,50.7,0.1,75.5,0l0.1-1
-		C197.2,179,189.9,178.9,182.2,178.9L182.2,178.9z"/>
+		M185.3,177.7c-23.9,0-50.2,0.2-52.8,0.2c-2.9,0.1-2.2,2.4-2.2,2.3c0,0,0.4-1.5,2.4-1.5c3.3,0,49,0.1,73,0l0.1-0.9
+		C199.8,177.8,192.8,177.7,185.3,177.7L185.3,177.7z"/>
 	
 		<path id="path7701" inkscape:connector-curvature="0" inkscape:export-xdpi="64.30999755859375" inkscape:export-ydpi="64.30999755859375" sodipodi:nodetypes="cccccc" class="st10" d="
-		M134.9,85.5c0.6,37.3-6.8,91.1,69.6,91.1l0.1,1.7h-72.2V85.2L134.9,85.5z"/>
+		M139.6,87.5c0.6,36-6.6,88,67.3,88l0.1,1.7h-69.8v-90L139.6,87.5z"/>
 </g>
 </svg>
