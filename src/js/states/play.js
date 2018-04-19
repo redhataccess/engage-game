@@ -153,7 +153,7 @@ class PlayState extends Phaser.State {
         this.rightChamber.anchor.set(1, 0);
         this.game.physics.arcade.enableBody(this.rightChamber);
         this.rightChamber.body.immovable = true;
-        this.rightChamber.alpha = 0.9;
+        this.rightChamber.alpha = 0.5;
         this.rightChamber.tint = 0x004952;
         this.rightChamber.sendToBack();
     }
