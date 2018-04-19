@@ -230,16 +230,16 @@ class PlayState extends Phaser.State {
 
         const heightPerRow = 120;
 
-        const catchThese = this.createText('Catch these!', 0, 30);
+        const catchThese = this.createText('CATCH these:', 0, 25);
         this.legendGroup.add(catchThese);
 
-        const danger = this.createText('AVOID Vulns!', 0, 465);
+        const danger = this.createText('AVOID vulns:', 0, 460);
         this.legendGroup.add(danger);
 
-        const getCVE = this.createText('Solves vulns:', 0, 670);
+        const getCVE = this.createText('SOLVE vulns:', 0, 665);
         this.legendGroup.add(getCVE);
 
-        const bonus = this.createText('Bonus points:', 0, 860);
+        const bonus = this.createText('BONUS', 0, 855);
         this.legendGroup.add(bonus);
 
 
