@@ -21,7 +21,9 @@ html, body {
     font-family: 'overpass-mono', sans-serif;
 }
 body {
-    background-image: radial-gradient(75% 90% at top, #01121b, #000e16 100%);
+    /* background-image: radial-gradient(75% 90% at top, #01121b, #000e16 100%); */
+    background-image: url(../images/background.jpg);
+    background-size: cover;
     background-color: #010202;
     background-position: top center;
 }
@@ -82,13 +84,15 @@ canvas {
 }
 .splash .splash-logo .ring-outer {
     /* outline: 1px dotted grey; */
-    animation: spin 20s infinite ease-in-out;
-    animation-direction: alternate;
+    animation: spin 35s infinite linear;
+    /* transform-origin: 50% 50%; */
+}
+.splash .splash-logo .ring-middle {
+    animation: spin 25s infinite linear;
     /* transform-origin: 50% 50%; */
 }
 .splash .splash-logo .ring-inner {
-    animation: spin 30s infinite ease-in-out;
-    animation-direction: alternate;
+    animation: spin 15s infinite linear;
     /* transform-origin: 50% 50%; */
 }
 .winner-form {

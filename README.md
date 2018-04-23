@@ -1,6 +1,6 @@
 # Engage
 
-A Customer Portal game for Red Hat Summit 2017 in Boston.
+A Customer Portal game for Red Hat Summit 2017 in Boston, and 2018 in San Francisco.
 
 ## Basic setup
 
@@ -65,3 +65,19 @@ If the game seems too hard to avoid the Shellshock you can turn the values of th
     // Vuln difficulty.  Tune these to make shellshocks easier to avoid
     VULN_ACCEL: 1200,
     VULN_TRACKING: 0.016,
+    
+## Badge Scanner Setup (Optional if using ITN badge vendor)
+
+1. Install dependancies
+
+    sudo dnf install nodejs gcc-c++ pcsc-lite-devel pcsc-lite pcsc-tools libXScrnSaver libusb
+
+2. Install driver
+https://support.identiv.com/scl010-scl011/
+Restart the pcscd service after the drivers are installed.
+
+    sudo systemctl restart pcscd
+    
+2. Test
+
+     pcsc_scan # to do some test reads from the cmdline

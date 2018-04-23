@@ -3,6 +3,7 @@ class IntroState extends Phaser.State {
     create() {
         console.log('[intro] showing intro');
 
+        this.next();
         if (config.SKIP_BEGINNING) this.next();
 
         this.createIntroText();
