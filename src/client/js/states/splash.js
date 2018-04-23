@@ -53,7 +53,7 @@ class SplashState extends Phaser.State {
     }
 
     waitForInput() {
-        console.log('[play] waiting for input');
+        console.log('[splash] waiting for input');
 
         if (config.LAUNCH_MODE === 'move') {
             // start game when mouse moves
@@ -63,12 +63,20 @@ class SplashState extends Phaser.State {
         }
         else if (config.LAUNCH_MODE === 'badge') {
             // start game if badge is scanned, which will be received as a websocket message
+            this.game.data.socket.on('launch_game', this.badgeScanReceived.bind(this));
         }
 
     }
 
+    badgeScanReceived(msg) {
+        console.log('[splash] badge scan received', msg);
+
+        // Save the players info from their badge, then start the game
+        this.game.time.events.add(config.INPUT_WAIT_MS, this.endWaitForInput, this);
+    }
+
     inputReceived() {
-        console.log('[play] input received');
+        console.log('[splash] input received');
 
         // remove callback from mouse motion
         this.game.input.deleteMoveCallback(this.inputReceived, this);
@@ -79,7 +87,7 @@ class SplashState extends Phaser.State {
     }
 
     endWaitForInput() {
-        console.log('[play] wait over');
+        console.log('[splash] wait over');
         this.hideLogo();
         this.game.time.events.add(config.SPLASH_TRANSITION_DURATION, this.next, this);
     }

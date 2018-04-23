@@ -84,10 +84,6 @@ class PreloadState extends Phaser.State {
                 console.log("WebSocket connection established and ready.");
             });
 
-            socket.on('launch_game', function (msg) {
-                console.log(msg);
-            });
-
             socket.on('client_joined', function (msg) {
                 console.log(msg);
             });
@@ -95,6 +91,8 @@ class PreloadState extends Phaser.State {
             socket.on('client_left', function (msg) {
                 console.log(msg);
             });
+
+            this.game.data.socket = socket;
         }
     }
 
