@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 90 100" style="enable-background:new 0 0 90 100;" xml:space="preserve">
+<style type="text/css">
+	.st0{display:none;}
+	.st1{display:inline;fill:#1E1E1E;}
+	.st2{fill:#F3FFFB;fill-opacity:0.7;}
+	.st3{fill:#6FD181;}
+	.st4{fill:#EDF9F5;}
+	.st5{fill:#EDF9F5;fill-opacity:0.95;}
+	.st6{fill:#EDF1F4;}
+	.st7{fill-opacity:0.3;}
+	.st8{display:none;fill:#E6F4EB;fill-opacity:0.5;}
+	.st9{fill:none;stroke:#FFFFFF;stroke-width:4;stroke-linejoin:round;}
+</style>
+<g id="Background" class="st0">
+	<rect x="-19.6" y="-6" class="st1" width="129.7" height="111.2"/>
+</g>
+<g id="Labs_1_" inkscape:export-filename="/home/mclayton/workspace/engage/src/images/cve.png" inkscape:export-xdpi="1808.04" inkscape:export-ydpi="1808.04" inkscape:version="0.92.1 r" sodipodi:docname="labs.svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
+	
+		<sodipodi:namedview  bordercolor="#666666" borderopacity="1.0" fit-margin-bottom="0" fit-margin-left="0" fit-margin-right="0" fit-margin-top="0" id="base" inkscape:current-layer="layer1" inkscape:cx="17955.21294230101" inkscape:cy="-8247.162056560737" inkscape:document-units="mm" inkscape:object-paths="true" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:snap-global="false" inkscape:snap-grids="false" inkscape:snap-others="true" inkscape:snap-to-guides="true" inkscape:window-height="1080" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="0" inkscape:window-y="0" inkscape:zoom="0.01414213562" pagecolor="#252142" showgrid="false">
+		<inkscape:grid  id="grid4546" originx="-91.48657" originy="-148.85089" type="xygrid"></inkscape:grid>
+	</sodipodi:namedview>
+	<g id="Labs" transform="translate(-91.486564,3525.6552)" inkscape:groupmode="layer" inkscape:label="Layer 1">
+		
+			<path id="Beaker_inner" inkscape:connector-curvature="0" inkscape:export-xdpi="0.6399999856948853" inkscape:export-ydpi="0.6399999856948853" sodipodi:nodetypes="ccccccccccccc" class="st2" d="
+			M118-3518.7c-3.8,0-4.2,0-4.2,0c4.2,8.4,5.7,8.3,5.8,15.2v13.3l-24.8,48.9c-2.3,4.6,0.4,10.5,5.6,10.5H173c5.1,0,7.3-6.5,5-11.1
+			l-24.4-48.4v-13.3c0-6.8,2.2-6.8,6.4-15.2c0,0-0.4,0-4.2,0H118z"/>
+		
+			<path id="Liquid_inner" inkscape:connector-curvature="0" inkscape:export-xdpi="0.6399999856948853" inkscape:export-ydpi="0.6399999856948853" sodipodi:nodetypes="ccccccccccccc" class="st3" d="
+			M112.3-3475.9l-16.8,34.6c-2.3,4.2,0.4,9.8,5.5,9.8h71.5c5,0,7.2-6.1,4.9-10.3l-16.6-34.1H112.3z"/>
+		<circle id="Large_Bubble" class="st4" cx="124.5" cy="-3462.4" r="4.7"/>
+		<circle id="Medium_Bubble" class="st4" cx="118.3" cy="-3449.5" r="3.3"/>
+		<circle id="Small_Bubble" class="st5" cx="132.3" cy="-3452.1" r="1.9"/>
+		<rect id="Bottom_Line" x="139.1" y="-3490" class="st6" width="15.2" height="2"/>
+		<rect id="Middle_Line" x="139.1" y="-3498.5" class="st6" width="14.5" height="2"/>
+		<rect id="Top_Line" x="139.1" y="-3507" class="st6" width="14.5" height="2"/>
+		
+			<path id="Right_shadow" inkscape:connector-curvature="0" inkscape:export-xdpi="0.6399999856948853" inkscape:export-ydpi="0.6399999856948853" sodipodi:nodetypes="ccccc" class="st7" d="
+			M106.7-3432.2l63.4,0.5c8.9,0.6,9.3-6.2,6.8-10.7l-20.6-40.9C181.8-3423.9,155.1-3433.9,106.7-3432.2z"/>
+		
+			<path id="Left_glare" inkscape:connector-curvature="0" inkscape:export-xdpi="0.6399999856948853" inkscape:export-ydpi="0.6399999856948853" sodipodi:nodetypes="ccccccccccc" class="st8" d="
+			M115.8-3481.2l-15.6,39.9c-0.8,2.4-0.6,5.4,1.1,7.4c0.9,1,1.8,1.8,3.1,1.9c-0.7,0-4.1,0-4.8,0c-1,0-1.9-0.5-2.6-1.1
+			c-0.6-0.6-1.3-1.6-1.6-2.3c-0.9-1.9-0.8-3.2-0.2-4.9c0.2-0.7,0.8-2.1,1-2.4c0.9-1.7,1.5-3.1,2.4-4.9
+			C104.9-3459.4,109.7-3469.5,115.8-3481.2z"/>
+		
+			<path id="Outline" inkscape:connector-curvature="0" inkscape:export-xdpi="0.6399999856948853" inkscape:export-ydpi="0.6399999856948853" sodipodi:nodetypes="ccccccccccccc" class="st9" d="
+			M118-3519.2c-3.8,0-4.2,0-4.2,0c4.2,8.4,5.7,8.3,5.8,15.2v13.3l-24.8,48.9c-2.3,4.6,0.4,10.5,5.6,10.5h72.7c5.1,0,7.3-6.5,5-11.1
+			l-24.4-48.4v-13.3c0-6.8,2.2-6.8,6.4-15.2c0,0-0.4,0-4.2,0H118z"/>
+	</g>
+</g>
+</svg>

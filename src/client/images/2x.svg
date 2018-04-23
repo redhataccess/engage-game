@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1"
+	 id="svg8" inkscape:export-filename="/home/mclayton/workspace/engage/src/images/cve.png" inkscape:export-xdpi="1808.04" inkscape:export-ydpi="1808.04" inkscape:version="0.92.1 r" sodipodi:docname="2x.svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100"
+	 style="enable-background:new 0 0 100 100;" xml:space="preserve">
+<style type="text/css">
+	.st0{filter:url(#filter5600);}
+	.st1{fill:#FFE783;}
+	.st2{opacity:0.7;fill:#DDC55E;}
+	.st3{fill:none;stroke:#9B8527;stroke-width:4.2338;stroke-linecap:round;stroke-linejoin:round;}
+	.st4{opacity:0.8;}
+	.st5{font-family:'Overpass-Bold';}
+	.st6{font-size:55.7617px;}
+</style>
+<filter  id="filter5600" inkscape:collect="always" style="color-interpolation-filters:sRGB">
+	<feBlend  id="feBlend5602" in2="BackgroundImage" inkscape:collect="always" mode="screen"></feBlend>
+</filter>
+<sodipodi:namedview  bordercolor="#666666" borderopacity="1.0" fit-margin-bottom="0" fit-margin-left="0" fit-margin-right="0" fit-margin-top="0" id="base" inkscape:current-layer="layer1" inkscape:cx="30.024989" inkscape:cy="59.032228" inkscape:document-units="mm" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:snap-global="false" inkscape:snap-grids="true" inkscape:snap-to-guides="false" inkscape:window-height="1053" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="0" inkscape:window-y="27" inkscape:zoom="2.3525282" pagecolor="#252142" showgrid="false">
+	<inkscape:grid  id="grid4546" originx="-123.59314" originy="-165.19789" type="xygrid"></inkscape:grid>
+</sodipodi:namedview>
+<g id="layer1" transform="translate(-123.59312,-85.096744)" inkscape:groupmode="layer" inkscape:label="Layer 1" class="st0">
+	<g id="path5579_9_" inkscape:export-xdpi="65.260002" inkscape:export-ydpi="65.260002">
+		<circle class="st1" cx="173.6" cy="135.4" r="47.2"/>
+	</g>
+	
+		<g id="circle5604_6_" inkscape:connector-curvature="0" inkscape:export-xdpi="65.260002" inkscape:export-ydpi="65.260002" sodipodi:nodetypes="ccccc">
+		<path class="st2" d="M219.5,136.9c0,24.9-20.9,45.7-45.9,45.7c-28.7-3.2-36.6-16.8-43.8-32.5c65.4,21.5,45.5-41.7,82.2-29.3
+			C215.7,123.7,218.9,120.6,219.5,136.9L219.5,136.9z"/>
+	</g>
+	
+		<circle id="circle5607_9_" inkscape:export-xdpi="65.260002" inkscape:export-ydpi="65.260002" class="st3" cx="173.6" cy="135.4" r="47.2">
+	</circle>
+</g>
+<text transform="matrix(1 0 0 1 17.6011 66.8594)" class="st4 st5 st6">2x</text>
+</svg>

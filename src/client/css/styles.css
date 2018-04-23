@@ -1,0 +1,151 @@
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+* {
+    user-select: none;
+    cursor: ew-resize;
+    pointer-events: none;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    color: white;
+    font-family: 'overpass-mono', sans-serif;
+}
+body {
+    /* background-image: radial-gradient(75% 90% at top, #01121b, #000e16 100%); */
+    background-image: url(../images/background.jpg);
+    background-size: cover;
+    background-color: #010202;
+    background-position: top center;
+}
+a { color: #5db358; }
+a:visited { color: #5db358; }
+canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 50;
+    pointer-events: auto;
+}
+.splash .description {
+    font-size: 2rem;
+    transition: opacity linear 0.35s, transform linear 0.36s;
+    position: absolute;
+    bottom: 30vh;
+    max-width: 846px;
+    height: 0px;
+    overflow: visible;
+    width: 100%;
+    transform: translateX(-40%);
+    top: 40px;
+    left: 50%;
+    z-index: 200;
+}
+.splash .splash-logo {
+    pointer-events: none;
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    z-index: 100;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.65); /* can't figure out how to scale the three logo images yet */
+    transition: opacity linear 0.35s, transform linear 0.36s;
+    overflow: visible;
+}
+.splash .splash-logo .logo-text,
+.splash .splash-logo .ring-inner,
+.splash .splash-logo .ring-outer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.splash .splash-logo .logo-text {
+    z-index: 10;
+}
+.splash.hidden .description {
+    opacity: 0.0;
+    transform: translateX(-40%);
+}
+.splash.hidden .splash-logo {
+    opacity: 0.0;
+    transform: translate(-50%, -50%) scale(0.1) rotate(-12deg);
+}
+.splash .splash-logo .ring-outer {
+    /* outline: 1px dotted grey; */
+    animation: spin 35s infinite linear;
+    /* transform-origin: 50% 50%; */
+}
+.splash .splash-logo .ring-middle {
+    animation: spin 25s infinite linear;
+    /* transform-origin: 50% 50%; */
+}
+.splash .splash-logo .ring-inner {
+    animation: spin 15s infinite linear;
+    /* transform-origin: 50% 50%; */
+}
+.winner-form {
+    position: absolute;
+    z-index: 300;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 600px;
+    transition: opacity linear 0.35s, transform linear 0.36s;
+    background-color: rgba(0,61,75,.8);
+    margin: 40px;
+    letter-spacing: 2px;
+    padding: 3rem;
+}
+.winner-form, .winner-form input {
+    font-family: 'Overpass', sans-serif;
+    font-size: 1.7em;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+.winner-form label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+.winner-form h1 {
+    color: #5db358;
+    margin-top: 0.2rem;
+}
+.winner-form form {
+    margin-top: 2rem;
+}
+.winner-form input {
+    margin-top: 0.3rem;
+    color: #5db358;
+    background-color: #001018;
+    border: 1px solid #003F4E;
+    border-radius: 2px;
+    padding: 2px 6px;
+    line-height: 1;
+}
+.winner-form #agree.please {
+    outline: 5px solid #5db358;
+}
+.winner-form, .winner-form * {
+    user-select: auto;
+    cursor: auto;
+    pointer-events: auto;
+}
+.winner-form.hidden {
+    opacity: 0.0;
+    z-index: 1;
+}
+

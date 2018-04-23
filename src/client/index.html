@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="icon" type="image/png" href="favicon.png">
+        <title>Engage</title>
+
+        <link rel="stylesheet" href="css/overpass-mono.css">
+        <link rel="stylesheet" href="css/animations.css">
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+
+        <div class="splash hidden">
+            <div class="splash-logo">
+                <img class="logo-text" src="images/logo.png">
+                <img class="ring-inner" src="images/logo-ring-inner.png">
+                <img class="ring-outer" src="images/logo-ring-outer.png">
+            </div>
+
+            <div class="description">
+                <img src="images/cp-logo.png">
+            </div>
+        </div>
+
+        <div class="winner-form hidden">
+            <h1>Congratulations!</h1>
+            <p>Your score made it onto the leaderboard!</p>
+            <p>That makes you eligible to win a prize.  For information on how
+                the prize will be awarded, see the Terms and Conditions link
+                below.</p>
+            <form>
+                <label>
+                    <b>Player Nickname</b> (displayed on leaderboard)<br>
+                    <input placeholder="Nickname" id="nick" type="text">
+                </label>
+                <label>
+                    <b>Email address</b> (to receive bump notifications or prize if you win)<br>
+                    <input placeholder="Email address" id="email" type="text">
+                </label>
+                <label>
+                    <input id="agree" type="checkbox">
+                    I agree to the <a href="#">Terms and Conditions</a> of this contest.
+                </label>
+                <label>
+                    <input id="submit-form" type="submit" value="Enter Contest">
+                </label>
+            </form>
+        </div>
+
+        <div id='stars-1'></div>
+        <div id='stars-2'></div>
+        <div id='stars-3'></div>
+
+        <!-- third party -->
+        <script src="lib/lodash.min.js"></script>
+        <script src="lib/phaser.min.js"></script>
+        <script src="lib/es6-promise.min.js"></script>
+        <script src="lib/fetch.min.js"></script>
+        <script src="lib/phaser-state-transition-plugin.min.js"></script>
+        <script src="lib/leapjs/leap-0.6.4.js"></script>
+        <script src="lib/leapjs/leap-plugins-0.1.11.js"></script>
+        <script src="lib/leapjs/leap-plugins-0.1.11-utils.js"></script>
+        <script src="lib/validator.min.js"></script>
+
+        <!-- first party -->
+        <script src="js/config.js"></script>
+        <script src="js/util.js"></script>
+        <script src="js/states/boot.js"></script>
+        <script src="js/states/preload.js"></script>
+        <script src="js/states/splash.js"></script>
+        <script src="js/states/intro.js"></script>
+        <script src="js/states/play.js"></script>
+        <script src="js/states/winner.js"></script>
+        <script src="js/leap.js"></script>
+        <script src="js/day.js"></script>
+        <script src="js/animations.js"></script>
+        <script src="js/game.js"></script>
+        <script src="js/main.js"></script>
+
+    </body>
+</html>
