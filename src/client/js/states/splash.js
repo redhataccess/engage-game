@@ -71,8 +71,15 @@ class SplashState extends Phaser.State {
     badgeScanReceived(msg) {
         console.log('[splash] badge scan received', msg);
 
+        this.hideLogo();
+
+        // Display Welcome message
+        let style = { font: "65px Arial", fill: "#00ABCF", align: "center" };
+        let text = this.game.add.text(game.world.centerX, game.world.centerY, "Welcome " + msg.Firstname, style);
+        text.anchor.set(0.5);
+
         // Save the players info from their badge, then start the game
-        this.game.time.events.add(config.INPUT_WAIT_MS, this.endWaitForInput, this);
+        this.game.time.events.add(config.INPUT_WAIT_MS * 10, this.endWaitForInput, this);
     }
 
     inputReceived() {
