@@ -20,6 +20,7 @@
     "browser-sync": "^2.18.2"
   },
   "dependencies": {
+    "console-stamp": "^0.2.6",
     "express": "^4.16.3",
     "mongodb-runner": "^3.4.0",
     "parse-server": "^2.3.7",
