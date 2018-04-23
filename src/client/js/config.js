@@ -1,5 +1,14 @@
 const config = Object.freeze({
 
+    // What triggers the game to launch
+    //  Modes:
+    //    'move'  this will launch if the mouse or leap detects input
+    //    'badge' this will launch if a badge is scanned
+    LAUNCH_MODE: 'badge',
+
+    // Port of the node.js server running on the game client host used for launching the game
+    LAUNCHER_PORT: 3000,
+
     // skip splash and intro states (for rapid development)
     SKIP_BEGINNING: false,
 

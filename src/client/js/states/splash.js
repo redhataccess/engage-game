@@ -54,10 +54,17 @@ class SplashState extends Phaser.State {
 
     waitForInput() {
         console.log('[play] waiting for input');
-        // start game when mouse moves
-        this.game.input.addMoveCallback(this.inputReceived, this);
-        // start game when leap moves
-        this.game.data.leap.addMoveCallback(this.inputReceived, this);
+
+        if (config.LAUNCH_MODE === 'move') {
+            // start game when mouse moves
+            this.game.input.addMoveCallback(this.inputReceived, this);
+            // start game when leap moves
+            this.game.data.leap.addMoveCallback(this.inputReceived, this);
+        }
+        else if (config.LAUNCH_MODE === 'badge') {
+            // start game if badge is scanned, which will be received as a websocket message
+        }
+
     }
 
     inputReceived() {

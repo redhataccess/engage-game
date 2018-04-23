@@ -75,6 +75,27 @@ class PreloadState extends Phaser.State {
         this.game.data = {
             leap: new LeapController()
         };
+
+        // Set up socket.io connection if in launch mode 'badge'
+        if (config.LAUNCH_MODE === 'badge') {
+            let socket = io("http://localhost:" + config.LAUNCHER_PORT);
+
+            socket.on('connect', function () {
+                console.log("WebSocket connection established and ready.");
+            });
+
+            socket.on('launch_game', function (msg) {
+                console.log(msg);
+            });
+
+            socket.on('client_joined', function (msg) {
+                console.log(msg);
+            });
+
+            socket.on('client_left', function (msg) {
+                console.log(msg);
+            });
+        }
     }
 
     create() {
