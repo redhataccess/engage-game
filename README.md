@@ -70,7 +70,7 @@ If the game seems too hard to avoid the Shellshock you can turn the values of th
 
 1. Install dependancies
 
-    sudo dnf install nodejs gcc-c++ pcsc-lite-devel pcsc-lite pcsc-tools libXScrnSaver
+    sudo dnf install nodejs gcc-c++ pcsc-lite-devel pcsc-lite pcsc-tools libXScrnSaver libusb
 
 2. Install driver
 https://support.identiv.com/scl010-scl011/
