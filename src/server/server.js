@@ -69,8 +69,12 @@ let MainServer = function () {
         self.routes['/bscan'] = function (req, res) {
             console.log('received badge scan', req.query);
 
-            // Notify the client to launch the game with the players badge data
-            self.clientSocket.emit('launch_game', req.query);
+            if (self.clientSocket && self.clientSocket.connected) {
+                // Notify the client to launch the game with the players badge data
+                self.clientSocket.emit('launch_game', req.query);
+
+                console.log('Sent launch message to client');
+            }
 
             res.setHeader('Content-Type', 'application/json');
             res.send(req.query);

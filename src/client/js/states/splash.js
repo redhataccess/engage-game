@@ -79,6 +79,7 @@ class SplashState extends Phaser.State {
         text.anchor.set(0.5);
 
         // Save the players info from their badge, then start the game
+        this.game.data.player = msg;
         this.game.time.events.add(config.INPUT_WAIT_MS * 10, this.endWaitForInput, this);
     }
 

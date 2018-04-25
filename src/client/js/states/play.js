@@ -813,33 +813,18 @@ class PlayState extends Phaser.State {
                     console.log("[play] New TOP high score! ");
                     console.log("[play] previous top score: ", topHiScore, topEmail);
                     console.log("[play] new top score: ", this.score);
-
-                    if (alwaysWinner || (topEmail && validator.isEmail(topEmail))) {
-                        // send an email notification to the previous top score that they've been bumped
-                        console.log("[play] Sending email message to prev top score player: ", topName, topEmail);
-                        let formData = new FormData();
-                        formData.set('to', topEmail);
-                        formData.set('subject', "Someone beat your Engage high score");
-                        formData.set('text', `${topName},
-
-Someone beat your high score in Engage! Come to the Customer Portal Engage Game in Participation Square and defend your title!
-
-Engage Game Team,
-    Michael Clayton <mclayton@redhat.com>
-    Jared Sprague <jsprague@redhat.com>`);
-
-                        fetch(
-                            config.ENGAGE_SERVER_URL + '/sendMessage',
-                            {
-                                method: 'POST',
-                                body: formData
-                            }
-                        ).then(response => {
-                            console.log("[play] sendMessage status: ", response.status);
-                            response.text().then(text => console.log("[play] sendMessage response:", text));
-                        });
-                    }
                 }
+
+                // fetch(
+                //     config.ENGAGE_SERVER_URL + '/sendMessage',
+                //     {
+                //         method: 'POST',
+                //         body: formData
+                //     }
+                // ).then(response => {
+                //     console.log("[play] sendMessage status: ", response.status);
+                //     response.text().then(text => console.log("[play] sendMessage response:", text));
+                // });
 
                 this.game.stateTransition.to('WinnerState', true, false, { score: this.score, scores: this.scores, isNewTopScore });
             }

@@ -4,7 +4,7 @@ const config = Object.freeze({
     //  Modes:
     //    'move'  this will launch if the mouse or leap detects input
     //    'badge' this will launch if a badge is scanned
-    LAUNCH_MODE: 'badge',
+    LAUNCH_MODE: 'move',
 
     // Port of the node.js server running on the game client host used for launching the game
     LAUNCHER_PORT: 3000,
@@ -18,8 +18,8 @@ const config = Object.freeze({
     // URL to parse leaderboard database
     PARSE_URL: 'http://localhost:1337/parse/classes/leaders',
 
-    // Mail gun url for notifying leaders
-    ENGAGE_SERVER_URL: 'http://localhost:8000',
+    // URL to where engage-game-server is running
+    ENGAGE_SERVER_URL: 'http://localhost:3000',
 
     // Max character length for name and email submissions
     MAX_INPUT_LENGTH: 30,
