@@ -83,3 +83,4 @@ Restart the pcscd service after the drivers are installed.
      pcsc_scan # to do some test reads from the cmdline
      
 3. In src/client/config.js  set `LAUNCH_MODE: 'badge'`
+4. Download and `chmod +x on bcard-browser-0.3.8-x86_64.AppImage`  and run this program it is saved uploaded to utils/ directory.
