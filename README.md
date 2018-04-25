@@ -81,3 +81,5 @@ Restart the pcscd service after the drivers are installed.
 2. Test
 
      pcsc_scan # to do some test reads from the cmdline
+     
+3. In src/client/config.js  set `LAUNCH_MODE: 'badge'`
