@@ -16,6 +16,7 @@ class Game extends Phaser.Game {
         this.state.add('IntroState'   , IntroState   , false);
         this.state.add('PlayState'    , PlayState    , false);
         this.state.add('WinnerState'  , WinnerState  , false);
+        this.state.add('VictoryState' , VictoryState , false);
 
         this.state.start('BootState');
     }

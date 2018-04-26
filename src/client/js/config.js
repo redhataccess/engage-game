@@ -19,7 +19,7 @@ const config = Object.freeze({
     PARSE_URL: 'http://localhost:1337/parse/classes/leaders',
 
     // URL to where engage-game-server is running
-    ENGAGE_SERVER_URL: 'http://localhost:3000',
+    ENGAGE_SERVER_URL: 'http://localhost:8000',
 
     // Max character length for name and email submissions
     MAX_INPUT_LENGTH: 30,
@@ -34,6 +34,9 @@ const config = Object.freeze({
     // how long does it take to exit the splash screen (allowing animations to
     // finish before the game begins)
     SPLASH_TRANSITION_DURATION: 0.6 * Phaser.Timer.SECOND,
+
+    // How long to wait on Victory screen before transitioning to the next screen, only applies while in LAUNCH_MODE='badge'
+    VICTORY_TRANSITION_DURATION: 5 * Phaser.Timer.SECOND,
 
     // once input is detected, how long to wait before beginning the game
     INPUT_WAIT_MS: Phaser.Timer.SECOND * 0.5,
