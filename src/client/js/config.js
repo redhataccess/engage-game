@@ -4,7 +4,7 @@ const config = Object.freeze({
     //  Modes:
     //    'move'  this will launch if the mouse or leap detects input
     //    'badge' this will launch if a badge is scanned
-    LAUNCH_MODE: 'move',
+    LAUNCH_MODE: 'badge',
 
     // Port of the node.js server running on the game client host used for launching the game
     LAUNCHER_PORT: 3000,
@@ -45,7 +45,7 @@ const config = Object.freeze({
     COFFEE_DELAY_MS: 1 * Phaser.Timer.SECOND,
 
     // how long the "day" lasts
-    DAY_DURATION_MS: 60 * Phaser.Timer.SECOND,
+    DAY_DURATION_MS: 30 * Phaser.Timer.SECOND,
 
     // how long to wait after the last block falls before ending the game
     END_DURATION_MS: 3 * Phaser.Timer.SECOND,
