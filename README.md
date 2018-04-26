@@ -77,6 +77,7 @@ https://support.identiv.com/scl010-scl011/
 Restart the pcscd service after the drivers are installed.
 
     sudo systemctl restart pcscd
+    sudo systemctl enable pcscd
     
 2. Test
 
