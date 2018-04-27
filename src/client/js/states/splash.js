@@ -12,33 +12,63 @@ class SplashState extends Phaser.State {
             return;
         }
 
+        this.toggleLoop = this.game.time.events.loop(config.LEADERBOARD_DURATION, this.toggleLeaderboard, this);
+
         if (this.fromPlay) {
-            this.game.time.events.add(2000, this.startSplash, this);
+            this.showLeaderboard();
+            // this.game.time.events.add(2000, this.startSplash, this);
         }
         else {
             this.startSplash();
         }
     }
 
+    shutdown() {
+        this.toggleLoop.pendingDelete = true;
+    }
+
+    toggleLeaderboard() {
+        if (this.showing === 'splash') {
+            console.log('toggling to leaderboard');
+            this.showLeaderboard();
+        }
+        else if (this.showing === 'leaderboard') {
+            console.log('toggling to splash');
+            this.showSplash();
+        }
+    }
+
     next() {
         // this.state.start('PlayState');
+        console.log('splash.next()');
         this.game.stateTransition.to('IntroState');
     }
 
     startSplash() {
         // putting everything here instead of in create() so that it can be
         // delayed when necessary.
-        this.showLogo();
-        this.drawCurtain();
+        this.showSplash();
         this.waitForInput();
     }
 
-    showLogo() {
+    showSplash() {
+        this.showing = 'splash';
         document.querySelector('.splash').classList.remove('hidden');
+        this.hideLeaderboard();
     }
 
-    hideLogo() {
+    hideSplash() {
         document.querySelector('.splash').classList.add('hidden');
+    }
+
+    showLeaderboard() {
+        this.showing = 'leaderboard';
+        document.querySelector('.leaderboard').classList.remove('hidden');
+        this.hideSplash();
+    }
+
+    hideLeaderboard() {
+        document.querySelector('.leaderboard').classList.add('hidden');
     }
 
     drawCurtain() {
@@ -71,7 +101,9 @@ class SplashState extends Phaser.State {
     badgeScanReceived(msg) {
         console.log('[splash] badge scan received', msg);
 
-        this.hideLogo();
+        this.hideSplash();
+        this.hideLeaderboard();
+        this.toggleLoop.pendingDelete = true;
 
         // Display Welcome message
         let style = { font: "65px Arial", fill: "#00ABCF", align: "center" };
@@ -85,6 +117,7 @@ class SplashState extends Phaser.State {
 
     inputReceived() {
         console.log('[splash] input received');
+        this.toggleLoop.pendingDelete = true;
 
         // remove callback from mouse motion
         this.game.input.deleteMoveCallback(this.inputReceived, this);
@@ -96,7 +129,9 @@ class SplashState extends Phaser.State {
 
     endWaitForInput() {
         console.log('[splash] wait over');
-        this.hideLogo();
+        this.hideSplash();
+        this.hideLeaderboard();
+        this.toggleLoop.pendingDelete = true;
         this.game.time.events.add(config.SPLASH_TRANSITION_DURATION, this.next, this);
     }
 }

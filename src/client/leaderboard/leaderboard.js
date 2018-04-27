@@ -16,7 +16,7 @@
     function leaderboard() {
         var directive = {
             restrict: 'AE',
-            templateUrl: 'leaderboard.html',
+            templateUrl: 'leaderboard/leaderboard.html',
             controller: LeaderboardController,
             controllerAs: 'vm'
         };
@@ -41,11 +41,11 @@
                 .catch(getLeadersFailed);
 
             function getLeadersComplete(response) {
-              console.log("getLeadersComplete");
+                // console.log("getLeadersComplete");
                 const leaders = _(response.data.results)
                     .sortBy('score')
                     .reverse()
-                    .uniqBy('name')
+                    .uniqBy('AccountId')
                     .take(10)
                     .value();
 

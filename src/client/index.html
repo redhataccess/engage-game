@@ -9,8 +9,15 @@
         <link rel="stylesheet" href="css/overpass-mono.css">
         <link rel="stylesheet" href="css/animations.css">
         <link rel="stylesheet" href="css/styles.css">
+
+        <link href="leaderboard/stylesheets/sass/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+        <!-- <link rel="stylesheet" href="fonts/overpass/overpass.css"> -->
     </head>
     <body>
+
+        <div class="leaderboard hidden" ng-app="leaderboard">
+            <pl-leaderboard></pl-leaderboard>
+        </div>
 
         <div class="splash hidden">
             <div class="splash-logo">
@@ -66,6 +73,8 @@
         <script src="lib/leapjs/leap-plugins-0.1.11-utils.js"></script>
         <script src="lib/validator.min.js"></script>
         <script src="lib/socket.io.js"></script>
+        <script src="leaderboard/lib/angular/angular.min.js"></script>
+        <script src="leaderboard/lib/angularjs-ordinal-filter/ordinal-browser.js"></script>
 
         <!-- first party -->
         <script src="js/config.js"></script>
@@ -82,5 +91,6 @@
         <script src="js/animations.js"></script>
         <script src="js/game.js"></script>
         <script src="js/main.js"></script>
+        <script src="leaderboard/leaderboard.js"></script>
     </body>
 </html>
