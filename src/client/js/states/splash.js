@@ -12,15 +12,11 @@ class SplashState extends Phaser.State {
             return;
         }
 
+        this.badgeScanReceived = this.badgeScanReceived.bind(this);
+
         this.toggleLoop = this.game.time.events.loop(config.LEADERBOARD_DURATION, this.toggleLeaderboard, this);
 
-        if (this.fromPlay) {
-            this.showLeaderboard();
-            // this.game.time.events.add(2000, this.startSplash, this);
-        }
-        else {
-            this.startSplash();
-        }
+        this.startSplash();
     }
 
     shutdown() {
@@ -47,7 +43,12 @@ class SplashState extends Phaser.State {
     startSplash() {
         // putting everything here instead of in create() so that it can be
         // delayed when necessary.
-        this.showSplash();
+        if (this.fromPlay) {
+            this.showLeaderboard();
+        }
+        else {
+            this.showSplash();
+        }
         this.waitForInput();
     }
 
@@ -93,13 +94,16 @@ class SplashState extends Phaser.State {
         }
         else if (config.LAUNCH_MODE === 'badge') {
             // start game if badge is scanned, which will be received as a websocket message
-            this.game.data.socket.on('launch_game', this.badgeScanReceived.bind(this));
+            this.game.data.socket.on('launch_game', this.badgeScanReceived);
         }
 
     }
 
     badgeScanReceived(msg) {
         console.log('[splash] badge scan received', msg);
+
+        // don't accept another badge scan (until we arrive at this state again, later)
+        this.game.data.socket.off('launch_game', this.badgeScanReceived);
 
         this.hideSplash();
         this.hideLeaderboard();
