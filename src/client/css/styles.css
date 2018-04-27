@@ -64,8 +64,7 @@ canvas {
     overflow: visible;
 }
 .splash .splash-logo .logo-text,
-.splash .splash-logo .ring-inner,
-.splash .splash-logo .ring-outer {
+.splash .splash-logo .spin-ring {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -80,18 +79,21 @@ canvas {
 }
 .splash.hidden .splash-logo {
     opacity: 0.0;
-    transform: translate(-50%, -50%) scale(0.1) rotate(-12deg);
+    transform: translate(-50%, -50%) scale(0.1) rotate(-18deg);
 }
-.splash .splash-logo .ring-outer {
+.splash.hidden .splash-logo * {
+    animation: none;
+}
+.splash .splash-logo .spin-ring3 {
     /* outline: 1px dotted grey; */
     animation: spin 35s infinite linear;
     /* transform-origin: 50% 50%; */
 }
-.splash .splash-logo .ring-middle {
+.splash .splash-logo .spin-ring2 {
     animation: spin 25s infinite linear;
     /* transform-origin: 50% 50%; */
 }
-.splash .splash-logo .ring-inner {
+.splash .splash-logo .spin-ring1 {
     animation: spin 15s infinite linear;
     /* transform-origin: 50% 50%; */
 }
