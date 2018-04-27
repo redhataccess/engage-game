@@ -71,20 +71,26 @@ If the game seems too hard to avoid the Shellshock you can turn the values of th
 
 1. Install dependancies
 
+```
     sudo dnf install nodejs gcc-c++ pcsc-lite-devel pcsc-lite pcsc-tools libXScrnSaver libusb
+```
 
 2. Install driver
 https://support.identiv.com/scl010-scl011/
 Restart the pcscd service after the drivers are installed.
 
+```
     sudo systemctl restart pcscd
     sudo systemctl enable pcscd
+```
     
-2. Test
+3. Test
 
-     pcsc_scan # to do some test reads from the cmdline
+```
+    pcsc_scan # to do some test reads from the cmdline
+```
      
-3. In src/client/js/config.js  set `LAUNCH_MODE: 'badge'`
-4. Download and `chmod +x on bcard-browser-0.3.8-x86_64.AppImage`  and run this program it is saved uploaded to utils/ directory.
-5. In the BCARD Browser app, go to options and set 'post page' to http://localhost:3000/bscan
-6. Then launch the game with `node src/server/server.js`
+4. In src/client/js/config.js  set `LAUNCH_MODE: 'badge'`
+5. Download and `chmod +x on bcard-browser-0.3.8-x86_64.AppImage`  and run this program it is saved uploaded to utils/ directory.
+6. In the BCARD Browser app, go to options and set 'post page' to http://localhost:3000/bscan
+7. Then launch the game with `npm start`
