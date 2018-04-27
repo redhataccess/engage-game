@@ -54,7 +54,7 @@ To enable sending notifications to top score bumps, you mus have a engage-server
 and the client configured to point to it. Example:
 
     ENGAGE_SERVER_URL: 'http://localhost:8000'
-    
+
 Get the engage game server here: https://github.com/redhataccess/engage-game-server
 
 ## Configuration
@@ -66,7 +66,7 @@ If the game seems too hard to avoid the Shellshock you can turn the values of th
     // Vuln difficulty.  Tune these to make shellshocks easier to avoid
     VULN_ACCEL: 1200,
     VULN_TRACKING: 0.016,
-    
+
 ## Badge Scanner Setup (Optional if using ITN badge vendor)
 
 1. Install dependancies
@@ -83,13 +83,13 @@ Restart the pcscd service after the drivers are installed.
     sudo systemctl restart pcscd
     sudo systemctl enable pcscd
 ```
-    
+
 3. Test
 
 ```
     pcsc_scan # to do some test reads from the cmdline
 ```
-     
+
 4. In src/client/js/config.js  set `LAUNCH_MODE: 'badge'`
 5. Download and `chmod +x on bcard-browser-0.3.8-x86_64.AppImage`  and run this program it is saved uploaded to utils/ directory.
 6. In the BCARD Browser app, go to options and set 'post page' to http://localhost:3000/bscan
