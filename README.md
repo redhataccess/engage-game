@@ -20,7 +20,8 @@ The game can be played with a mouse, but for extra fun, set up a Leap motion dev
      5. Convert debs to rpms: `sudo alien -rv --scripts Leap-*x64.deb`
      6. Install rpms: `sudo rpm -ivh --nodeps --force leap*.rpm`
   3. Start the leap driver: `sudo leapd`
-  4. Once the Leap is plugged in and the driver is installed, try launching the Leap visualizer to verify it's working.  To do that, run `Visualizer`
+  4. Install dependancy for Visualizer: `sudo dnf install mesa-libGLU`
+  4. Once the Leap is plugged in and the driver is installed, try launching the Leap visualizer to verify it's working.  To do that, run `Visualizer`  NOTE: Visualizer only works in X11,  not Wayland
   5. Spend a few minutes playing with the Visualizer :)
   6. Now that the Leap is working, you can start Engage normally.  It will automatically connect to the Leap.  (Note: the mouse still works even when the Leap is active)
 
