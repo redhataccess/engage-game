@@ -87,10 +87,10 @@ const config = Object.freeze({
     BLOCK_GRAVITY: 350,
 
     // Score value of a regular block
-    BLOCK_SCORE_VALUE: 500,
+    BLOCK_SCORE_VALUE: 5000,
 
     // Score value of bonus blocks
-    BLOCK_BONUS_SCORE_VALUE: 1000,
+    BLOCK_BONUS_SCORE_VALUE: 10000,
 
     // How much so to scale the well row height based on score
     WELL_ROW_HEIGHT_SCORE_DIVISOR: 50000,
