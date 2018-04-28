@@ -24,7 +24,9 @@ class PlayState extends Phaser.State {
             .then(() => this.startDay())
             .catch(() => {
                 this.startDay();
-            });;
+            });
+
+        this.logPlay();
     }
 
     update() {
@@ -857,5 +859,21 @@ class PlayState extends Phaser.State {
 
     hidePortals() {
         this.portalIn.exists = false;
+    }
+
+    logPlay() {
+        fetch(
+            config.ENGAGE_SERVER_URL + '/logPlay',
+            {
+                method: 'POST',
+                body: '{}',
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                }),
+            }
+        ).then(response => {
+            console.log("[play] API /logPlay status: ", response.status);
+            response.text().then(text => console.log("[play] API /logPlay response:", text));
+        });
     }
 }
