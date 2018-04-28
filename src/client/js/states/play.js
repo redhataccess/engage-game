@@ -645,7 +645,7 @@ class PlayState extends Phaser.State {
         this.game.physics.arcade.enableBody(blockSprite);
 
         blockSprite.anchor.set(0.5, 0.5);
-        blockSprite.position.x = blockSprite.width*2 + config.SIDE_CHAMBER_WIDTH + (this.game.world.width - config.SIDE_CHAMBER_WIDTH*2 - blockSprite.width*4) * Math.random();
+        blockSprite.position.x = blockSprite.width*2 + (this.game.world.width - config.SIDE_CHAMBER_WIDTH - blockSprite.width*4) * Math.random();
         blockSprite.position.y = Math.random() * 120 + 40;
 
         // give shellshock a circular hitbox

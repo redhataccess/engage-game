@@ -48,7 +48,7 @@ const config = Object.freeze({
     COFFEE_DELAY_MS: 1 * Phaser.Timer.SECOND,
 
     // how long the "day" lasts
-    DAY_DURATION_MS: 30 * Phaser.Timer.SECOND,
+    DAY_DURATION_MS: 60 * Phaser.Timer.SECOND,
 
     // how long to wait after the last block falls before ending the game
     END_DURATION_MS: 3 * Phaser.Timer.SECOND,
@@ -103,6 +103,7 @@ const config = Object.freeze({
 
     // how quickly should block drops ramp up?  any easing function can be used
     BLOCK_DROP_PROBABILITY_FUNC: Phaser.Easing.Quartic.Out,
+
     // the max probability of a block falling each tick
     BLOCK_DROP_PROBABILITY_MAX: 0.25,
 
