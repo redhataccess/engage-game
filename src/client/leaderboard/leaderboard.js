@@ -77,7 +77,7 @@
           }
 
           newLeaders.forEach(function (leader, index) {
-            if (leader.name !== oldLeaders[index].name) {
+            if (!oldLeaders[index] || leader.name !== oldLeaders[index].name) {
               leader.animate = true;
             }
           })
