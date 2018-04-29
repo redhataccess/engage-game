@@ -99,8 +99,9 @@ class SplashState extends Phaser.State {
 
     }
 
-    badgeScanReceived(msg) {
-        console.log('[splash] badge scan received', msg);
+    badgeScanReceived(badge) {
+
+        console.log('[splash] badge scan received', badge);
 
         // don't accept another badge scan (until we arrive at this state again, later)
         this.game.data.socket.off('launch_game', this.badgeScanReceived);
@@ -109,13 +110,16 @@ class SplashState extends Phaser.State {
         this.hideLeaderboard();
         this.toggleLoop.pendingDelete = true;
 
+        // Save the badge data to the database
+        this.logBadge(badge);
+
         // Display Welcome message
         let style = { font: "65px Arial", fill: "#00ABCF", align: "center" };
-        let text = this.game.add.text(game.world.centerX, game.world.centerY, "Welcome " + msg.Firstname, style);
+        let text = this.game.add.text(game.world.centerX, game.world.centerY, "Welcome " + badge.Firstname, style);
         text.anchor.set(0.5);
 
         // Save the players info from their badge, then start the game
-        this.game.data.player = msg;
+        this.game.data.player = badge;
         this.game.time.events.add(config.INPUT_WAIT_MS * 10, this.endWaitForInput, this);
     }
 
@@ -137,5 +141,21 @@ class SplashState extends Phaser.State {
         this.hideLeaderboard();
         this.toggleLoop.pendingDelete = true;
         this.game.time.events.add(config.SPLASH_TRANSITION_DURATION, this.next, this);
+    }
+
+    logBadge(badge) {
+        fetch(
+            config.ENGAGE_SERVER_URL + '/logBadge',
+            {
+                method: 'POST',
+                body: JSON.stringify(badge),
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                }),
+            }
+        ).then(response => {
+            console.log("[play] API /logBadge status: ", response.status);
+            response.text().then(text => console.log("[play] API /logBadge response:", text));
+        });
     }
 }

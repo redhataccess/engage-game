@@ -9,5 +9,6 @@ client/css/.o.map
 client/css/.sass-cache
 
 dist
+logs
 
 build_files/*.spec
