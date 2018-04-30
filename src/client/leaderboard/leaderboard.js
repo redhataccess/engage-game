@@ -66,8 +66,7 @@
         vm.leaders = [];
         console.log("controller");
 
-        $interval(getLeaders, updateInterval);
-        getLeaders();
+        window.updateLeaders = getLeaders;
 
         $scope.$watch("vm.leaders", function (newLeaders, oldLeaders) {
           console.log(newLeaders, oldLeaders);

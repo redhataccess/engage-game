@@ -66,6 +66,11 @@ class SplashState extends Phaser.State {
         this.showing = 'leaderboard';
         document.querySelector('.leaderboard').classList.remove('hidden');
         this.hideSplash();
+
+        // assuming the angular-powered leaderboard is ready, call this to update the leaderboard after a short wait
+        if (window.updateLeaders) {
+            this.game.time.events.add(1 * Phaser.Timer.SECOND, window.updateLeaders);
+        }
     }
 
     hideLeaderboard() {
