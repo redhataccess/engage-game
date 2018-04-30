@@ -256,6 +256,7 @@ ul.leaders > li.change {
 .leaderboard {
     transition: opacity 0.5s linear;
     opacity: 1;
+    font-family: Overpass;
 }
 .leaderboard.hidden {
     opacity: 0.0;
