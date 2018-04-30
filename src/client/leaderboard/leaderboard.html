@@ -6,7 +6,7 @@
       <li ng-repeat="leader in vm.leaders" ng-class="{'change': leader.animate}">
         <span class="rank">{{::$index + 1}}</span>
         <span class="username">{{::leader.name}}</span>
-        <span class="score">{{::leader.score}}</span>
+        <span class="score">{{::leader.score | number}}</span>
       </li>
     </ul>
   </section>
