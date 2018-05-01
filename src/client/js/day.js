@@ -14,8 +14,17 @@ class Day {
         ];
     }
 
-    getBlock({ name='NamelessEvent', timing=0, delay=0, bonus=false, } = {}) {
-        return { name, timing, bonus, delay };
+    static get vulns() {
+        return [
+            'Shellshock',
+            'Specter',
+            'Ghost',
+            'Meltdown',
+        ];
+    }
+
+    getBlock({ name='NamelessEvent', timing=0, delay=0, bonus=false, vuln=false} = {}) {
+        return { name, timing, bonus, delay, vuln };
     }
 
     getRandomBlock() {
@@ -25,7 +34,7 @@ class Day {
     }
 
     getVuln() {
-        return this.getBlock({ name: 'Shellshock' });
+        return this.getBlock({ vuln: true, name: _.sample(Day.vulns) });
     }
 
     getX2() {

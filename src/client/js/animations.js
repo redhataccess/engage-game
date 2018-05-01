@@ -155,14 +155,56 @@ let Animations = {
     },
     Shellshock: {
         Appear: {
-            Duration: 720,
+            Duration: 1200,
             Easing: Phaser.Easing.Quadratic.Out,
             Scale: {
-                Start: 4,
+                Start: 0,
                 End: 1,
             },
             Rotation: {
                 Start: 4*Math.PI,
+                End: 0,
+            },
+        }
+    },
+    Meltdown: {
+        Appear: {
+            Duration: 1200,
+            Easing: Phaser.Easing.Quadratic.Out,
+            Scale: {
+                Start: 0,
+                End: 1,
+            },
+            Rotation: {
+                Start: 4*Math.PI,
+                End: 0,
+            },
+        }
+    },
+    Specter: {
+        Appear: {
+            Duration: 1400,
+            Easing: Phaser.Easing.Quadratic.InOut,
+            Scale: {
+                Start: 6,
+                End: 1,
+            },
+            Rotation: {
+                Start: 2*Math.PI,
+                End: 0,
+            },
+        }
+    },
+    Ghost: {
+        Appear: {
+            Duration: 1400,
+            Easing: Phaser.Easing.Quadratic.InOut,
+            Scale: {
+                Start: 6,
+                End: 1,
+            },
+            Rotation: {
+                Start: 2*Math.PI,
                 End: 0,
             },
         }

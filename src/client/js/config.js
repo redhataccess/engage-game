@@ -57,7 +57,7 @@ const config = Object.freeze({
     GAME_OVER_RESTART_DURATION_MS: 1.6 * Phaser.Timer.SECOND,
 
     // vulns per day
-    VULNS_PER_DAY: 7,
+    VULNS_PER_DAY: 14,
 
     // how long after a vuln should a CVE fall
     CVE_DELAY: 4.0 * Phaser.Timer.SECOND,
@@ -85,6 +85,8 @@ const config = Object.freeze({
     // Vuln difficulty.  Tune these to make shellshocks easier to avoid
     VULN_ACCEL: 1200,
     VULN_TRACKING: 0.016,
+    VULN_MAX_TRACKING_SPEED: 400,
+    VULN_SHELLSHOCK_SPEED: 600, // how fast the Shellshock vulns move
 
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 350,

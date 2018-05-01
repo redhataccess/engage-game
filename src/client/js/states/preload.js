@@ -24,8 +24,6 @@ class PreloadState extends Phaser.State {
         this.game.load.image('CVE-sprite',               'images/cve.png');
         this.game.load.image('Labs-sprite',              'images/labs.png');
         this.game.load.image('Labs-sprite-gray',              'images/gray/labs.png');
-        this.game.load.image('Shellshock-sprite',        'images/shellshock.png');
-        this.game.load.image('Shellshock-sprite-gray',        'images/gray/shellshock.png');
         this.game.load.image('Documentation-sprite',     'images/documentation.png');
         this.game.load.image('Documentation-sprite-gray',     'images/gray/documentation.png');
         this.game.load.image('Discussions-sprite',       'images/discussion.png');
@@ -34,6 +32,16 @@ class PreloadState extends Phaser.State {
         this.game.load.image('Downloads-sprite-gray',       'images/gray/downloads.png');
         this.game.load.image('PCM-sprite',               'images/pcm.png');
         this.game.load.image('PCM-sprite-gray',               'images/gray/pcm.png');
+
+        // vulns
+        this.game.load.image('Shellshock-sprite'      , 'images/shellshock.png');
+        this.game.load.image('Shellshock-sprite-gray' , 'images/gray/shellshock.png');
+        this.game.load.image('Specter-sprite'         , 'images/specter.png');
+        this.game.load.image('Specter-sprite-gray'    , 'images/gray/specter.png');
+        this.game.load.image('Ghost-sprite'           , 'images/ghost.png');
+        this.game.load.image('Ghost-sprite-gray'      , 'images/gray/ghost.png');
+        this.game.load.image('Meltdown-sprite'        , 'images/meltdown.png');
+        this.game.load.image('Meltdown-sprite-gray'   , 'images/gray/meltdown.png');
 
         this.game.load.image('ContainerCatalog-sprite',  'images/container-catalog.png');
         this.game.load.image('ContainerCatalog-sprite-gray',  'images/gray/container-catalog.png');
@@ -50,6 +58,7 @@ class PreloadState extends Phaser.State {
 
         // Sprite sheets
         this.game.load.spritesheet('shrapnel', 'images/shellshock.png', 44, 44, 30);
+        this.game.load.spritesheet('ghost-poof', 'images/ghost-poof.png', 44, 44, 30);
 
         // audio
 

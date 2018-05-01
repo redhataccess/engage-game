@@ -17,14 +17,11 @@ class PlayState extends Phaser.State {
         this.createBlockSpriteArray();
         this.createChambers();
         this.createShellBurst();
+        this.createGhostBurst();
         this.hidePortals();
         setTimeout(() => this.createLegend(), 10);
 
-        this.fetchLatestScores()
-            .then(() => this.startDay())
-            .catch(() => {
-                this.startDay();
-            });
+        this.startDay();
 
         this.logPlay();
     }
@@ -203,7 +200,12 @@ class PlayState extends Phaser.State {
             {
                 name: 'Shellshock-sprite',
                 offset: { x: 0, y: 0 },
-                position: { x: 0, y: 540 },
+                position: { x: 55, y: 540 },
+            },
+            {
+                name: 'Specter-sprite',
+                offset: { x: 0, y: 0 },
+                position: { x: -55, y: 540 },
             },
             {
                 name: 'CVE-sprite',
@@ -294,13 +296,24 @@ class PlayState extends Phaser.State {
 
     createShellBurst() {
         // burst viz
-        this.burstEmitter = game.add.emitter(0, 0, 1000);
-        this.burstEmitter.makeParticles('shrapnel', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29], 30, false, false);
-        this.burstEmitter.gravity = 0;
-        this.burstEmitter.minParticleSpeed.setTo(-600, -600);
-        this.burstEmitter.maxParticleSpeed.setTo(600, 600);
-        this.burstEmitter.area.width = 50;
-        this.burstEmitter.area.height = 50;
+        this.shellBurstEmitter = game.add.emitter(0, 0, 1000);
+        this.shellBurstEmitter.makeParticles('shrapnel', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29], 30, false, false);
+        this.shellBurstEmitter.gravity = 0;
+        this.shellBurstEmitter.minParticleSpeed.setTo(-600, -600);
+        this.shellBurstEmitter.maxParticleSpeed.setTo(600, 600);
+        this.shellBurstEmitter.area.width = 50;
+        this.shellBurstEmitter.area.height = 50;
+    }
+
+    createGhostBurst() {
+        // burst viz
+        this.ghostPoofEmitter = game.add.emitter(0, 0, 1000);
+        this.ghostPoofEmitter.makeParticles('ghost-poof', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29], 30, false, false);
+        this.ghostPoofEmitter.gravity = 0;
+        this.ghostPoofEmitter.minParticleSpeed.setTo(-200, -200);
+        this.ghostPoofEmitter.maxParticleSpeed.setTo(200, 200);
+        this.ghostPoofEmitter.area.width = 150;
+        this.ghostPoofEmitter.area.height = 150;
     }
 
     /* update functions */
@@ -350,7 +363,7 @@ class PlayState extends Phaser.State {
             let block = this.blockSprites[i];
             if (!block.data.captured && block.data.state === 'falling' && this.portalIn.position.y - block.position.y > 70) {
 
-                if (block.data.name == 'Shellshock') {
+                if (block.data.name === 'Specter' || block.data.name === 'Ghost') {
                     const accel = Phaser.Point.subtract(this.portalIn.position, block.position);
                     accel.normalize();
                     accel.multiply(config.VULN_ACCEL, config.VULN_ACCEL);
@@ -359,9 +372,14 @@ class PlayState extends Phaser.State {
                     block.position.x = UTIL.lerp(block.position.x, this.portalIn.position.x, config.VULN_TRACKING);
                     block.rotation = this.game.physics.arcade.angleToXY(block, this.portalIn.position.x, this.portalIn.position.y);
                     block.rotation -= Math.PI / 2;
-
                 }
-                else if (this.portalIn.data.attractActive && !this.portalIn.data.hasVuln) {
+                else if (block.data.name === 'Shellshock' || block.data.name === 'Meltdown') {
+                    block.body.velocity.copyFrom(block.data.direction);
+
+                    block.rotation = this.game.physics.arcade.angleToXY(block, block.data.target.x, block.data.target.y);
+                    block.rotation -= Math.PI / 2;
+                }
+                else if (!block.data.vuln && this.portalIn.data.attractActive && !this.portalIn.data.hasVuln) {
                     this.attractBlock(block);
 
                     if (block.data.bonus) {
@@ -437,7 +455,7 @@ class PlayState extends Phaser.State {
 
         if (!block.data.captured && !portal.data.hasVuln && blockAbovePortal) {
             // If captured vuln, disable portal
-            if (block.data.name == 'Shellshock') {
+            if (block.data.vuln) {
                 // wait for shellshock to overlap the portal somewhat before
                 // triggering capture
                 this.captureShellshock(portal, block);
@@ -550,16 +568,25 @@ class PlayState extends Phaser.State {
         console.log("[play] !!!!Captured VULN!!!!");
         portal.data.hasVuln = true;
         block.data.captured = true;
-        block.destroy(true);
-        this.burstEmitter.x = block.position.x;
-        this.burstEmitter.y = block.position.y;
 
-        this.burstEmitter.alpha = 1;
-        this.burstEmitter.start(true, config.VULN_EXPLODE_DURATION_MS, null, 30);
+        const emitterMap = {
+            Shellshock: this.shellBurstEmitter,
+            Meltdown: this.shellBurstEmitter,
+            Ghost: this.ghostPoofEmitter,
+            Specter: this.ghostPoofEmitter,
+        };
+
+        const emitter = emitterMap[block.data.name];
+
+        emitter.x = block.position.x;
+        emitter.y = block.position.y;
+
+        emitter.alpha = 1;
+        emitter.start(true, config.VULN_EXPLODE_DURATION_MS, null, 30);
         this.game.camera.shake(config.VULN_CAM_SHAKE_AMOUNT, config.VULN_CAM_SHAKE_DURATION_MS);
 
         this.game.add
-            .tween(this.burstEmitter)
+            .tween(emitter)
             .to(
                 { alpha: 0 },
                 config.VULN_EXPLODE_DURATION_MS,
@@ -570,6 +597,8 @@ class PlayState extends Phaser.State {
         this.setPortalGlitch(portal);
         this.sounds.Shellshock.play();
 
+        block.destroy(true);
+
         // turn blocks gray
         for (let i = 0, l = this.blockSprites.length; i < l; i++) {
             let zblock = this.blockSprites[i];
@@ -579,7 +608,6 @@ class PlayState extends Phaser.State {
                 zblock.loadTexture(zblock.data.name + '-sprite-gray');
             }
         }
-
     }
 
     startDay() {
@@ -658,11 +686,6 @@ class PlayState extends Phaser.State {
         blockSprite.position.x = blockSprite.width*2 + (this.game.world.width - config.SIDE_CHAMBER_WIDTH - blockSprite.width*4) * Math.random();
         blockSprite.position.y = Math.random() * 120 + 40;
 
-        // give shellshock a circular hitbox
-        if (block.name === 'Shellshock') {
-            blockSprite.body.setCircle(100); // width and height look backwards but it's on purpose
-        }
-
         // vuln coloring
         if (this.portalIn.data.hasVuln) {
             if (block.name == 'CVE') {
@@ -680,9 +703,22 @@ class PlayState extends Phaser.State {
         const anim = Animations[block.name];
 
         let endRotation = anim.Appear.Rotation.End;
-        if (block.name === 'Shellshock') {
+        if (block.vuln) {
+
+            // give vulns a circular hitbox
+            blockSprite.body.setCircle(100); // width and height look backwards but it's on purpose
+
             // end rotation is dynamic for vulns; we want it to point toward the player right away
             endRotation = this.game.physics.arcade.angleToXY(blockSprite, this.portalIn.position.x, this.portalIn.position.y);
+
+            if (block.name === 'Shellshock' || block.name === 'Meltdown') {
+                blockSprite.data.target = this.portalIn.position.clone();
+
+                const direction = Phaser.Point.subtract(this.portalIn.position, blockSprite.position);
+                direction.normalize();
+                direction.multiply(config.VULN_SHELLSHOCK_SPEED, config.VULN_SHELLSHOCK_SPEED);
+                blockSprite.data.direction = direction;
+            }
         }
 
         blockSprite.alpha = 0;
@@ -757,10 +793,19 @@ class PlayState extends Phaser.State {
 
         switch (block.data.name) {
             case 'Shellshock':
+            case 'Meltdown':
+                // make vulns fall faster
+                block.body.gravity.set(0, 0);
+                block.body.bounce.set(0.7, 0);
+                this.fallingVuln = block; // a handy reference to the vuln currently falling
+                break;
+
+            case 'Specter':
+            case 'Ghost':
                 // make vulns fall faster
                 block.body.gravity.set(0, 0);
                 block.body.velocity.set(0, 0);
-                block.body.maxVelocity.set(1000, 1000);
+                block.body.maxVelocity.set(100, 300);
                 block.body.bounce.set(0.7, 0);
                 this.fallingVuln = block; // a handy reference to the vuln currently falling
                 break;
