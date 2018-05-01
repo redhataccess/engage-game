@@ -168,7 +168,7 @@ class PlayState extends Phaser.State {
             {
                 name: 'Documentation-sprite',
                 offset: { x: 0, y: 0 },
-                position: { x: -55, y: 100 },
+                position: { x: -55, y: 102 },
             },
             {
                 name: 'ContainerCatalog-sprite',
@@ -188,7 +188,7 @@ class PlayState extends Phaser.State {
             {
                 name: 'Labs-sprite',
                 offset: { x: 0, y: 0 },
-                position: { x: -55, y: 302 },
+                position: { x: -55, y: 303 },
             },
             // {
             //     name: 'Discussions-sprite',
@@ -198,7 +198,7 @@ class PlayState extends Phaser.State {
             {
                 name: 'Downloads-sprite',
                 offset: { x: 0, y: 0 },
-                position: { x: 55, y: 300 },
+                position: { x: 55, y: 302 },
             },
             {
                 name: 'Shellshock-sprite',
@@ -262,8 +262,16 @@ class PlayState extends Phaser.State {
                 sprite.width = width;
                 sprite.height = height;
 
-                // make bonus a little bigger
-                if (def.name === 'bonus-rays' || def.name === 'bonus-glow') {
+                // adjust the scale for specific sprites
+                if (def.name === 'ContainerCatalog-sprite') {
+                    sprite.scale.set(0.90);
+                }
+
+                if (def.name === 'Documentation-sprite' || def.name === 'Labs-sprite') {
+                    sprite.scale.set(0.65);
+                }
+
+                if (def.name === 'bonus-rays' || def.name === 'bonus-glow' || def.name === 'Search-sprite') {
                     sprite.scale.set(0.45);
                 }
 
