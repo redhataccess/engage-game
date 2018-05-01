@@ -41,24 +41,24 @@ canvas {
     font-size: 2rem;
     transition: opacity linear 0.35s, transform linear 0.36s;
     position: absolute;
-    bottom: 30vh;
+    bottom: 12vh;
     max-width: 846px;
     height: 0px;
     overflow: visible;
-    width: 100%;
+    width: 90%;
     transform: translateX(-40%);
-    top: 40px;
-    left: 50%;
+    /* top: 50px; */
+    left: 52%;
     z-index: 200;
 }
 .splash .splash-logo {
     pointer-events: none;
-    height: 10px;
-    width: 10px;
+    /* height: 10px;
+    width: 10px; */
     position: absolute;
     z-index: 100;
     left: 50%;
-    top: 50%;
+    top: 42vh;
     transform: translate(-50%, -50%) scale(0.65); /* can't figure out how to scale the three logo images yet */
     transition: opacity linear 0.35s, transform linear 0.36s;
     overflow: visible;
@@ -80,6 +80,9 @@ canvas {
 .splash.hidden .splash-logo {
     opacity: 0.0;
     transform: translate(-50%, -50%) scale(0.1) rotate(-18deg);
+}
+.splash.hidden .spin-ring {
+    width: 950px;
 }
 .splash.hidden .splash-logo * {
     animation: none;
@@ -150,4 +153,3 @@ canvas {
     opacity: 0.0;
     z-index: 1;
 }
-
