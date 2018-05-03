@@ -18,7 +18,6 @@ class Day {
         return [
             'Shellshock',
             'Specter',
-            'Ghost',
             'Meltdown',
         ];
     }

@@ -195,18 +195,4 @@ let Animations = {
             },
         }
     },
-    Ghost: {
-        Appear: {
-            Duration: 1400,
-            Easing: Phaser.Easing.Quadratic.InOut,
-            Scale: {
-                Start: 4,
-                End: 1,
-            },
-            Rotation: {
-                Start: 2*Math.PI,
-                End: 0,
-            },
-        }
-    },
 };
