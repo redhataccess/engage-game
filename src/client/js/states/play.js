@@ -810,7 +810,7 @@ class PlayState extends Phaser.State {
                 // make vulns fall faster
                 block.body.gravity.set(0, 0);
                 block.body.velocity.set(0, 0);
-                block.body.maxVelocity.set(100, 300);
+                block.body.maxVelocity.set(1000, 1000);
                 block.body.bounce.set(0.7, 0);
                 this.fallingVuln = block; // a handy reference to the vuln currently falling
                 break;
