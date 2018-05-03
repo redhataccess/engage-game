@@ -58,20 +58,21 @@ class PlayState extends Phaser.State {
             Coffee           : this.game.add.audio('coffee'),
             Lunch            : this.game.add.audio('coffee'),
             CVE              : this.game.add.audio('cve'),
-            PCM              : this.game.add.audio('pickup1'),
-            ContainerCatalog : this.game.add.audio('pickup2'),
-            Search           : this.game.add.audio('pickup3'),
-            x2               : this.game.add.audio('pickup3'),
-            Documentation    : this.game.add.audio('pickup4'),
-            Labs             : this.game.add.audio('pickup5'),
-            Discussions      : this.game.add.audio('pickup6'),
-            Downloads        : this.game.add.audio('pickup6'),
+            PCM              : this.game.add.audio('pickup-d'),
+            ContainerCatalog : this.game.add.audio('pickup-d'),
+            Search           : this.game.add.audio('pickup-d'),
+            x2               : this.game.add.audio('pickup-d'),
+            Documentation    : this.game.add.audio('pickup-d'),
+            Labs             : this.game.add.audio('pickup-d'),
+            Discussions      : this.game.add.audio('pickup-d'),
+            Downloads        : this.game.add.audio('pickup-d'),
             Shellshock       : this.game.add.audio('shellshock'),
             splash           : this.game.add.audio('splash', 0.1),
             static1          : this.game.add.audio('static1', 0.4),
             static2          : this.game.add.audio('static2', 0.4),
             static3          : this.game.add.audio('static3', 0.4),
             static4          : this.game.add.audio('static4', 0.4),
+            song             : this.game.add.audio('song', 1.0),
         };
     }
 
@@ -612,6 +613,11 @@ class PlayState extends Phaser.State {
 
     startDay() {
         console.log('[play] starting the day; good morning!');
+
+        // wait a bit so the song starts right after the coffee is captured
+        if (config.PLAY_MUSIC) {
+            this.game.time.events.add(2.1 * Phaser.Timer.SECOND, () => this.sounds.song.play(), this);
+        }
 
         this.day = new Day();
         this.createPlayerControls();

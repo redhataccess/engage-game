@@ -4,7 +4,7 @@ const config = Object.freeze({
     //  Modes:
     //    'move'  this will launch if the mouse or leap detects input
     //    'badge' this will launch if a badge is scanned
-    LAUNCH_MODE: 'badge',
+    LAUNCH_MODE: 'move',
 
     // Port of the node.js server running on the game client host used for launching the game
     LAUNCHER_PORT: 3000,
@@ -131,5 +131,8 @@ const config = Object.freeze({
 
     // How long the score multiplier bonus will last
     X2_BOOST_DURATION: 5 * Phaser.Timer.SECOND,
+
+    // Play music or not
+    PLAY_MUSIC: true,
 
 });

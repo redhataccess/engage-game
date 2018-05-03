@@ -62,14 +62,10 @@ class PreloadState extends Phaser.State {
 
         // audio
 
+        this.game.load.audio('song'       , 'sounds/hatching-a-plan.wav');
         this.game.load.audio('coffee'     , 'sounds/coffee.wav');
         this.game.load.audio('cve'        , 'sounds/cve.wav');
-        this.game.load.audio('pickup1'    , 'sounds/pickup1.wav');
-        this.game.load.audio('pickup2'    , 'sounds/pickup2.wav');
-        this.game.load.audio('pickup3'    , 'sounds/pickup3.wav');
-        this.game.load.audio('pickup4'    , 'sounds/pickup4.wav');
-        this.game.load.audio('pickup5'    , 'sounds/pickup5.wav');
-        this.game.load.audio('pickup6'    , 'sounds/pickup6.wav');
+        this.game.load.audio('pickup-d'   , 'sounds/pickup-d.wav');
         this.game.load.audio('shellshock' , 'sounds/shellshock.wav');
         this.game.load.audio('splash'     , 'sounds/splash.wav');
         this.game.load.audio('static1'    , 'sounds/static1.wav');

@@ -186,7 +186,7 @@ let Animations = {
             Duration: 1400,
             Easing: Phaser.Easing.Quadratic.InOut,
             Scale: {
-                Start: 6,
+                Start: 4,
                 End: 1,
             },
             Rotation: {
@@ -200,7 +200,7 @@ let Animations = {
             Duration: 1400,
             Easing: Phaser.Easing.Quadratic.InOut,
             Scale: {
-                Start: 6,
+                Start: 4,
                 End: 1,
             },
             Rotation: {
