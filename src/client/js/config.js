@@ -57,10 +57,13 @@ const config = Object.freeze({
     GAME_OVER_RESTART_DURATION_MS: 1.6 * Phaser.Timer.SECOND,
 
     // vulns per day
-    VULNS_PER_DAY: 14,
+    VULNS_PER_DAY: 11,
+
+    // delay the falling of the first vuln this long
+    FIRST_VULN_DELAY: 6.0 * Phaser.Timer.SECOND,
 
     // how long after a vuln should a CVE fall
-    CVE_DELAY: 4.0 * Phaser.Timer.SECOND,
+    CVE_DELAY: 3.0 * Phaser.Timer.SECOND,
 
     // how fast blocks are attracted when search bonus is active
     ATTRACTION_POWER: 20,

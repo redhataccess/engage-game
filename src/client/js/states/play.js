@@ -642,8 +642,9 @@ class PlayState extends Phaser.State {
 
         // schedule some vulns
         for (let i = 1; i < config.VULNS_PER_DAY + 1; ++i) {
-            this.game.time.events.add(timespan * i / config.VULNS_PER_DAY, () => this.blockAppear(this.day.getVuln()), this);
-            this.game.time.events.add(config.CVE_DELAY + timespan * i / config.VULNS_PER_DAY, () => this.blockAppear(this.day.getCVE()), this);
+            const vulnTime = config.FIRST_VULN_DELAY + timespan * i / config.VULNS_PER_DAY;
+            this.game.time.events.add(vulnTime, () => this.blockAppear(this.day.getVuln()), this);
+            this.game.time.events.add(vulnTime + config.CVE_DELAY, () => this.blockAppear(this.day.getCVE()), this);
         }
 
         // add game end timer
