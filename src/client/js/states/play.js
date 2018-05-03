@@ -430,7 +430,6 @@ class PlayState extends Phaser.State {
 
     handleCollisions() {
         this.game.physics.arcade.collide(this.portalIn, this.blockSprites, null, this.blockOverlap, this);
-        this.game.physics.arcade.collide(this.fallingVuln, this.rightChamber);
         this.game.physics.arcade.collide(this.portalIn, this.rightChamber);
     }
 
