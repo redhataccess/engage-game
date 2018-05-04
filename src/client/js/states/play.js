@@ -867,6 +867,9 @@ class PlayState extends Phaser.State {
             // Also check to see if this is a new top score
             let isNewTopScore = this.score > topHiScore;
 
+            // Did this score make it on the leaderboard?
+            let isScoreOnLeaderboard = this.score > lowestHiScore;
+
 
             if (alwaysWinner || isNewTopScore) {
                 console.log("[play] New TOP high score! ");
@@ -876,20 +879,29 @@ class PlayState extends Phaser.State {
 
 
             if (config.LAUNCH_MODE === 'badge') {
-                // If in badge mode we have all the user data by default,  so we can just transition to a victory screen
-                this.game.stateTransition.to('VictoryState', true, false, { score: this.score });
-            }
-            else if (alwaysWinner || (this.score > lowestHiScore)) {
-                console.log(`[play] This score makes it on the leaderboard!`);
+                let endGameData = {
+                    score: this.score,
+                    isNewTopScore: isNewTopScore,
+                    isScoreOnLeaderboard: isScoreOnLeaderboard
+                };
 
-                this.game.stateTransition.to('WinnerState', true, false, { score: this.score, scores: this.scores, isNewTopScore });
+                // If in badge mode we have all the user data by default,  so we can just transition to a victory screen
+                this.game.stateTransition.to('VictoryState', true, false, endGameData);
             }
             else {
-                console.log(`[play] hiscore? ${this.score} < ${lowestHiScore}`);
+                if (alwaysWinner || isScoreOnLeaderboard) {
+                    console.log(`[play] This score makes it on the leaderboard!`);
 
-                //TODO: Also send their high-score to leaderboard even though they are not in top 10
-
-                this.game.stateTransition.to('SplashState', true, false, { fromPlay: true });
+                    this.game.stateTransition.to('WinnerState', true, false, {
+                        score: this.score,
+                        scores: this.scores,
+                        isNewTopScore
+                    });
+                }
+                else {
+                    console.log(`[play] Game over.  Did not make the leaderboard.`);
+                    this.game.stateTransition.to('SplashState', true, false, {fromPlay: true});
+                }
             }
         });
     }
