@@ -529,15 +529,15 @@ class PlayState extends Phaser.State {
 
         this.sounds[block.data.name].play();
 
-        const alphaTween = this.disappearTween(block, 200);
+        const alphaTween = this.disappearTween(block, 100);
         alphaTween.onComplete.add(() => this.blockCaptured(portal, block), this);
 
-        if (block.data.rays) this.disappearTween(block.data.rays, 200);
-        if (block.data.glow) this.disappearTween(block.data.glow, 200);
+        if (block.data.rays) this.disappearTween(block.data.rays, 100);
+        if (block.data.glow) this.disappearTween(block.data.glow, 100);
 
         // blink the portal so there's a visual indication of capture
-        this.game.time.events.add(100, () => this.portalIn.tint = 0xBBBBBB, this);
-        this.game.time.events.add(200, () => this.portalIn.tint = 0xFFFFFF, this);
+        this.game.time.events.add(50, () => this.portalIn.tint = 0x787878, this);
+        this.game.time.events.add(100, () => this.portalIn.tint = 0xFFFFFF, this);
     }
 
     appearTween(object, duration) {
@@ -867,9 +867,6 @@ class PlayState extends Phaser.State {
             // Also check to see if this is a new top score
             let isNewTopScore = this.score > topHiScore;
 
-            // Did this score make it on the leaderboard?
-            let isScoreOnLeaderboard = this.score > lowestHiScore;
-
 
             if (alwaysWinner || isNewTopScore) {
                 console.log("[play] New TOP high score! ");
@@ -879,29 +876,20 @@ class PlayState extends Phaser.State {
 
 
             if (config.LAUNCH_MODE === 'badge') {
-                let endGameData = {
-                    score: this.score,
-                    isNewTopScore: isNewTopScore,
-                    isScoreOnLeaderboard: isScoreOnLeaderboard
-                };
-
                 // If in badge mode we have all the user data by default,  so we can just transition to a victory screen
-                this.game.stateTransition.to('VictoryState', true, false, endGameData);
+                this.game.stateTransition.to('VictoryState', true, false, { score: this.score });
+            }
+            else if (alwaysWinner || (this.score > lowestHiScore)) {
+                console.log(`[play] This score makes it on the leaderboard!`);
+
+                this.game.stateTransition.to('WinnerState', true, false, { score: this.score, scores: this.scores, isNewTopScore });
             }
             else {
-                if (alwaysWinner || isScoreOnLeaderboard) {
-                    console.log(`[play] This score makes it on the leaderboard!`);
+                console.log(`[play] hiscore? ${this.score} < ${lowestHiScore}`);
 
-                    this.game.stateTransition.to('WinnerState', true, false, {
-                        score: this.score,
-                        scores: this.scores,
-                        isNewTopScore
-                    });
-                }
-                else {
-                    console.log(`[play] Game over.  Did not make the leaderboard.`);
-                    this.game.stateTransition.to('SplashState', true, false, {fromPlay: true});
-                }
+                //TODO: Also send their high-score to leaderboard even though they are not in top 10
+
+                this.game.stateTransition.to('SplashState', true, false, { fromPlay: true });
             }
         });
     }
