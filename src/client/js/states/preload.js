@@ -59,13 +59,24 @@ class PreloadState extends Phaser.State {
 
         // audio
 
+        // https://beepbox.co/#6n31s7k9l00e0jt7m0a7g0jjfi0r1o3310T0w1f1d1c0h0v5T0w3f1d0c1h1v1T0w8f1d1c0h6v1T2w1d1v1b0000128o00048y5ao8xycgE0y68N254chMy68oxy28oyAagEN20coNy4wUNz68i47e0p29gFxR1gdd5ldld5l4zjhjjnlnhnnnnhnhlhjhEGHGEGEHGGEGGEFFGHHHHEGFEAaWaWaqd5tBl5l5tll5ll5ddltttt5ld5Bt5t3j31CKjnplhlhpllhllhjjlnnnnhljhpnhcl5R6y2wqqaGqGqaGaWqaqqWGWaWWWWaWaGaqd5ltl5l5tll5ll5ddltttt5ld4xnhnhjhEHIGEGEHGGEGGEFFGHHHHEGFEIHE609HkOUahFCCfkz9Rklllklllklllq0Mgldb01OwR1OHjs74HKO6IeTB1G3BsEdgsHa3k5m3bIG-m6IeTB1G3PvkO0QOrZcC-qRcI2GaCBwj8Vd5l5jgM9kMM8SGsyz9FEV6NAV6PhjhFj71UzgJDoSI1FOdHr07td-wTSy205Wy20BjlAPBllp4VldmheljlOpOGGICsGGH8DaFGO9OGqGgAIx9F82wrlePmQ3qFSGSwrdeRmQ3pYPfdi5mnennlAnBRRV5VttuJi10X8OcD9Ocz9Osz8OsD8OejAX5sjNn4Yhn4YlAX5peRNf4lNfyMR1F3i6Ad8qgQxWzmjBnCVAU5CrApCVKperCrApAx00
         this.game.load.audio('song'       , 'sounds/hatching-a-plan.wav');
+
+        // https://beepbox.co/#6n31s7k9l00e00t7m0a5g00j7i0r1o3200T0w8f5d1c2h1v0T0w1f1d1c2h0v0T0w1f1d1c3h4v0T2w4d1v2b4h4p1b0bfD8SNw000
         this.game.load.audio('coffee'     , 'sounds/coffee.wav');
+
+        // https://beepbox.co/#6n11s7k9l00e00tam0a2g00j7i0r1o30T0w1f1d1c0h0v5T2w4d1v0b4gp1a0bg3S8g200
         this.game.load.audio('search'     , 'sounds/search.wav');
+
+        // https://beepbox.co/#6n31s7k9l00e00t7m0a5g00j7i0r1o3200T0w8f5d1c2h1v0T0w1f1d1c0h0v0T0w1f1d1c3h4v0T2w4d1v2b4h4p1gFyk1ca4Qi3200000
         this.game.load.audio('cve'        , 'sounds/cve.wav');
+
+        // https://beepbox.co/#6n31s7k9l00e00tem0a5g00j7i0r1o3200T0w8f5d1c0h1v0T0w1f1d1c0h0v0T0w1f1d1c3h4v0T2w4d1v2b4h4p1eGsu0yzpB000000
         this.game.load.audio('pickup-d'   , 'sounds/pickup-d.wav');
+
+        // https://beepbox.co/#6n32s7k9l00e00tem0a5g00j7i0r1o32000T0w1f1d1c0h0v0T0w1f1d1c0h0v0T0w1f1d1c3h4v0T2w4d1v2T2w1d1v0b4h4gp1l002PqOa0kSIU1kxJi02U0
         this.game.load.audio('shellshock' , 'sounds/shellshock.wav');
-        this.game.load.audio('splash'     , 'sounds/splash.wav');
+
         this.game.load.audio('static1'    , 'sounds/static1.wav');
         this.game.load.audio('static2'    , 'sounds/static2.wav');
         this.game.load.audio('static3'    , 'sounds/static3.wav');
