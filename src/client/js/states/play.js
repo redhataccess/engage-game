@@ -60,7 +60,7 @@ class PlayState extends Phaser.State {
             CVE              : this.game.add.audio('cve'),
             PCM              : this.game.add.audio('pickup-d'),
             ContainerCatalog : this.game.add.audio('pickup-d'),
-            Search           : this.game.add.audio('pickup-d'),
+            Search           : this.game.add.audio('search'),
             x2               : this.game.add.audio('pickup-d'),
             Documentation    : this.game.add.audio('pickup-d'),
             Labs             : this.game.add.audio('pickup-d'),

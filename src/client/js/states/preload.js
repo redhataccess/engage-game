@@ -9,7 +9,6 @@ class PreloadState extends Phaser.State {
         this.game.load.image('portal-in_glitch_2',       'images/portal-in_glitch_2.png');
         this.game.load.image('portal-in_glitch_3',       'images/portal-in_glitch_3.png');
         this.game.load.image('portal-in_glitch_4',       'images/portal-in_glitch_4.png');
-        this.game.load.image('portal-out',               'images/portal-out.png');
 
         this.game.load.image('bonus-glow',               'images/bonus-glow.png');
         this.game.load.image('bonus-glow-gray',               'images/gray/bonus-glow.png');
@@ -62,6 +61,7 @@ class PreloadState extends Phaser.State {
 
         this.game.load.audio('song'       , 'sounds/hatching-a-plan.wav');
         this.game.load.audio('coffee'     , 'sounds/coffee.wav');
+        this.game.load.audio('search'     , 'sounds/search.wav');
         this.game.load.audio('cve'        , 'sounds/cve.wav');
         this.game.load.audio('pickup-d'   , 'sounds/pickup-d.wav');
         this.game.load.audio('shellshock' , 'sounds/shellshock.wav');

@@ -64,13 +64,10 @@
     function LeaderboardController($scope, $interval, leaderboardservice) {
         var vm = this;
         vm.leaders = [];
-        console.log("controller");
 
         window.updateLeaders = getLeaders;
 
         $scope.$watch("vm.leaders", function (newLeaders, oldLeaders) {
-          console.log(newLeaders, oldLeaders);
-
           if (!newLeaders.length || !oldLeaders.length){
             return;
           }
