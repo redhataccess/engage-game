@@ -11,6 +11,7 @@
     "leader-server-prod": "parse-server --appId ENGAGE --masterKey ENGAGE --databaseURI mongodb://localhost/engage",
     "build": "mkdir -p dist && cp -r src/client/* dist && babel src/client --out-dir dist --presets=env --ignore lib/*",
     "populate-leaders": "sh ./populate_leaders.sh",
+    "scan-badge": "sh ./scan-badge.sh",
     "postinstall": "echo \"Play nice!\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

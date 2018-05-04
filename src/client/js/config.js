@@ -4,7 +4,7 @@ const config = Object.freeze({
     //  Modes:
     //    'move'  this will launch if the mouse or leap detects input
     //    'badge' this will launch if a badge is scanned
-    LAUNCH_MODE: 'move',
+    LAUNCH_MODE: 'badge',
 
     // Port of the node.js server running on the game client host used for launching the game
     LAUNCHER_PORT: 3000,
@@ -137,5 +137,8 @@ const config = Object.freeze({
 
     // Play music or not
     PLAY_MUSIC: true,
+
+    // how long does a player have to move to confirm that they accept the T&Cs
+    TERMS_CONFIRMED_TIME: 2 * Phaser.Timer.SECOND,
 
 });
