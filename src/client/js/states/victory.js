@@ -7,6 +7,8 @@ class VictoryState extends Phaser.State {
         this.moving = false;  // boolean to see if the mouse or hand is moving
         this.timeMoving = 0;
         this.game.data.player.score = this.score;
+
+        this.textTweenDelay = 250;  // now long to fade out and in text
     }
 
     create() {
@@ -40,16 +42,16 @@ ${this.isNewTopScore ? 'NEW TOP SCORE!' : ''}
 
             victoryMsg += tcMsg;
 
-            let text = this.game.add.text(0, 0, victoryMsg, style);
-            text.setTextBounds(0, 0, this.game.scale.width, this.game.scale.height);
+            this.text = this.game.add.text(0, 0, victoryMsg, style);
+            this.text.setTextBounds(0, 0, this.game.scale.width, this.game.scale.height);
 
             this.createTermsTracking();
         }
         else {
             console.log('[victory] They are not on leaderboard just transition back to splash');
 
-            let text = this.game.add.text(0, 0, victoryMsg, style);
-            text.setTextBounds(0, 0, this.game.scale.width, this.game.scale.height);
+            this.text = this.game.add.text(0, 0, victoryMsg, style);
+            this.text.setTextBounds(0, 0, this.game.scale.width, this.game.scale.height);
 
             // They are not on the leaderboard so no need to do terms acceptance just transition after a short delay
             this.game.time.events.add(config.VICTORY_TRANSITION_DURATION, this.next, this);
@@ -84,6 +86,14 @@ ${this.isNewTopScore ? 'NEW TOP SCORE!' : ''}
 
                     // Stop timer
                     clearInterval(this.moveTrackingInterval);
+
+                    // Change text to confirmation message
+                    let tween1 = this.game.add.tween(this.text).to({alpha: 0}, this.textTweenDelay, Phaser.Easing.Linear.None, false);
+                    tween1.onComplete.add(() => {this.text.setText('Got it!')});
+                    let tween2 = this.game.add.tween(this.text).to({alpha: 1}, this.textTweenDelay, Phaser.Easing.Linear.None, false);
+
+                    tween1.chain(tween2);
+                    tween1.start();
 
                     // Since they accepted the terms we can add them to the leaderboard now. yay!
                     this.reportScore(this.game.data.player);
@@ -120,9 +130,12 @@ ${this.isNewTopScore ? 'NEW TOP SCORE!' : ''}
             console.log("[victory] API /playerScore status: ", response.status);
             response.text().then(text => console.log("[play] sendMessage response:", text));
 
+            // Hide text so it doesn't overlap the leaderboard on state transition
+            let tween = this.game.add.tween(this.text).to({alpha: 0}, this.textTweenDelay, Phaser.Easing.Linear.None, true);
+
             // now that the score is saved transition to leaderboard on splash screen
             // since th score is save the next time the leaderboard shows it will animate
-            this.next();
+            tween.onComplete.add(() => {this.next()});
         });
     }
 
