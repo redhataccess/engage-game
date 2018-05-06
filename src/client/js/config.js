@@ -41,6 +41,9 @@ const config = Object.freeze({
     // How long to display leaderboard screen before transitioning to the next screen
     LEADERBOARD_DURATION: 14 * Phaser.Timer.SECOND,
 
+    // How long to display welcome message
+    WELCOME_DELAY: 1 * Phaser.Timer.SECOND,
+
     // once input is detected, how long to wait before beginning the game
     INPUT_WAIT_MS: Phaser.Timer.SECOND * 0.5,
 
@@ -57,7 +60,7 @@ const config = Object.freeze({
     GAME_OVER_RESTART_DURATION_MS: 1.6 * Phaser.Timer.SECOND,
 
     // vulns per day
-    VULNS_PER_DAY: 11,
+    VULNS_PER_DAY: 10,
 
     // delay the falling of the first vuln this long
     FIRST_VULN_DELAY: 6.0 * Phaser.Timer.SECOND,

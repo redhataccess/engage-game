@@ -12,15 +12,22 @@ class VictoryState extends Phaser.State {
     create() {
         console.log('[victory] starting victory state');
 
-        // Display Welcome message
-        //TODO: Center this text
-        let style = { font: "65px Arial", fill: "#00ABCF", align: "center" };
-        let msg = this.game.add.text(game.world.centerX, game.world.centerY, "Congratulations " + this.game.data.player.Firstname + "!", style);
-        msg.anchor.set(0.5);
-        let scoreLabel = this.game.add.text(game.world.centerX, game.world.centerY + 70, "Score", style);
-        scoreLabel.anchor.set(0.5);
-        let scoreValue = this.game.add.text(game.world.centerX, game.world.centerY + 140, "" + this.score, style);
-        scoreValue.anchor.set(0.5);
+        let style = {
+            font: "65px Arial",
+            fill: "#00ABCF",
+            align: "center",
+            boundsAlignH: "center",
+            boundsAlignV: "middle",
+            wordWrap: true,
+            wordWrapWidth: 900
+        };
+
+        let victoryMsg = `Congratulations ${this.game.data.player.Firstname}
+You scored ${numeral(this.score).format('0,0')} points!
+${this.isNewTopScore ? 'NEW TOP SCORE!' : ''}
+`;
+
+        // console.log('[victory] canvas width height: ', this.game.scale.width, this.game.scale.height, window.innerWidth, window.innerHeight);
 
         if (this.isScoreOnLeaderboard) {
             console.log('[victory] this score is on the leaderboard, they need to confirm terms');
@@ -29,13 +36,20 @@ class VictoryState extends Phaser.State {
             this.game.input.addMoveCallback(this.inputReceived, this);
             this.game.data.leap.addMoveCallback(this.inputReceived, this);
 
-            let tocText = this.game.add.text(game.world.centerX, game.world.centerY + 210, "Wave your hand to accept the terms and conditions of the contest", style);
-            scoreValue.anchor.set(0.5);
+            let tcMsg = 'Wave your hand to accept the terms, get on the leaderboard, and be entered into the contest.';
+
+            victoryMsg += tcMsg;
+
+            let text = this.game.add.text(0, 0, victoryMsg, style);
+            text.setTextBounds(0, 0, this.game.scale.width, this.game.scale.height);
 
             this.createTermsTracking();
         }
         else {
             console.log('[victory] They are not on leaderboard just transition back to splash');
+
+            let text = this.game.add.text(0, 0, victoryMsg, style);
+            text.setTextBounds(0, 0, this.game.scale.width, this.game.scale.height);
 
             // They are not on the leaderboard so no need to do terms acceptance just transition after a short delay
             this.game.time.events.add(config.VICTORY_TRANSITION_DURATION, this.next, this);

@@ -503,7 +503,7 @@ class PlayState extends Phaser.State {
         }
 
         this.score += scoreValue * this.scoreMultiplier;
-        this.scoreText.setText('Score: ' + this.score);
+        this.scoreText.setText('Score: ' + numeral(this.score).format('0,0'));
         if (this.scoreMultiplier == 2) {
             this.x2.alpha = 1;
         }

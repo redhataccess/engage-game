@@ -28,6 +28,6 @@ class BootState extends Phaser.State {
     updateCanvasSize() {
         this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.game.scale.updateLayout();
-        console.log(`[boot] resized canvas`);
+        console.log('[boot] resized canvas: ', this.game.scale.width, this.game.scale.height);
     }
 }

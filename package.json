@@ -26,6 +26,7 @@
     "console-stamp": "^0.2.6",
     "express": "^4.16.3",
     "mongodb-runner": "^3.4.0",
+    "numeral": "^2.0.6",
     "parse-server": "^2.3.7",
     "socket.io": "^2.1.0"
   }
