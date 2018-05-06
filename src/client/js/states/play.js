@@ -375,10 +375,24 @@ class PlayState extends Phaser.State {
                     block.rotation -= Math.PI / 2;
                 }
                 else if (block.data.name === 'Shellshock' || block.data.name === 'Meltdown') {
-                    block.body.velocity.copyFrom(block.data.direction);
 
-                    block.rotation = this.game.physics.arcade.angleToXY(block, block.data.target.x, block.data.target.y);
-                    block.rotation -= Math.PI / 2;
+                    if (!block.data.target) {
+                        // Point the bullet at the portal while it locks on
+                        let targetAngle = (360 / (2 * Math.PI)) * this.game.math.angleBetween(
+                            block.x, block.y,
+                            this.portalIn.position.x, this.portalIn.position.y) - 90;
+
+                        if(targetAngle < 0)
+                            targetAngle += 360;
+
+                        block.angle = targetAngle;
+                    }
+                    else {
+                        // Target locked FIRE!
+                        block.body.velocity.copyFrom(block.data.direction);
+                        block.rotation = this.game.physics.arcade.angleToXY(block, block.data.target.x, block.data.target.y);
+                        block.rotation -= Math.PI / 2;
+                    }
                 }
                 else if (!block.data.vuln && this.portalIn.data.attractActive && !this.portalIn.data.hasVuln) {
                     this.attractBlock(block);
@@ -718,12 +732,12 @@ class PlayState extends Phaser.State {
             endRotation = this.game.physics.arcade.angleToXY(blockSprite, this.portalIn.position.x, this.portalIn.position.y);
 
             if (block.name === 'Shellshock' || block.name === 'Meltdown') {
-                blockSprite.data.target = this.portalIn.position.clone();
 
-                const direction = Phaser.Point.subtract(this.portalIn.position, blockSprite.position);
-                direction.normalize();
-                direction.multiply(config.VULN_SHELLSHOCK_SPEED, config.VULN_SHELLSHOCK_SPEED);
-                blockSprite.data.direction = direction;
+                this.game.time.events.add(config.BULLET_LOCK_TIME, () => {
+                    this.vulnBulletSetDirection(blockSprite);
+                    blockSprite.data.target = this.portalIn.position.clone();
+                }, this);
+
             }
         }
 
@@ -946,5 +960,12 @@ class PlayState extends Phaser.State {
             console.log("[play] API /logPlay status: ", response.status);
             response.text().then(text => console.log("[play] API /logPlay response:", text));
         });
+    }
+
+    vulnBulletSetDirection(bulletSprite) {
+        const direction = Phaser.Point.subtract(this.portalIn.position, bulletSprite.position);
+        direction.normalize();
+        direction.multiply(config.VULN_SHELLSHOCK_SPEED, config.VULN_SHELLSHOCK_SPEED);
+        bulletSprite.data.direction = direction;
     }
 }

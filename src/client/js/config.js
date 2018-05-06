@@ -60,13 +60,16 @@ const config = Object.freeze({
     GAME_OVER_RESTART_DURATION_MS: 1.6 * Phaser.Timer.SECOND,
 
     // vulns per day
-    VULNS_PER_DAY: 10,
+    VULNS_PER_DAY: 9,
 
     // delay the falling of the first vuln this long
-    FIRST_VULN_DELAY: 6.0 * Phaser.Timer.SECOND,
+    FIRST_VULN_DELAY: 5.0 * Phaser.Timer.SECOND,
+
+    // How long with bullet vulns take to lock target
+    BULLET_LOCK_TIME: 2.5 * Phaser.Timer.SECOND,
 
     // how long after a vuln should a CVE fall
-    CVE_DELAY: 3.0 * Phaser.Timer.SECOND,
+    CVE_DELAY: 3.5 * Phaser.Timer.SECOND,
 
     // how fast blocks are attracted when search bonus is active
     ATTRACTION_POWER: 20,
@@ -92,7 +95,7 @@ const config = Object.freeze({
     VULN_ACCEL: 1200,
     VULN_TRACKING: 0.016,
     VULN_MAX_TRACKING_SPEED: 400,
-    VULN_SHELLSHOCK_SPEED: 600, // how fast the Shellshock vulns move
+    VULN_SHELLSHOCK_SPEED: 1200, // how fast the Shellshock vulns move
 
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 350,

@@ -16,8 +16,8 @@ class Day {
 
     static get vulns() {
         return [
-            // 'Shellshock',
-            // 'Meltdown',
+            'Shellshock',
+            'Meltdown',
             'Specter',
         ];
     }
