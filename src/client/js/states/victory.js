@@ -73,8 +73,6 @@ class VictoryState extends Phaser.State {
 
                     // Since they accepted the terms we can add them to the leaderboard now. yay!
                     this.reportScore(this.game.data.player);
-
-                    this.next();
                 }
             }
             else {
@@ -107,6 +105,10 @@ class VictoryState extends Phaser.State {
         ).then(response => {
             console.log("[victory] API /playerScore status: ", response.status);
             response.text().then(text => console.log("[play] sendMessage response:", text));
+
+            // now that the score is saved transition to leaderboard on splash screen
+            // since th score is save the next time the leaderboard shows it will animate
+            this.next();
         });
     }
 

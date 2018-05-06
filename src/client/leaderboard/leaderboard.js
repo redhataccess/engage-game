@@ -30,6 +30,9 @@
         };
 
         function getLeaders() {
+
+            console.log('[leaderboard] getLeaders() Updating leaders...');
+
             return $http.get(
                 `${serviceUrl}?limit=1000`,
                 {

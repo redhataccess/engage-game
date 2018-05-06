@@ -2,6 +2,7 @@ class SplashState extends Phaser.State {
 
     init({ fromPlay=false }={}) {
         this.fromPlay = fromPlay; // coming from the play state?
+        console.log('[splash] init fromPlay: ', this.fromPlay);
     }
 
     create() {
