@@ -54,10 +54,7 @@ ${this.isNewTopScore ? 'NEW TOP SCORE!' : ''}
             this.text.setTextBounds(0, 0, this.game.scale.width, this.game.scale.height);
 
             // They are not on the leaderboard so no need to do terms acceptance just transition after a short delay
-            this.game.time.events.add(config.VICTORY_TRANSITION_DURATION, this.next, this);
-
-            // Send the score to the server for printing and storing in the leaderboard
-            this.reportScore(this.game.data.player);
+            this.game.time.events.add(config.VICTORY_TRANSITION_DURATION, this.reportScore, this);
         }
     }
 
@@ -96,7 +93,7 @@ ${this.isNewTopScore ? 'NEW TOP SCORE!' : ''}
                     tween1.start();
 
                     // Since they accepted the terms we can add them to the leaderboard now. yay!
-                    this.reportScore(this.game.data.player);
+                    this.reportScore();
                 }
             }
             else {
@@ -105,13 +102,13 @@ ${this.isNewTopScore ? 'NEW TOP SCORE!' : ''}
         }, 200);
     }
 
-    reportScore(player) {
+    reportScore() {
         console.log('[victory] reporting score to server');
 
         let jsonPayload = '{}';
 
         try {
-            jsonPayload = JSON.stringify(player);
+            jsonPayload = JSON.stringify(this.game.data.player);
         }
         catch(e) {
             console.error("Exception stringifying json for player object", e);

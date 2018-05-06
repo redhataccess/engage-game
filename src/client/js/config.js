@@ -36,7 +36,7 @@ const config = Object.freeze({
     SPLASH_TRANSITION_DURATION: 0.6 * Phaser.Timer.SECOND,
 
     // How long to wait on Victory screen before transitioning to the next screen, only applies while in LAUNCH_MODE='badge'
-    VICTORY_TRANSITION_DURATION: 5 * Phaser.Timer.SECOND,
+    VICTORY_TRANSITION_DURATION: 10 * Phaser.Timer.SECOND,
 
     // How long to display leaderboard screen before transitioning to the next screen
     LEADERBOARD_DURATION: 14 * Phaser.Timer.SECOND,
