@@ -8,7 +8,6 @@
 }
 * {
     user-select: none;
-    cursor: ew-resize;
     pointer-events: none;
 }
 html, body {
