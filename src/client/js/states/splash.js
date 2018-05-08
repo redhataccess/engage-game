@@ -12,6 +12,7 @@ class SplashState extends Phaser.State {
             this.next();
             return;
         }
+        this.changeSound = this.game.add.audio('splash-change', 0.2);
 
         this.badgeScanReceived = this.badgeScanReceived.bind(this);
 
@@ -33,6 +34,7 @@ class SplashState extends Phaser.State {
             console.log('toggling to splash');
             this.showSplash();
         }
+        this.changeSound.play();
     }
 
     next() {

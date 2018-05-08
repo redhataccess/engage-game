@@ -81,6 +81,7 @@ class PreloadState extends Phaser.State {
         this.game.load.audio('static2'    , 'sounds/static2.wav');
         this.game.load.audio('static3'    , 'sounds/static3.wav');
         this.game.load.audio('static4'    , 'sounds/static4.wav');
+        this.game.load.audio('splash-change', 'sounds/splash-change.wav');
 
         // shaders
 
