@@ -78,12 +78,12 @@ class PlayState extends Phaser.State {
 
     createScoreUI() {
         let style = { fill: "#ffffff", align: "center" };
-        this.scoreText = game.add.text(game.world.centerX, 15, "", style);
+        this.scoreText = game.add.text(game.world.centerX - 75, 15, "", style);
         this.scoreText.font = 'overpass-mono';
         this.scoreText.fontSize = 28;
         this.scoreText.anchor.set(0.5, 0);
         this.scoreText.setText('Score: 0');
-        this.x2 = this.game.add.sprite(game.world.centerX - 165, 15, 'x2-sprite');
+        this.x2 = this.game.add.sprite(game.world.centerX - 240, 15, 'x2-sprite');
         this.x2.scale.set(0.4);
         this.x2.alpha = 0; // make invisible
         this.x2.data.breatheTween = this.game.add.tween(this.x2)
