@@ -321,7 +321,7 @@ class PlayState extends Phaser.State {
 
     updatePlayerLeapControls() {
         if (typeof this.game.data.leap.palmX === 'number') {
-            const leapX = 1000*(this.game.data.leap.palmX + 280) / 300;
+            const leapX = 9 * (this.game.data.leap.palmX + 150);
             this.controlPosition.set(leapX);
             this.showPortals();
         }
@@ -334,10 +334,7 @@ class PlayState extends Phaser.State {
 
     updatePortalIn() {
         // Update Position
-        const dest = this.portalIn.position.clone();
-        dest.multiply(1 - config.CONTROL_RESPONSIVENESS, 1);
-        dest.add(this.controlPosition.x * config.CONTROL_RESPONSIVENESS, 0);
-        this.portalIn.position.copyFrom(dest);
+        this.portalIn.position.x = this.controlPosition.x;
 
         // collide with walls
         this.portalIn.position.x = Math.max(this.portalIn.width/2, this.portalIn.position.x);
