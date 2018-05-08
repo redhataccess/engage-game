@@ -95,7 +95,7 @@ const config = Object.freeze({
     VULN_ACCEL: 1200,
     VULN_TRACKING: 0.016,
     VULN_MAX_TRACKING_SPEED: 400,
-    VULN_SHELLSHOCK_SPEED: 1200, // how fast the Shellshock vulns move
+    VULN_SHELLSHOCK_SPEED: 1300, // how fast the Shellshock vulns move
 
     // gravity applied to falling blocks
     BLOCK_GRAVITY: 350,
