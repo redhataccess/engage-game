@@ -125,6 +125,10 @@ const config = Object.freeze({
     BLOCK_VELOCITY_SINKING: 30,
     // BLOCK_GRAVITY_SINKING: 60,
 
+    // how quickly to move the player's portal to where the controls are
+    // (lerped)
+    CONTROL_RESPONSIVENESS: 1.0,
+
     // how wide the side chambers should be (Portal chamber on left and Legend
     // chamber on right)
     SIDE_CHAMBER_WIDTH: 250,
