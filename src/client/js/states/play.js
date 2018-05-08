@@ -536,7 +536,7 @@ class PlayState extends Phaser.State {
 
         block.data.captured = true;
 
-        block.data.texture = block.generateTexture();
+        // block.data.texture = block.generateTexture();
 
         this.sounds[block.data.name].play();
 
