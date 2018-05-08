@@ -5,8 +5,10 @@ class VictoryState extends Phaser.State {
         this.isNewTopScore = isNewTopScore;
         this.isScoreOnLeaderboard = isScoreOnLeaderboard;
         this.moving = false;  // boolean to see if the mouse or hand is moving
+        this.accepted = false;
         this.timeMoving = 0;
         this.game.data.player.score = this.score;
+        this.progressBar = game.add.graphics(0, 0);
 
         this.textTweenDelay = 250;  // now long to fade out and in text
     }
@@ -26,7 +28,10 @@ class VictoryState extends Phaser.State {
 
         let victoryMsg = `Congratulations ${this.game.data.player.Firstname}
 You scored ${numeral(this.score).format('0,0')} points!
-${this.isNewTopScore ? 'NEW TOP SCORE!' : ''}
+
+${this.isNewTopScore ? `NEW TOP SCORE!
+
+` : ''}
 `;
 
         // console.log('[victory] canvas width height: ', this.game.scale.width, this.game.scale.height, window.innerWidth, window.innerHeight);
@@ -38,7 +43,7 @@ ${this.isNewTopScore ? 'NEW TOP SCORE!' : ''}
             this.game.input.addMoveCallback(this.inputReceived, this);
             this.game.data.leap.addMoveCallback(this.inputReceived, this);
 
-            let tcMsg = 'Wave your hand to accept the terms, get on the leaderboard, and be entered into the contest.';
+            let tcMsg = 'Wave your hand to accept the terms, enter the contest, and be placed on the leaderboard.';
 
             victoryMsg += tcMsg;
 
@@ -59,9 +64,49 @@ ${this.isNewTopScore ? 'NEW TOP SCORE!' : ''}
     }
 
     update() {
+        // if score is on the leaderboard, update the radial hand moving progress "bar"
+        if (this.isScoreOnLeaderboard && !this.accepted) {
+            const progressPercent = this.timeMoving / config.TERMS_CONFIRMED_TIME;
+            this.progressBar.clear();
+            // this.progressBar.lineStyle(2, 0xffffff);
+            this.progressBar.beginFill(0x00ABCF);
+            this.progressBar.arc(this.game.world.centerX, this.game.world.height - 150, 50, -Math.PI/2, -Math.PI/2 - (progressPercent * Math.PI * 2), true, 128);
+            this.progressBar.endFill();
+        }
+
+        if (this.moving && !this.accepted) {
+            this.moveTimer.timer.stop(false);
+            this.moveTimer.timer.start();
+            this.timeMoving += 10;
+            this.moving = false;
+
+            if (this.timeMoving >= config.TERMS_CONFIRMED_TIME) {
+                console.log('[victory] terms and conditions acknowledged by player');
+                this.accepted = true;
+                this.progressBar.clear();
+
+                // Change text to confirmation message
+                this.game.add.tween(this.progressBar).to({alpha: 0}, this.textTweenDelay, Phaser.Easing.Linear.None, false);
+                let tween1 = this.game.add.tween(this.text).to({alpha: 0}, this.textTweenDelay, Phaser.Easing.Linear.None, false);
+                tween1.onComplete.add(() => {this.text.setText('Got it!')});
+                let tween2 = this.game.add.tween(this.text).to({alpha: 1}, this.textTweenDelay, Phaser.Easing.Linear.None, false);
+
+                tween1.chain(tween2);
+                tween1.start();
+
+                // Since they accepted the terms we can add them to the leaderboard now. yay!
+                this.reportScore();
+            }
+        }
+        else {
+            this.timeMoving = Math.max(0, this.timeMoving - 10); // reset the moving timer
+        }
     }
 
     shutdown() {
+        // Cleanup callbacks
+        this.game.input.deleteMoveCallback(this.inputReceived, this);
+        this.game.data.leap.deleteMoveCallback(this.inputReceived, this);
     }
 
     next() {
@@ -69,37 +114,10 @@ ${this.isNewTopScore ? 'NEW TOP SCORE!' : ''}
     }
 
     createTermsTracking() {
-        this.moveTrackingInterval = setInterval(() => {
-            if (this.moving) {
-                this.timeMoving += 200;
-                this.moving = false;
-
-                if (this.timeMoving >= config.TERMS_CONFIRMED_TIME) {
-                    console.log('[victory] terms and conditions acknowledged by player');
-
-                    // Cleanup callbacks
-                    this.game.input.deleteMoveCallback(this.inputReceived, this);
-                    this.game.data.leap.deleteMoveCallback(this.inputReceived, this);
-
-                    // Stop timer
-                    clearInterval(this.moveTrackingInterval);
-
-                    // Change text to confirmation message
-                    let tween1 = this.game.add.tween(this.text).to({alpha: 0}, this.textTweenDelay, Phaser.Easing.Linear.None, false);
-                    tween1.onComplete.add(() => {this.text.setText('Got it!')});
-                    let tween2 = this.game.add.tween(this.text).to({alpha: 1}, this.textTweenDelay, Phaser.Easing.Linear.None, false);
-
-                    tween1.chain(tween2);
-                    tween1.start();
-
-                    // Since they accepted the terms we can add them to the leaderboard now. yay!
-                    this.reportScore();
-                }
-            }
-            else {
-                this.timeMoving = 0; // reset the moving timer
-            }
-        }, 200);
+        this.moveTimer = this.game.time.events.add(config.TERMS_IDLE_TIME, () => {
+            let tween = this.game.add.tween(this.text).to({alpha: 0}, this.textTweenDelay, Phaser.Easing.Linear.None, true);
+            tween.onComplete.add(() => this.next());
+        }, this);
     }
 
     reportScore() {

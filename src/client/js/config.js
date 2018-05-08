@@ -145,6 +145,9 @@ const config = Object.freeze({
     PLAY_MUSIC: true,
 
     // how long does a player have to move to confirm that they accept the T&Cs
-    TERMS_CONFIRMED_TIME: 1.6 * Phaser.Timer.SECOND,
+    TERMS_CONFIRMED_TIME: 1.2 * Phaser.Timer.SECOND,
+
+    // how long to tolerate no movement before expiring the terms & conditions prompt
+    TERMS_IDLE_TIME: 10 * Phaser.Timer.SECOND,
 
 });
