@@ -143,6 +143,9 @@ const config = Object.freeze({
     // how long does a player have to move to confirm that they accept the T&Cs
     TERMS_CONFIRMED_TIME: 1.2 * Phaser.Timer.SECOND,
 
+    // how long to display the "Got it!" message on the terms page
+    GOT_IT_TIME: 0.7 * Phaser.Timer.SECOND,
+
     // how long to tolerate no movement before expiring the terms & conditions prompt
     TERMS_IDLE_TIME: 10 * Phaser.Timer.SECOND,
 

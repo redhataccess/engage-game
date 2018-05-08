@@ -90,12 +90,14 @@ ${this.isNewTopScore ? `NEW TOP SCORE!
                 let tween1 = this.game.add.tween(this.text).to({alpha: 0}, this.textTweenDelay, Phaser.Easing.Linear.None, false);
                 tween1.onComplete.add(() => {this.text.setText('Got it!')});
                 let tween2 = this.game.add.tween(this.text).to({alpha: 1}, this.textTweenDelay, Phaser.Easing.Linear.None, false);
+                tween2.onComplete.add(() => {
+                    // Since they accepted the terms we can add them to the leaderboard now. yay!
+                    this.game.time.events.add(config.GOT_IT_TIME, this.reportScore, this);
+                });
 
                 tween1.chain(tween2);
                 tween1.start();
 
-                // Since they accepted the terms we can add them to the leaderboard now. yay!
-                this.reportScore();
             }
         }
         else {
