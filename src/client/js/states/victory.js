@@ -58,8 +58,12 @@ ${this.isNewTopScore ? `NEW TOP SCORE!
             this.text = this.game.add.text(0, 0, victoryMsg, style);
             this.text.setTextBounds(0, 0, this.game.scale.width, this.game.scale.height);
 
+            // report the score and start the print without transitioning, we can do this immediately because
+            // there are no terms to accept
+            this.reportScore(false);
+
             // They are not on the leaderboard so no need to do terms acceptance just transition after a short delay
-            this.game.time.events.add(config.VICTORY_TRANSITION_DURATION, this.reportScore, this);
+            this.game.time.events.add(config.VICTORY_TRANSITION_DURATION, this.next, this);
         }
     }
 
@@ -122,7 +126,7 @@ ${this.isNewTopScore ? `NEW TOP SCORE!
         }, this);
     }
 
-    reportScore() {
+    reportScore(transitionNext = true) {
         console.log('[victory] reporting score to server');
 
         let jsonPayload = '{}';
@@ -147,12 +151,15 @@ ${this.isNewTopScore ? `NEW TOP SCORE!
             console.log("[victory] API /playerScore status: ", response.status);
             response.text().then(text => console.log("[play] sendMessage response:", text));
 
-            // Hide text so it doesn't overlap the leaderboard on state transition
-            let tween = this.game.add.tween(this.text).to({alpha: 0}, this.textTweenDelay, Phaser.Easing.Linear.None, true);
+            if (transitionNext) {
+                // Hide text so it doesn't overlap the leaderboard on state transition
+                let tween = this.game.add.tween(this.text).to({alpha: 0}, this.textTweenDelay, Phaser.Easing.Linear.None, true);
 
-            // now that the score is saved transition to leaderboard on splash screen
-            // since th score is save the next time the leaderboard shows it will animate
-            tween.onComplete.add(() => {this.next()});
+                // now that the score is saved transition to leaderboard on splash screen
+                // since th score is save the next time the leaderboard shows it will animate
+                tween.onComplete.add(() => {this.next()});
+            }
+
         });
     }
 
