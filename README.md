@@ -1,3 +1,5 @@
+![Engage](https://github.com/redhataccess/engage-game/raw/master/engageTitle.png)
+
 # Engage
 
 A Customer Portal game for Red Hat Summit 2017 in Boston, and 2018 in San Francisco.
