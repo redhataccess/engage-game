@@ -6,10 +6,12 @@ A Customer Portal game for Red Hat Summit 2017 in Boston, and 2018 in San Franci
 
 ## Basic setup
 
+(This game requires Node.js to run; if on Fedora, install it with `npm install nodejs`, or [download it](https://nodejs.org/en/)).
+
     npm install
     npm start
 
-## Leap motion setup
+## Setting up the Leap Motion controller
 
 The game can be played with a mouse, but for extra fun, set up a Leap motion device as follows.
 
@@ -27,7 +29,9 @@ The game can be played with a mouse, but for extra fun, set up a Leap motion dev
   5. Spend a few minutes playing with the Visualizer :)
   6. Now that the Leap is working, you can start Engage normally.  It will automatically connect to the Leap.  (Note: the mouse still works even when the Leap is active)
 
-## Development commands
+## Setting up the leaderboard
+
+While the game *can* be run without a leaderboard (no server, no database), you can follow these instructions to enable the leaderboard.
 
 After running `npm start`, BrowserSync will automatically reload your browser
 when files change.  No more manual refreshing!  You can open the game in
@@ -52,7 +56,7 @@ Once mongodb is installed and running you can run the prod leaderboard parse ser
 
 This will persist leaderboard data across retarts.
 
-To enable sending notifications to top score bumps, you mus have a engage-server-running
+To enable sending notifications to top score bumps, you must have a engage-server-running
 and the client configured to point to it. Example:
 
     ENGAGE_SERVER_URL: 'http://localhost:8000'
