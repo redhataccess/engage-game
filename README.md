@@ -6,7 +6,7 @@ A Customer Portal game for Red Hat Summit 2017 in Boston, and 2018 in San Franci
 
 ## Basic setup
 
-(This game requires Node.js to run; if on Fedora, install it with `npm install nodejs`, or [download it](https://nodejs.org/en/)).
+(This game requires Node.js to run; if on Fedora, install it with `sudo dnf install nodejs`, or [download it](https://nodejs.org/en/)).
 
     npm install
     npm start
