@@ -13,6 +13,8 @@
         maxLeaders = 10,
         updateInterval = 5000;
 
+    var launchMode = config.LAUNCH_MODE;
+
     function leaderboard() {
         var directive = {
             restrict: 'AE',
@@ -44,11 +46,14 @@
                 .catch(getLeadersFailed);
 
             function getLeadersComplete(response) {
+                var uniqueBy = (launchMode === 'badge' ? 'AccountId' : 'name');
+                console.log('leader unique key: ', uniqueBy);
+
                 // console.log("getLeadersComplete");
                 const leaders = _(response.data.results)
                     .sortBy('score')
                     .reverse()
-                    .uniqBy('AccountId')
+                    .uniqBy(uniqueBy)
                     .take(10)
                     .value();
 
